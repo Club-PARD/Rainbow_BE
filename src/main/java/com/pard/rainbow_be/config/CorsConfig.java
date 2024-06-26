@@ -1,4 +1,4 @@
-package com.example.rainbow_be.config;
+package com.pard.rainbow_be.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

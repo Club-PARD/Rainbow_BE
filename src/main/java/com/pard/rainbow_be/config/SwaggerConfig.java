@@ -1,4 +1,4 @@
-package com.example.rainbow_be.config;
+package com.pard.rainbow_be.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

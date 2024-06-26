@@ -1,4 +1,4 @@
-package com.example.rainbow_be.oauth;
+package com.pard.rainbow_be.oauth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

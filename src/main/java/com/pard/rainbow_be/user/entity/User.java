@@ -1,4 +1,4 @@
-package com.example.rainbow_be.user.entity;
+package com.pard.rainbow_be.user.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package com.example.rainbow_be;
+package com.pard.rainbow_be;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

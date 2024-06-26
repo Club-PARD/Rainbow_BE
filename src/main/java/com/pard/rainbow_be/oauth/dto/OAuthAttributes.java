@@ -1,4 +1,4 @@
-package com.example.rainbow_be.oauth.dto;
+package com.pard.rainbow_be.oauth.dto;
 
 import lombok.Builder;
 import lombok.Getter;
