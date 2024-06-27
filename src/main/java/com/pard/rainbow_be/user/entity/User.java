@@ -2,10 +2,7 @@ package com.pard.rainbow_be.user.entity;
 
 import com.pard.rainbow_be.user.dto.UserDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
@@ -14,6 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -34,5 +32,9 @@ public class User {
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .build();
+    }
+
+    public void update(String name){
+        this.name = name;
     }
 }
