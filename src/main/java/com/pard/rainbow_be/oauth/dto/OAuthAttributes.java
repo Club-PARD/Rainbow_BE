@@ -1,5 +1,6 @@
 package com.pard.rainbow_be.oauth.dto;
 
+import com.pard.rainbow_be.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -32,11 +33,11 @@ public class OAuthAttributes {
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
-//
-//    public User toEntity() {
-//        return User.builder()
-//                .name(name)
-//                .email(email)
-//                .build();
-//    }
+
+    public User toEntity() {
+        return User.builder()
+                .name(name)
+                .email(email)
+                .build();
+    }
 }
