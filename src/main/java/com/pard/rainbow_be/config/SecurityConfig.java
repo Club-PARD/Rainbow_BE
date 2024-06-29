@@ -33,12 +33,12 @@ public class SecurityConfig {
 
         // 권한 설정
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/login", "/register", "/oauth2/**").permitAll()
+                .requestMatchers("/loginForm", "/register", "/oauth2/**").permitAll()
                 .anyRequest().authenticated());
 
         // 폼 로그인 설정
         http.formLogin(formLogin -> formLogin
-                .loginPage("/login")
+                .loginPage("/loginForm")
                 .defaultSuccessUrl("/home")
                 .failureUrl("/login?error=true")
                 .permitAll());
@@ -52,7 +52,7 @@ public class SecurityConfig {
         // OAuth2 로그인 설정
         http.oauth2Login(
                 oauth -> oauth
-                        .loginPage("/login")
+                        .loginPage("/loginForm")
                         .defaultSuccessUrl("/home")
                         .userInfoEndpoint(
                                 userInfo ->
