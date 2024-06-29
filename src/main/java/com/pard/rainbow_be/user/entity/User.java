@@ -3,10 +3,13 @@ package com.pard.rainbow_be.user.entity;
 import com.pard.rainbow_be.user.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -24,8 +27,18 @@ public class User {
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
 
-    private String email;
+    @Column(nullable = false, unique = true)
     private String name;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column
+    private String password;
+
+    @CreationTimestamp()
+    @Column(updatable = false)
+    private LocalDateTime createDate;
 
     public static User toEntity(UserDto.Create dto) {
         return User.builder()
