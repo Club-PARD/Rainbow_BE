@@ -1,7 +1,5 @@
 package com.pard.rainbow_be.oauth;
 
-
-
 import com.pard.rainbow_be.oauth.dto.OAuthAttributes;
 import com.pard.rainbow_be.oauth.dto.SessionUser;
 import com.pard.rainbow_be.user.entity.User;
