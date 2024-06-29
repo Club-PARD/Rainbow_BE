@@ -13,6 +13,10 @@ import java.util.UUID;
 public class UserService {
     private final UserRepo userRepo;
 
+    public void createUser(UserDto.Create dto) {
+        this.userRepo.save(User.toEntity(dto));
+    }
+
     public UserDto.Read readById(UUID userId){
         User user = userRepo.findById(userId).orElseThrow();
         return new UserDto.Read(user);
