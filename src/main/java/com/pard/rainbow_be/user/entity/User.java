@@ -44,6 +44,7 @@ public class User {
 
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
+                .name(dto.getName())
                 .email(dto.getEmail())
                 .password(dto.getPassword())
                 .petName(dto.getPetName())

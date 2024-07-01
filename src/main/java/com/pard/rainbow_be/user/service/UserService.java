@@ -33,8 +33,16 @@ public class UserService {
             throw new RuntimeException("User not found");
         }
     }
+    public boolean validateUser(String email, String password) {
+        Optional<User> user = userRepo.findByEmail(email);
+        return (userPresent(user) && user.orElseThrow().getPassword().equals(password));
+    }
 
-     private boolean userPresent(Optional<User> user){
+
+    public boolean userExists(String email) {
+        return userRepo.existsByEmail(email);
+    }
+    private boolean userPresent(Optional<User> user){
         return user.isPresent();
-     }
+    }
 }

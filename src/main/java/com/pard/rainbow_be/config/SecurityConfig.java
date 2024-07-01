@@ -1,25 +1,19 @@
 package com.pard.rainbow_be.config;
 
-import com.pard.rainbow_be.oauth.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import com.pard.rainbow_be.oauth.PrincipalOauth2UserService;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final CorsConfig corsConfig;
 
@@ -59,9 +53,6 @@ public class SecurityConfig {
                                         userInfo.userService(principalOauth2UserService)
                         )
         );
-
-        // 사용자 세부 정보 서비스 설정
-        http.userDetailsService(customUserDetailsService);
 
         return http.build();
     }
