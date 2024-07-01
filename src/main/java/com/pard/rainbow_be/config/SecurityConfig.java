@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,17 +25,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // CSRF 보호 설정
-        http.csrf(csrf -> csrf
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+        // CSRF 보호 비활성화
+        http.csrf(AbstractHttpConfigurer::disable);
 
-        // CORS 필터 추가
-        http.addFilter(corsConfig.corsFilter());
+        // CORS 설정 비활성화
+        http.cors(AbstractHttpConfigurer::disable);
 
-        // 권한 설정
+        // 모든 요청 허용
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/loginForm", "/register", "/oauth2/**").permitAll()
-                .anyRequest().authenticated());
+                .anyRequest().permitAll()
+        );
 
         // 폼 로그인 설정
         http.formLogin(formLogin -> formLogin
