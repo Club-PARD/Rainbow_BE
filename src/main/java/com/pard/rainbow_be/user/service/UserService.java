@@ -25,8 +25,8 @@ public class UserService {
 
     public void updateUser(UUID id, String name, String petName) {
         Optional<User> optionalUser = userRepo.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+        if (userPresent(optionalUser)) {
+            User user = optionalUser.orElseThrow();
             user.localToUpdate(name, petName);
             userRepo.save(user);
         } else {
@@ -34,5 +34,7 @@ public class UserService {
         }
     }
 
-
+     private boolean userPresent(Optional<User> user){
+        return user.isPresent();
+     }
 }

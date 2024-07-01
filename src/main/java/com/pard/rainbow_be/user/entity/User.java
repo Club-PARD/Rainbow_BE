@@ -42,13 +42,6 @@ public class User {
     @Column(updatable = false)
     private LocalDateTime createDate;
 
-    public static User toEntity(UserDto.Create dto) {
-        return User.builder()
-                .name(dto.getName())
-                .email(dto.getEmail())
-                .build();
-    }
-
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
                 .email(dto.getEmail())
