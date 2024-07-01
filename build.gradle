@@ -37,6 +37,15 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-oauth2-client:6.2.4'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-jdbc'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-messaging'
+
+	implementation 'software.amazon.awssdk:s3'
+	implementation 'software.amazon.awssdk:ec2'
+	implementation 'software.amazon.awssdk:rds'
+
 }
 
 tasks.named('test') {
