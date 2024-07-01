@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -36,6 +35,9 @@ public class User {
     @Column
     private String password;
 
+    @Column
+    private String petName;
+
     @CreationTimestamp()
     @Column(updatable = false)
     private LocalDateTime createDate;
@@ -47,7 +49,20 @@ public class User {
                 .build();
     }
 
+    public static User localToEntity(UserDto.Create dto){
+        return User.builder()
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .petName(dto.getPetName())
+                .build();
+    }
+
     public void update(String name){
         this.name = name;
+    }
+
+    public void localToUpdate(String name, String petName){
+        this.name = name;
+        this.petName = petName;
     }
 }
