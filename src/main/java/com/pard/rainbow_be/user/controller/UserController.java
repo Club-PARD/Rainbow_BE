@@ -2,11 +2,11 @@ package com.pard.rainbow_be.user.controller;
 
 
 import com.pard.rainbow_be.user.dto.UserDto;
-import com.pard.rainbow_be.user.entity.User;
 import com.pard.rainbow_be.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -17,13 +17,17 @@ import java.util.UUID;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-
     //localToSignUp
-    @PostMapping({""})
+    @PostMapping({"/register"})
     @Operation(summary = "유저 등록", description = "여기서 쓰시면 됩니다.")
-    public void createUser(@RequestBody UserDto.Create dto) {
-        this.userService.createUser(dto);
+    public ResponseEntity<String> createUser(@RequestBody UserDto.Create dto) {
+        if (userService.userExists(dto.getEmail())) {
+            return ResponseEntity.status(400).body("Username is already taken");
+        }
+
+        userService.createUser(dto);
         log.info("📍make User");
+        return ResponseEntity.ok("User registered successfully");
     }
 
     @GetMapping("/find/{userId}")

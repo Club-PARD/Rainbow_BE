@@ -1,28 +1,27 @@
 package com.pard.rainbow_be.oauth.controller;
 
-import com.pard.rainbow_be.oauth.CustomUserDetailsService;
+import com.pard.rainbow_be.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-@Controller
+@RestController
 @RequestMapping("/auth")
 public class AuthController {
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/loginForm")
     public String login(){
         return "loginForm";
     }
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
-
-    @PostMapping("/login")
+    @GetMapping("/login")
     @ResponseBody
     public ResponseEntity<Boolean> login(@RequestParam String email, @RequestParam String password) {
-        boolean isAuthenticated = userDetailsService.authenticate(email, password);
+        boolean isAuthenticated = userService.validateUser(email, password);
         if (isAuthenticated) {
             return ResponseEntity.ok(true);
         } else {
