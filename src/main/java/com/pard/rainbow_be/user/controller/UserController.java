@@ -26,8 +26,6 @@ public class UserController {
         log.info("📍make User");
     }
 
-    
-
     @GetMapping("/find/{userId}")
     @Operation(summary = "유저 검색",description = "ID를 통해 DB 내 해당 유저 검색")
     public UserDto.Read readById(@PathVariable UUID userId){
