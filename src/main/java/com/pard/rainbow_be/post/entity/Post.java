@@ -2,14 +2,13 @@ package com.pard.rainbow_be.post.entity;
 
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
 import com.pard.rainbow_be.post.dto.PostReadDTO;
+import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -24,14 +23,15 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 //    private Long uid; // user who writes the post
+
     private String postTitle;
     private String pictureLink;
     private String postContent;
     @CreationTimestamp()
     @Column(updatable = false)
     private LocalDateTime createdTime;
-    @CreationTimestamp()
-    @Column(updatable = false)
+    @UpdateTimestamp()
+    @Column(updatable = true)
     private LocalDateTime modifiedTime;
 
 //    @ManyToOne
@@ -43,6 +43,14 @@ public class Post {
 //        this.user = user;
 //    }
 
+//    public void update(PostUpdateDTO dto){
+//    public void update(PostCreateDTO dto){
+    public void update(PostUpdateDTO dto){
+        this.postTitle = dto.getPostTitle();
+        this.pictureLink = dto.getPictureLink();
+        this.postContent = dto.getPostContent();
+    }
+
     public static Post toEntity(PostCreateDTO postCreateDTO){
         return Post.builder()
                 .postTitle(postCreateDTO.getPostTitle())
@@ -51,13 +59,6 @@ public class Post {
 //                .user(new UserDto.Read(userId))
                 .build();
     }
-
-//    public static Post toEntity(String postTitle, String pictureLink, String postContent
-//                                ){
-//        return Post.builder()
-//                .post
-//    }
-
 
 
 //    public PostReadDTO toDTO(){

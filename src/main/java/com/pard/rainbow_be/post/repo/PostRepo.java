@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PostRepo extends JpaRepository<Post, Long> {
-//    List<Post> findByPid(Integer pid); // find by category (this could be fixed)
-//
-//    void deleteByPid(Long pid);
+    //   JPA 가 적절한 query 생성해줌 (Spring Data JPA, Query Creation)
+    //    List<Post> findById(Integer pid); // find by _______
+
+    //    void deleteByPid(Long pid);
 }
