@@ -26,10 +26,10 @@ public class User {
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nickName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column

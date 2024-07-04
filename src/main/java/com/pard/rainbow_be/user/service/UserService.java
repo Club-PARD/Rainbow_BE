@@ -5,6 +5,7 @@ import com.pard.rainbow_be.user.entity.User;
 import com.pard.rainbow_be.user.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -23,6 +24,7 @@ public class UserService {
         return new UserDto.Read(user);
     }
 
+    @Transactional
     public void updateUser(UUID id, String name, String petName) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (userPresent(optionalUser)) {
