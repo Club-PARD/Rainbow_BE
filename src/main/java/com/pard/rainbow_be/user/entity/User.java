@@ -29,7 +29,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String nickName;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String email;
 
     @Column
@@ -41,7 +41,7 @@ public class User {
     @CreationTimestamp()
     @Column(updatable = false)
     private LocalDateTime createDate;
-
+    
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
                 .nickName(dto.getNickName())

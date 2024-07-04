@@ -45,4 +45,8 @@ public class UserService {
     private boolean userPresent(Optional<User> user){
         return user.isPresent();
     }
+
+    public User saveOrUpdate(User user) {
+        return userRepo.save(user);
+    }
 }
