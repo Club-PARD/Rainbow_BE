@@ -41,16 +41,10 @@ public class UserController {
         return userService.readById(userId);
     }
 
-    @PutMapping("/update/{userId}")
+    @PatchMapping("/update/{userId}")
     @Operation(summary = "이름과 반려동물 이름 업데이트", description = "ID를 통해 해당 유저의 정보 변경")
     public void updateUser(@PathVariable UUID userId, @RequestBody UserDto.Update dto){
         userService.updateUser(userId, dto.getNickName(), dto.getPetName());
-        log.info("유저가 업데이트 되었어요.");
+        log.info("📍유저가 업데이트 되었어요.");
     }
-
-    @GetMapping("/{userId}/questions")
-    public List<UserQuestion> getUserQuestions(@PathVariable UUID userId) {
-        return userQuestionService.userQuestionsFindByUserId(userId);
-    }
-
 }

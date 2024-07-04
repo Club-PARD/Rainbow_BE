@@ -2,9 +2,7 @@ package com.pard.rainbow_be.question.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pard.rainbow_be.question.entity.Question;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.*;
 
 public class QuestionDto {
     @Getter
