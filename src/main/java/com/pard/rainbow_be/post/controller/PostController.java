@@ -4,6 +4,7 @@ package com.pard.rainbow_be.post.controller;
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
 import com.pard.rainbow_be.post.dto.PostReadDTO;
 //import com.pard.rainbow_be.post.dto.PostUpdateDTO;
+import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,29 +28,29 @@ public class PostController {
         return "Post Create Success";
     }
 
-    // Read
-//    @GetMapping("")
-//    public List<PostReadDTO> readAll(){
-//        return postService.readAll();
-//    }
-//
-//    @GetMapping("/{pid}")
-//    public PostReadDTO readPost(@PathVariable Long pid){
-//        return postService.readByPid(pid);
-//    }
-//
-//    // Update
-//    @PatchMapping("/{pid}")
-//    public String updateByPid(@PathVariable Long pid, PostUpdateDTO postUpdateDTO){
-//        postService.updatePost(pid, postUpdateDTO);
-//        return "Update Success";
-//    }
-//
-//    // Delete
-//    @DeleteMapping("/{pid}")
-//    public String deleteById(@PathVariable Long pid){
-//        postService.deleteByPid(pid);
-//        return "Delete Success";
-//    }
+    // Read All
+    @GetMapping("")
+    public List<PostReadDTO> readAll(){
+        return postService.readAll();
+    }
+    // Read By ID
+    @GetMapping("/{postId}")
+    public PostReadDTO readPost(@PathVariable Long postId){
+        return postService.findById(postId);
+    }
+
+    // Update
+    @PatchMapping("/{postId}")
+    public String updateByPid(@PathVariable Long postId, @RequestBody PostUpdateDTO postUpdateDTO){
+        postService.updateById(postId, postUpdateDTO);
+        return "Update Success";
+    }
+
+    // Delete
+    @DeleteMapping("/{postId}")
+    public String deleteById(@PathVariable Long postId){
+        postService.deleteById(postId);
+        return "Delete Success";
+    }
 
 }
