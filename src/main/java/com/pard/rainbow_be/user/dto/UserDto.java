@@ -12,7 +12,7 @@ public class UserDto {
     @Getter
     @Setter
     public static class Create{
-        private String name;
+        private String nickName;
         private String email;
         private String password;
         private String petName;
@@ -23,13 +23,13 @@ public class UserDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Read{
         private UUID id;
-        private String name;
+        private String nickName;
         private String email;
         private String petName;
 
         public Read(User user) {
             this.id = user.getId();
-            this.name = user.getName();
+            this.nickName = user.getNickName();
             this.email = user.getEmail();
             this.petName = user.getPetName();
         }
@@ -39,7 +39,7 @@ public class UserDto {
     @Setter
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Update{
-        private String name;
+        private String nickName;
         private String petName;
     }
 }

@@ -42,7 +42,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     private User saveOrUpdate(OAuthAttributes attributes) {
         User user = userRepo.findByEmail(attributes.getEmail())
                 .map(entity -> {
-                    entity.update(attributes.getName());
+                    entity.update(attributes.getEmail());
                     return entity;
                 })
                 .orElse(attributes.toEntity());
