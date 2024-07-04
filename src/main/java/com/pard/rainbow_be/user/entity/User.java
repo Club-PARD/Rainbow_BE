@@ -27,36 +27,36 @@ public class User {
     private UUID id;
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String nickName;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String email;
-
-    @Column
-    private String password;
 
     @Column
     private String petName;
 
+    @Column
+    private String password;
+
     @CreationTimestamp()
     @Column(updatable = false)
     private LocalDateTime createDate;
-
+    
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
-                .name(dto.getName())
+                .nickName(dto.getNickName())
                 .email(dto.getEmail())
                 .password(dto.getPassword())
                 .petName(dto.getPetName())
                 .build();
     }
 
-    public void update(String name){
-        this.name = name;
+    public void update(String nickName){
+        this.nickName = nickName;
     }
 
-    public void localToUpdate(String name, String petName){
-        this.name = name;
+    public void localToUpdate(String nickName, String petName){
+        this.nickName = nickName;
         this.petName = petName;
     }
 }

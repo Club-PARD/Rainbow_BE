@@ -23,28 +23,26 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest)
             throws OAuth2AuthenticationException {
-        log.info("📍 google userRequest: "+oAuth2UserRequest );
+        log.info("📍 google userRequest: " + oAuth2UserRequest);
 
         OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
-        log.info("📍 oauth : "+ oAuth2User.getAttributes());
+        log.info("📍 oauth: " + oAuth2User.getAttributes());
 
-        //// 객체에서 다른 정보(클라이언트 ID, 클라이언트 시크릿 등)를 가져오는 데 사용하지만, 여기선 사용 X
-        // String registrationId = oAuth2UserRequest.getClientRegistration().getRegistrationId();
-
-        //// userNameAttributeName : 사용자의 고유 식별자 속성 이름, 업체마다 이게 다름.
-        // ex) Google -> sub , Facebook -> id
         String userNameAttributeName = oAuth2UserRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
         OAuthAttributes attributes = OAuthAttributes.of(userNameAttributeName, oAuth2User.getAttributes());
 
         User user = saveOrUpdate(attributes);
         httpSession.setAttribute("user", new SessionUser(user));
 
-        return super.loadUser(oAuth2UserRequest);
+        log.info("📍 session user: " + new SessionUser(user));
+
+        return oAuth2User;
     }
+
     private User saveOrUpdate(OAuthAttributes attributes) {
         User user = userRepo.findByEmail(attributes.getEmail())
                 .map(entity -> {
-                    entity.update(attributes.getName());
+                    entity.update(attributes.getEmail());
                     return entity;
                 })
                 .orElse(attributes.toEntity());
