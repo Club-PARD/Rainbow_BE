@@ -1,6 +1,7 @@
 package com.pard.rainbow_be.user.entity;
 
 import com.pard.rainbow_be.user.dto.UserDto;
+import com.pard.rainbow_be.usetToQuestion.entity.UserQuestion;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -41,7 +43,11 @@ public class User {
     @CreationTimestamp()
     @Column(updatable = false)
     private LocalDateTime createDate;
-    
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserQuestion> userQuestions;
+
+
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
                 .nickName(dto.getNickName())
