@@ -1,11 +1,17 @@
 package com.pard.rainbow_be.user.service;
 
+import com.pard.rainbow_be.question.entity.Question;
+import com.pard.rainbow_be.question.repo.QuestionRepo;
 import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.user.entity.User;
 import com.pard.rainbow_be.user.repo.UserRepo;
+import com.pard.rainbow_be.usetToQuestion.entity.UserQuestion;
+import com.pard.rainbow_be.usetToQuestion.repo.UserQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,9 +19,19 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepo userRepo;
-
+    private final QuestionRepo questionRepo;
+    private final UserQuestionRepository userQuestionRepository;
+    @Transactional
     public void createUser(UserDto.Create dto) {
-        this.userRepo.save(User.localToEntity(dto));
+        List<Question> questions = questionRepo.findAll();
+        User user = userRepo.save(User.localToEntity(dto));
+
+        for (Question question : questions) {
+            UserQuestion userQuestion = new UserQuestion();
+            userQuestion.setUser(user);
+            userQuestion.setQuestion(question);
+            userQuestionRepository.save(userQuestion);
+        }
     }
 
     public UserDto.Read readById(UUID userId){
@@ -23,6 +39,7 @@ public class UserService {
         return new UserDto.Read(user);
     }
 
+    @Transactional
     public void updateUser(UUID id, String name, String petName) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (userPresent(optionalUser)) {

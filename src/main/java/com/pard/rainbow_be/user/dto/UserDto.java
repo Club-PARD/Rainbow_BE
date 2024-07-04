@@ -3,8 +3,7 @@ package com.pard.rainbow_be.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pard.rainbow_be.user.entity.User;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
