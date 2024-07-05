@@ -1,10 +1,11 @@
 package com.pard.rainbow_be.community.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.pard.rainbow_be.post.entity.Post;
+import com.pard.rainbow_be.post.dto.PostReadDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class CommunityDto {
@@ -14,12 +15,12 @@ public class CommunityDto {
     public static class Read{
         private UUID userId;
         private String pictureLink;
-        private String postTitle;
+        private LocalDateTime createdTime;
 
-        public Read(Post post) {
-            this.userId = post.getUser().getId();
+        public Read(PostReadDTO post) {
+            this.userId = post.getUserid();
             this.pictureLink = post.getPictureLink();
-            this.postTitle = post.getPostTitle();
+            this.createdTime = post.getCreatedTime();
         }
     }
 }
