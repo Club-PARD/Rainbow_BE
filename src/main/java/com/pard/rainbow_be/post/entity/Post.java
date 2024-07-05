@@ -34,15 +34,11 @@ public class Post {
     @Column(updatable = true)
     private LocalDateTime modifiedTime;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-//
-//    //IDK what this method is for
-//    public void setUserWithIdOne(User user){
-//        this.user = user;
-//    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    //IDK what this method is for
 //    public void update(PostUpdateDTO dto){
 //    public void update(PostCreateDTO dto){
     public void update(PostUpdateDTO dto){
@@ -51,12 +47,12 @@ public class Post {
         this.postContent = dto.getPostContent();
     }
 
-    public static Post toEntity(PostCreateDTO postCreateDTO){
+    public static Post toEntity(PostCreateDTO postCreateDTO, User user){
         return Post.builder()
                 .postTitle(postCreateDTO.getPostTitle())
                 .pictureLink(postCreateDTO.getPictureLink())
                 .postContent(postCreateDTO.getPostContent())
-//                .user(new UserDto.Read(userId))
+                .user(user)
                 .build();
     }
 
