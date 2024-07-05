@@ -2,6 +2,7 @@ package com.pard.rainbow_be.post.repo;
 
 import com.pard.rainbow_be.post.dto.PostReadDTO;
 import com.pard.rainbow_be.post.entity.Post;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface PostRepo extends JpaRepository<Post, Long> {
     //    void deleteByPid(Long pid);
 
     List<Post> findAllByUserId(UUID userId);
+    List<Post> findAllByUserId(UUID userId, Sort sort);
 }

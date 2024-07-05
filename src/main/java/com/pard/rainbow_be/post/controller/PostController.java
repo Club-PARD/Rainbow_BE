@@ -33,16 +33,17 @@ public class PostController {
         return "Post Create Success";
     }
 
-    // Read All
+    // Read All in Descending Order
     @GetMapping("/find/{userId}")
     @Operation(summary = "유저의 게시물 보기, 해당 유제의 전체 게시물을 보게 만드는 메서드")
     public List<PostReadDTO> readAll(@PathVariable UUID userId){
         log.info("📍view all Post for User");
         return postService.readAll(userId);
     }
+
     // Read By ID
     @GetMapping("/{postId}")
-    @Operation(summary = "유저의 게시물 보기", description = "게시물을 보게 하는 메서드")
+    @Operation(summary = "postId 별로 게시물 보기", description = "게시물을 보게 하는 메서드")
     public PostReadDTO readPost(@PathVariable Long postId){
         log.info("📍view Post");
         return postService.findById(postId);
@@ -59,6 +60,7 @@ public class PostController {
     }
 
     // Delete
+    @Operation(summary = "postId 를 이용해서 게시물 삭제", description = "게시물을 삭제 메서드")
     @DeleteMapping("/{postId}")
     public String deleteById(@PathVariable Long postId){
         postService.deleteById(postId);
@@ -66,6 +68,7 @@ public class PostController {
         return "Delete Success";
     }
 
+    @Operation(summary = "userId 를 이용해서 해당 유저의 전체 게시물 수 리턴", description = "게시물 갯수 세기 메서드")
     @GetMapping("/count/{userId}")
     public Integer countByUserId(@PathVariable UUID userId){
         log.info("📍 count Posts ");

@@ -9,6 +9,7 @@ import com.pard.rainbow_be.post.repo.PostRepo;
 import com.pard.rainbow_be.user.entity.User;
 import com.pard.rainbow_be.user.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +26,15 @@ public class PostService {
         postRepo.save(Post.toEntity(postCreateDTO, user));
     }
 
-    public List<PostReadDTO> readAll(UUID userId){
-        return postRepo.findAllByUserId(userId)
+//    public List<PostReadDTO> readAll(UUID userId){
+//        return postRepo.findAllByUserId(userId)
+//                .stream()
+//                .map(PostReadDTO::new)
+//                .collect(Collectors.toList());
+//    }
+
+    public List<PostReadDTO> readAll(UUID userId) {
+        return postRepo.findAllByUserId(userId, Sort.by(Sort.Direction.DESC, "createdTime"))
                 .stream()
                 .map(PostReadDTO::new)
                 .collect(Collectors.toList());
