@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pard.rainbow_be.post.entity.Post;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostReadDTO extends Post {
+    private UUID userid;
     private Long postId;
     private String postTitle;
     private String pictureLink;
@@ -16,6 +18,7 @@ public class PostReadDTO extends Post {
     private LocalDateTime modifiedTime;
 
     public PostReadDTO(Post post){
+        this.userid = post.getUser().getId();
         this.postId = post.getPostId();
         this.postTitle = post.getPostContent();
         this.pictureLink = post.getPictureLink();

@@ -31,7 +31,7 @@ public class Post {
     @Column(updatable = false)
     private LocalDateTime createdTime;
     @UpdateTimestamp()
-    @Column(updatable = true)
+    @Column()
     private LocalDateTime modifiedTime;
 
     @ManyToOne

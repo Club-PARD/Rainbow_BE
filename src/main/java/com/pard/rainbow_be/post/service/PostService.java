@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -42,9 +43,17 @@ public class PostService {
     }
 
     //read the most recent post of a specific user
-    public Optional<PostReadDTO> readFirst(UUID userId) {
+    public PostReadDTO readFirst(UUID userId) {
         return postRepo.findFirstByUserIdOrderByCreatedTimeDesc(userId)
-                .map(PostReadDTO::new);
+                .map(PostReadDTO::new)
+                .orElse(null);
+    }
+
+    public List<PostReadDTO> readAllFirstPost(List<UUID> userIds){
+        return userIds.stream()
+                .map(this::readFirst)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     public PostReadDTO findById(Long postId){
