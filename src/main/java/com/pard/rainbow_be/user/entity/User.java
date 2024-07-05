@@ -2,12 +2,11 @@ package com.pard.rainbow_be.user.entity;
 
 import com.pard.rainbow_be.post.entity.Post;
 import com.pard.rainbow_be.user.dto.UserDto;
-import com.pard.rainbow_be.usetToQuestion.entity.UserQuestion;
+import com.pard.rainbow_be.userToQuestion.entity.UserQuestion;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 

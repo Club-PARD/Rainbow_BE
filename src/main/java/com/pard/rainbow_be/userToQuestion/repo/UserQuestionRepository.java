@@ -1,6 +1,6 @@
-package com.pard.rainbow_be.usetToQuestion.repo;
+package com.pard.rainbow_be.userToQuestion.repo;
 
-import com.pard.rainbow_be.usetToQuestion.entity.UserQuestion;
+import com.pard.rainbow_be.userToQuestion.entity.UserQuestion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

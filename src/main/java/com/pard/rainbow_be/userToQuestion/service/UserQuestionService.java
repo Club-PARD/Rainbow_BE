@@ -1,11 +1,10 @@
-package com.pard.rainbow_be.usetToQuestion.service;
+package com.pard.rainbow_be.userToQuestion.service;
 
 import com.pard.rainbow_be.question.dto.QuestionDto;
-import com.pard.rainbow_be.question.entity.Question;
 import com.pard.rainbow_be.question.repo.QuestionRepo;
-import com.pard.rainbow_be.usetToQuestion.dto.QuestionResponseDto;
-import com.pard.rainbow_be.usetToQuestion.entity.UserQuestion;
-import com.pard.rainbow_be.usetToQuestion.repo.UserQuestionRepository;
+import com.pard.rainbow_be.userToQuestion.dto.QuestionResponseDto;
+import com.pard.rainbow_be.userToQuestion.entity.UserQuestion;
+import com.pard.rainbow_be.userToQuestion.repo.UserQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
