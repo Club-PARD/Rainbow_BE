@@ -66,4 +66,10 @@ public class PostController {
         return "Delete Success";
     }
 
+    @GetMapping("/count/{userId}")
+    public Integer countByUserId(@PathVariable UUID userId){
+        log.info("📍 count Posts ");
+        return postService.countByUserId(userId);
+    }
+
 }

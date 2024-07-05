@@ -48,4 +48,11 @@ public class PostService {
         postRepo.deleteById(postId);
     }
 
+    public Integer countByUserId(UUID userId){
+        List<Post> posts = postRepo.findAllByUserId(userId)
+                .stream()
+                .map(PostReadDTO::new)
+                .collect(Collectors.toList());
+        return posts.size();
+    }
 }
