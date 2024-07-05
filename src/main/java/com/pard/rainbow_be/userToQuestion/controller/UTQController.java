@@ -1,8 +1,7 @@
-package com.pard.rainbow_be.usetToQuestion.controller;
+package com.pard.rainbow_be.userToQuestion.controller;
 
-import com.pard.rainbow_be.user.service.UserService;
-import com.pard.rainbow_be.usetToQuestion.dto.QuestionResponseDto;
-import com.pard.rainbow_be.usetToQuestion.service.UserQuestionService;
+import com.pard.rainbow_be.userToQuestion.dto.QuestionResponseDto;
+import com.pard.rainbow_be.userToQuestion.service.UserQuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

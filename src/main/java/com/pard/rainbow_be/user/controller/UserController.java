@@ -3,15 +3,13 @@ package com.pard.rainbow_be.user.controller;
 
 import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.user.service.UserService;
-import com.pard.rainbow_be.usetToQuestion.entity.UserQuestion;
-import com.pard.rainbow_be.usetToQuestion.service.UserQuestionService;
+import com.pard.rainbow_be.userToQuestion.service.UserQuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j

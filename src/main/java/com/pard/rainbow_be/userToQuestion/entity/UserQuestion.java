@@ -1,4 +1,4 @@
-package com.pard.rainbow_be.usetToQuestion.entity;
+package com.pard.rainbow_be.userToQuestion.entity;
 
 import com.pard.rainbow_be.question.entity.Question;
 import com.pard.rainbow_be.user.entity.User;

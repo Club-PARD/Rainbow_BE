@@ -1,7 +1,6 @@
-package com.pard.rainbow_be.usetToQuestion.dto;
+package com.pard.rainbow_be.userToQuestion.dto;
 
 import com.pard.rainbow_be.question.dto.QuestionDto;
-import com.pard.rainbow_be.question.entity.Question;
 import lombok.*;
 
 @NoArgsConstructor
