@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -35,11 +36,19 @@ public class PostController {
 
     // Read All in Descending Order
     @GetMapping("/find/{userId}")
-    @Operation(summary = "유저의 게시물 보기, 해당 유제의 전체 게시물을 보게 만드는 메서드")
+    @Operation(summary = "해당 유저의 게시물 전체 보기", description = "유저 아이디를 통해 해당 유저의 전체 게시물을 보게 만드는 메서드")
     public List<PostReadDTO> readAll(@PathVariable UUID userId){
         log.info("📍view all Post for User");
         return postService.readAll(userId);
     }
+
+    // Read Most Recent Post per User // (test 용 controller)
+//    @GetMapping("/recent/{userId}")
+//    @Operation(summary = "해당 user 의 가장 최근 게시물 보기", description = " 해당 유저의 가장 최근 게시물을 보게 만드는 메서드")
+//    public Optional readMostRecent(@PathVariable UUID userId){
+//        log.info("📍view the Most Recent Post for the designated User");
+//        return postService.readFirst(userId);
+//    }
 
     // Read By ID
     @GetMapping("/{postId}")
@@ -52,7 +61,7 @@ public class PostController {
 
     // Update
     @PatchMapping("/{postId}")
-    @Operation(summary = "유저의 게시물 수정", description = "해당 유저의 게시물을 수정하게 만드는 메서드")
+    @Operation(summary = "postId 를 이용해서 게시물 수정", description = "게시물을 수정 메서드")
     public String updateByPid(@PathVariable Long postId, @RequestBody PostUpdateDTO postUpdateDTO){
         postService.updateById(postId, postUpdateDTO);
         log.info("📍update Post");
