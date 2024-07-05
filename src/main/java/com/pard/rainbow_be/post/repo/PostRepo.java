@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface PostRepo extends JpaRepository<Post, Long> {
@@ -16,4 +17,5 @@ public interface PostRepo extends JpaRepository<Post, Long> {
 
     List<Post> findAllByUserId(UUID userId);
     List<Post> findAllByUserId(UUID userId, Sort sort);
+    Optional<Post> findFirstByUserIdOrderByCreatedTimeDesc(UUID userId);
 }
