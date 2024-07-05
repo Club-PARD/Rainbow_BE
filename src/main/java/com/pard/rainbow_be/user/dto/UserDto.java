@@ -25,12 +25,14 @@ public class UserDto {
         private String nickName;
         private String email;
         private String petName;
+        private boolean publicCheck;
 
         public Read(User user) {
             this.id = user.getId();
             this.nickName = user.getNickName();
             this.email = user.getEmail();
             this.petName = user.getPetName();
+            this.publicCheck = user.getPublicCheck();
         }
     }
 
