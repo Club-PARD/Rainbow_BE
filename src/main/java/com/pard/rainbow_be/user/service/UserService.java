@@ -50,6 +50,13 @@ public class UserService {
             throw new RuntimeException("User not found");
         }
     }
+
+    @Transactional
+    public void updatePublic(UUID userId, boolean publicCheck){
+        User user = userRepo.findById(userId).orElseThrow();
+        user.updateBoolean(publicCheck);
+        userRepo.save(user);
+    }
     public boolean validateUser(String email, String password) {
         Optional<User> user = userRepo.findByEmail(email);
         return (userPresent(user) && user.orElseThrow().getPassword().equals(password));

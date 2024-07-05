@@ -45,4 +45,10 @@ public class UserController {
         userService.updateUser(userId, dto.getNickName(), dto.getPetName());
         log.info("📍유저가 업데이트 되었어요.");
     }
+
+    @PatchMapping("/update/publicCheck/{userId}")
+    public void updatePublic(@PathVariable UUID userId, @RequestBody boolean check){
+        userService.updatePublic(userId, check);
+        log.info("📍공개, 비공개");
+    }
 }

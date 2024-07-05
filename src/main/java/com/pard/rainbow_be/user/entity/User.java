@@ -40,6 +40,9 @@ public class User {
     @Column
     private String password;
 
+    @Column
+    private Boolean publicCheck = false;
+
     @CreationTimestamp()
     @Column(updatable = false)
     private LocalDateTime createDate;
@@ -60,6 +63,10 @@ public class User {
 
     public void update(String nickName){
         this.nickName = nickName;
+    }
+
+    public void updateBoolean(Boolean publicCheck){
+        this.publicCheck = publicCheck;
     }
 
     public void localToUpdate(String nickName, String petName){
