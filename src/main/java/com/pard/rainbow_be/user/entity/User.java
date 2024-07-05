@@ -53,10 +53,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-    private User() {
-        this.publicCheck = false;  
-    }
-
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
                 .nickName(dto.getNickName())

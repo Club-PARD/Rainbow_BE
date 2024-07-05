@@ -12,13 +12,13 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommunityReadDto{
 
-    private final User user;
+    private final UUID userId;
     private final String postTitle;
     private final String pictureLink;
 
 
     public CommunityReadDto(Post post) {
-        this.user = post.getUser();
+        this.userId = post.getUser().getId();
         this.postTitle = post.getPostTitle();
         this.pictureLink = post.getPictureLink();
     }
