@@ -40,8 +40,9 @@ public class User {
     @Column
     private String password;
 
-    @Column(name = "public_check")
-    private Boolean publicCheck;
+    @Builder.Default
+    @Column(name = "public_check", nullable = false)
+    private Boolean publicCheck = false;
 
     @CreationTimestamp()
     @Column(updatable = false)
