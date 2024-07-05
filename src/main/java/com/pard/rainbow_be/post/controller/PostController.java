@@ -1,6 +1,7 @@
 package com.pard.rainbow_be.post.controller;
 
 
+import com.pard.rainbow_be.post.dto.CommunityReadDto;
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
 import com.pard.rainbow_be.post.dto.PostReadDTO;
 //import com.pard.rainbow_be.post.dto.PostUpdateDTO;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -82,6 +82,13 @@ public class PostController {
     public Integer countByUserId(@PathVariable UUID userId){
         log.info("📍 count Posts ");
         return postService.countByUserId(userId);
+    }
+
+    @GetMapping("/community")
+    @Operation(summary = "Community 사진 보여주가", description = "해당 유저가 게시물을 만드는 메서드")
+    public List<CommunityReadDto> readsTheLatestPost(){
+        log.info("📍 커뮤니티 란 나왔당");
+        return postService.readsTheLatestPost();
     }
 
 }

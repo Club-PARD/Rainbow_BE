@@ -1,5 +1,6 @@
 package com.pard.rainbow_be.post.service;
 
+import com.pard.rainbow_be.post.dto.CommunityReadDto;
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
 import com.pard.rainbow_be.post.dto.PostReadDTO;
 //import com.pard.rainbow_be.post.dto.PostUpdateDTO;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -42,27 +42,13 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    //read the most recent post of a specific user
-    public PostReadDTO readFirst(UUID userId) {
-        return postRepo.findFirstByUserIdOrderByCreatedTimeDesc(userId)
-                .map(PostReadDTO::new)
-                .orElse(null);
-    }
-
-    public List<PostReadDTO> readAllFirstPost(List<UUID> userIds){
-        return userIds.stream()
-                .map(this::readFirst)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-    }
-
     public PostReadDTO findById(Long postId){
         return new PostReadDTO(postRepo.findById(postId).orElseThrow());
     }
 
 
     public void updateById(Long postId, PostUpdateDTO postUpdateDTO){
-        Post post = postRepo.findById(postId).get();
+        Post post = postRepo.findById(postId).orElseThrow();
         post.update(postUpdateDTO);
         postRepo.save(post);
     }
@@ -78,5 +64,32 @@ public class PostService {
                 .map(PostReadDTO::new)
                 .collect(Collectors.toList());
         return posts.size();
+    }
+
+    //read the most recent post of a specific user
+    public Post readFirst(UUID userId) {
+        return postRepo.findFirstByUserIdOrderByCreatedTimeDesc(userId)
+                .orElse(null);
+    }
+
+    public List<Post> readAllFirstPost(List<UUID> userIds){
+        return userIds.stream()
+                .filter(Objects::nonNull)
+                .map(this::readFirst)
+                .collect(Collectors.toList());
+    }
+
+    public List<CommunityReadDto> readsTheLatestPost(){
+        List<User> users = userRepo.findByPublicCheckTrue();
+
+        List<Post> posts = readAllFirstPost(
+                users.stream()
+                        .map(User::getId)
+                        .toList()
+        );
+
+        return posts.stream()
+                .map(CommunityReadDto::new)
+                .collect(Collectors.toList());
     }
 }

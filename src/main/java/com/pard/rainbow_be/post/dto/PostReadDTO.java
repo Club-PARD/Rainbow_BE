@@ -9,22 +9,16 @@ import java.util.UUID;
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostReadDTO extends Post {
-    private UUID userid;
     private Long postId;
     private String postTitle;
     private String pictureLink;
     private String postContent;
-    private LocalDateTime createdTime;
-    private LocalDateTime modifiedTime;
 
     public PostReadDTO(Post post){
-        this.userid = post.getUser().getId();
         this.postId = post.getPostId();
         this.postTitle = post.getPostContent();
         this.pictureLink = post.getPictureLink();
         this.postContent = post.getPostContent();
-        this.createdTime = post.getCreatedTime();
-        this.modifiedTime = post.getModifiedTime();
     }
 
 //    public PostReadDTO(String postTitle, String postContent, String pictureLink,

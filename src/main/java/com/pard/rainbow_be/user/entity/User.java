@@ -40,7 +40,8 @@ public class User {
     @Column
     private String password;
 
-    @Column
+    @Builder.Default
+    @Column(name = "public_check", nullable = false)
     private Boolean publicCheck = false;
 
     @CreationTimestamp()
@@ -50,7 +51,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserQuestion> userQuestions;
 
-
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
