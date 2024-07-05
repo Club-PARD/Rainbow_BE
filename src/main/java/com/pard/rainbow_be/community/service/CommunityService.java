@@ -23,7 +23,7 @@ public class CommunityService {
 
 
     public List<CommunityDto.Read> readsTheLatestPost(){
-        List<User> users = userRepo.findAll();
+        List<User> users = userRepo.findByPublicCheckTrue();
 
         List<PostReadDTO> posts = postService.readAllFirstPost(
                 users.stream()
