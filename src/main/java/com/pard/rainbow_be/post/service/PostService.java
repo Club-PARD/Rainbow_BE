@@ -6,6 +6,8 @@ import com.pard.rainbow_be.post.dto.PostReadDTO;
 import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.post.entity.Post;
 import com.pard.rainbow_be.post.repo.PostRepo;
+import com.pard.rainbow_be.user.entity.User;
+import com.pard.rainbow_be.user.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +19,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepo postRepo;
-
-    public void createPost(PostCreateDTO postCreateDTO){
-        postRepo.save(Post.toEntity(postCreateDTO));
+    private final UserRepo userRepo;
+    public void createPost(PostCreateDTO postCreateDTO, UUID userId){
+        User user = userRepo.findById(userId).orElseThrow();
+        postRepo.save(Post.toEntity(postCreateDTO, user));
     }
 
-    public List<PostReadDTO> readAll(){
-        return postRepo.findAll()
+    public List<PostReadDTO> readAll(UUID userId){
+        return postRepo.findAllByUserId(userId)
                 .stream()
                 .map(PostReadDTO::new)
                 .collect(Collectors.toList());
