@@ -41,7 +41,7 @@ public class Post {
 //    public void update(PostUpdateDTO dto){
 //    public void update(PostCreateDTO dto){
     public void update(PostUpdateDTO dto){
-        this.pictureUrl = dto.g();
+        this.pictureUrl = dto.getPictureUrl();
         this.postContent = dto.getPostContent();
     }
 
