@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface QuestionRepo extends JpaRepository<Question, Long> {
-
+    Question findByQuestionText(String questionText);
 }

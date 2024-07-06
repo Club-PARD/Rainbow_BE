@@ -4,7 +4,6 @@ package com.pard.rainbow_be.post.controller;
 import com.pard.rainbow_be.post.dto.CommunityReadDto;
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
 import com.pard.rainbow_be.post.dto.PostReadDTO;
-//import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.post.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,6 +57,19 @@ public class PostController {
         return postService.findById(postId);
     }
 
+    @GetMapping("/count/{userId}")
+    @Operation(summary = "userId 를 이용해서 해당 유저의 전체 게시물 수 리턴", description = "게시물 갯수 세기 메서드")
+    public Integer countByUserId(@PathVariable UUID userId){
+        log.info("📍 count Posts ");
+        return postService.countByUserId(userId);
+    }
+
+    @GetMapping("/community")
+    @Operation(summary = "Community 사진 보여주가", description = "해당 유저가 게시물을 만드는 메서드")
+    public List<CommunityReadDto> readsTheLatestPost(){
+        log.info("📍 커뮤니티 란 나왔당");
+        return postService.readsTheLatestPost();
+    }
 
     // Update
     @PatchMapping("/{postId}")
@@ -75,20 +87,6 @@ public class PostController {
         postService.deleteById(postId);
         log.info("📍delete Post");
         return "Delete Success";
-    }
-
-    @Operation(summary = "userId 를 이용해서 해당 유저의 전체 게시물 수 리턴", description = "게시물 갯수 세기 메서드")
-    @GetMapping("/count/{userId}")
-    public Integer countByUserId(@PathVariable UUID userId){
-        log.info("📍 count Posts ");
-        return postService.countByUserId(userId);
-    }
-
-    @GetMapping("/community")
-    @Operation(summary = "Community 사진 보여주가", description = "해당 유저가 게시물을 만드는 메서드")
-    public List<CommunityReadDto> readsTheLatestPost(){
-        log.info("📍 커뮤니티 란 나왔당");
-        return postService.readsTheLatestPost();
     }
 
 }

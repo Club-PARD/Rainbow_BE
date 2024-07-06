@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserQuestionService {
     private final UserQuestionRepository userQuestionRepository;
-    private final QuestionRepo questionRepo;
 
     public List<QuestionResponseDto> questionList(UUID userId) {
         List<UserQuestion> userQuestions = userQuestionRepository.findByUserId(userId);
@@ -38,7 +37,7 @@ public class UserQuestionService {
     public void answerQuestion(UUID userId, Long questionId, Boolean answered) {
         UserQuestion userQuestion = userQuestionRepository.findByUserIdAndQuestionId(userId, questionId);
         if (userQuestion != null) {
-            userQuestion.setAnswered(answered);
+            userQuestion.answerQuestion(answered);
             userQuestionRepository.save(userQuestion);
         }
     }

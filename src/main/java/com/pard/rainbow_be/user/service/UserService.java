@@ -27,9 +27,10 @@ public class UserService {
         User user = userRepo.save(User.localToEntity(dto));
 
         for (Question question : questions) {
-            UserQuestion userQuestion = new UserQuestion();
-            userQuestion.setUser(user);
-            userQuestion.setQuestion(question);
+            UserQuestion userQuestion = UserQuestion.builder()
+                    .user(user)
+                    .question(question)
+                    .build();
             userQuestionRepository.save(userQuestion);
         }
     }
@@ -41,14 +42,9 @@ public class UserService {
 
     @Transactional
     public void updateUser(UUID id, String name, String petName) {
-        Optional<User> optionalUser = userRepo.findById(id);
-        if (userPresent(optionalUser)) {
-            User user = optionalUser.orElseThrow();
-            user.localToUpdate(name, petName);
-            userRepo.save(user);
-        } else {
-            throw new RuntimeException("User not found");
-        }
+        User user = userRepo.findById(id).orElseThrow();
+        user.localToUpdate(name, petName);
+        userRepo.save(user);
     }
 
     @Transactional
@@ -57,17 +53,14 @@ public class UserService {
         user.updateBoolean(publicCheck);
         userRepo.save(user);
     }
-    public boolean validateUser(String email, String password) {
-        Optional<User> user = userRepo.findByEmail(email);
-        return (userPresent(user) && user.orElseThrow().getPassword().equals(password));
-    }
 
+    public boolean validateUser(String email, String password) {
+        User user = userRepo.findByEmail(email).orElseThrow();
+        return (user.getPassword().equals(password));
+    }
 
     public boolean userExists(String email) {
         return userRepo.existsByEmail(email);
-    }
-    private boolean userPresent(Optional<User> user){
-        return user.isPresent();
     }
 
     public User saveOrUpdate(User user) {

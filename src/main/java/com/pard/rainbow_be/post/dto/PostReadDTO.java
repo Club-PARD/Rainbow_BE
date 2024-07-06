@@ -3,8 +3,6 @@ package com.pard.rainbow_be.post.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pard.rainbow_be.post.entity.Post;
 import lombok.*;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)

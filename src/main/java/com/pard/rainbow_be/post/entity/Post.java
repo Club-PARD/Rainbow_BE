@@ -1,9 +1,7 @@
 package com.pard.rainbow_be.post.entity;
 
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
-import com.pard.rainbow_be.post.dto.PostReadDTO;
 import com.pard.rainbow_be.post.dto.PostUpdateDTO;
-import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -23,9 +20,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 //    private Long uid; // user who writes the post
-
     private String postTitle;
+
     private String pictureLink;
+
+    @Lob
     private String postContent;
     @CreationTimestamp()
     @Column(updatable = false)
@@ -42,7 +41,6 @@ public class Post {
 //    public void update(PostUpdateDTO dto){
 //    public void update(PostCreateDTO dto){
     public void update(PostUpdateDTO dto){
-        this.postTitle = dto.getPostTitle();
         this.pictureLink = dto.getPictureLink();
         this.postContent = dto.getPostContent();
     }
