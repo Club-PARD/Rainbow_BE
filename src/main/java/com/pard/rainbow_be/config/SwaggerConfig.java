@@ -17,7 +17,7 @@ public class SwaggerConfig {
 
     private Info apiInfo(){
         return new Info()
-                .title("제목 뭐지")
+                .title("Sincerely,")
                 .description("떠나보낸 자들이여 모여라")
                 .version("0.0.1");
     }

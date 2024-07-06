@@ -27,7 +27,7 @@ public class AuthController {
 
         @PostMapping("/loginForm")
         public ResponseEntity<String> loginForm(@RequestBody Map<String, Object> userAttributes) {
-            log.info("로그인 폼 호출됨");
+            log.info("📍로그인 폼 호출됨");
 
             OAuthAttributes attributes = OAuthAttributes.of("email", userAttributes);
             String email = attributes.getEmail();
@@ -35,6 +35,7 @@ public class AuthController {
             if (userService.userExists(email)) {
                 User user = userService.saveOrUpdate(attributes.toEntity());
                 httpSession.setAttribute("user", user);
+                log.info("📍로그인 성공: " + email);
                 return ResponseEntity.ok("Login successful");
             } else {
                 return ResponseEntity.status(401).body("Invalid email");
