@@ -37,7 +37,7 @@ public class UserQuestionService {
     public void answerQuestion(UUID userId, Long questionId, Boolean answered) {
         UserQuestion userQuestion = userQuestionRepository.findByUserIdAndQuestionId(userId, questionId);
         if (userQuestion != null) {
-            userQuestion.setAnswered(answered);
+            userQuestion.answerQuestion(answered);
             userQuestionRepository.save(userQuestion);
         }
     }

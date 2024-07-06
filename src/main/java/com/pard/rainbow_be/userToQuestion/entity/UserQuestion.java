@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -26,4 +25,8 @@ public class UserQuestion {
     private Question question;
 
     private boolean answered;
+
+    public void answerQuestion(Boolean answered) {
+        this.answered = answered;
+    }
 }

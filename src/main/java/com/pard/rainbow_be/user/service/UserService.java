@@ -27,9 +27,10 @@ public class UserService {
         User user = userRepo.save(User.localToEntity(dto));
 
         for (Question question : questions) {
-            UserQuestion userQuestion = new UserQuestion();
-            userQuestion.setUser(user);
-            userQuestion.setQuestion(question);
+            UserQuestion userQuestion = UserQuestion.builder()
+                    .user(user)
+                    .question(question)
+                    .build();
             userQuestionRepository.save(userQuestion);
         }
     }
