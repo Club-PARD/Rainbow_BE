@@ -40,7 +40,6 @@ public class Post {
 //    public void update(PostUpdateDTO dto){
 //    public void update(PostCreateDTO dto){
     public void update(PostUpdateDTO dto){
-        this.postTitle = dto.getPostTitle();
         this.pictureLink = dto.getPictureLink();
         this.postContent = dto.getPostContent();
     }

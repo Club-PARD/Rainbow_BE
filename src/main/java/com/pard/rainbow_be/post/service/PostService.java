@@ -64,14 +64,14 @@ public class PostService {
     //read the most recent post of a specific user
     public Post readFirst(UUID userId) {
         return postRepo.findFirstByUserIdOrderByCreatedTimeDesc(userId)
-                .orElseThrow(null);
+                .orElse(null);
     }
 
     //read the most recent post of a all user
     public List<Post> readAllFirstPost(List<UUID> userIds){
         return userIds.stream()
-                .filter(Objects::nonNull)
                 .map(this::readFirst)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 

@@ -1,6 +1,5 @@
 package com.pard.rainbow_be.user.entity;
 
-import com.pard.rainbow_be.post.entity.Post;
 import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.userToQuestion.entity.UserQuestion;
 import jakarta.persistence.*;
@@ -51,8 +50,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserQuestion> userQuestions;
 
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
 
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
