@@ -1,6 +1,5 @@
 package com.pard.rainbow_be.post.dto;
 
-import com.pard.rainbow_be.post.entity.Post;
 import lombok.Getter;
 
 @Getter

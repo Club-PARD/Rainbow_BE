@@ -3,7 +3,6 @@ package com.pard.rainbow_be.post.service;
 import com.pard.rainbow_be.post.dto.CommunityReadDto;
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
 import com.pard.rainbow_be.post.dto.PostReadDTO;
-//import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.post.entity.Post;
 import com.pard.rainbow_be.post.repo.PostRepo;

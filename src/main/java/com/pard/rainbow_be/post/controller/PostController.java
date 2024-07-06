@@ -4,7 +4,6 @@ package com.pard.rainbow_be.post.controller;
 import com.pard.rainbow_be.post.dto.CommunityReadDto;
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
 import com.pard.rainbow_be.post.dto.PostReadDTO;
-//import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.post.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;

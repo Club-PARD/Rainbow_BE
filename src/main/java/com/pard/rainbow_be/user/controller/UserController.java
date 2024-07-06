@@ -3,7 +3,6 @@ package com.pard.rainbow_be.user.controller;
 
 import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.user.service.UserService;
-import com.pard.rainbow_be.userToQuestion.service.UserQuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,7 @@ import java.util.UUID;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-    private final UserQuestionService userQuestionService;
+
     //localToSignUp
     @PostMapping({"/register"})
     @Operation(summary = "유저 등록", description = "여기서 쓰시면 됩니다.")

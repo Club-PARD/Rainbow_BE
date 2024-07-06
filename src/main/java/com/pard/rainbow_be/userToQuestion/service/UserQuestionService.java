@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserQuestionService {
     private final UserQuestionRepository userQuestionRepository;
-    private final QuestionRepo questionRepo;
 
     public List<QuestionResponseDto> questionList(UUID userId) {
         List<UserQuestion> userQuestions = userQuestionRepository.findByUserId(userId);

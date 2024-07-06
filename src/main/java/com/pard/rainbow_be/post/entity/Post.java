@@ -1,9 +1,7 @@
 package com.pard.rainbow_be.post.entity;
 
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
-import com.pard.rainbow_be.post.dto.PostReadDTO;
 import com.pard.rainbow_be.post.dto.PostUpdateDTO;
-import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
