@@ -22,7 +22,7 @@ public class Post {
 //    private Long uid; // user who writes the post
     private String postTitle;
 
-    private String pictureLink;
+    private String pictureUrl;
 
     @Lob
     private String postContent;
@@ -41,14 +41,14 @@ public class Post {
 //    public void update(PostUpdateDTO dto){
 //    public void update(PostCreateDTO dto){
     public void update(PostUpdateDTO dto){
-        this.pictureLink = dto.getPictureLink();
+        this.pictureUrl = dto.g();
         this.postContent = dto.getPostContent();
     }
 
     public static Post toEntity(PostCreateDTO postCreateDTO, User user){
         return Post.builder()
                 .postTitle(postCreateDTO.getPostTitle())
-                .pictureLink(postCreateDTO.getPictureLink())
+                .pictureUrl(postCreateDTO.getPictureLink())
                 .postContent(postCreateDTO.getPostContent())
                 .user(user)
                 .build();

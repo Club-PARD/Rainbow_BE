@@ -9,13 +9,13 @@ import lombok.*;
 public class PostReadDTO extends Post {
     private Long postId;
     private String postTitle;
-    private String pictureLink;
+    private String pictureUrl;
     private String postContent;
 
     public PostReadDTO(Post post){
         this.postId = post.getPostId();
         this.postTitle = post.getPostContent();
-        this.pictureLink = post.getPictureLink();
+        this.pictureUrl = post.getPictureUrl();
         this.postContent = post.getPostContent();
     }
 

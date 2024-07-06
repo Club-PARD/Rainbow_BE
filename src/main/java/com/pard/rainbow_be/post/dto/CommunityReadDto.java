@@ -12,12 +12,12 @@ public class CommunityReadDto{
 
     private final UUID userId;
     private final String postTitle;
-    private final String pictureLink;
+    private final String pictureUrl;
 
 
     public CommunityReadDto(Post post) {
         this.userId = post.getUser().getId();
         this.postTitle = post.getPostTitle();
-        this.pictureLink = post.getPictureLink();
+        this.pictureUrl = post.getPictureUrl();
     }
 }
