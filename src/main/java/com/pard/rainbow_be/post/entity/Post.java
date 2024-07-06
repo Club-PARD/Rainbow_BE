@@ -9,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -21,9 +20,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 //    private Long uid; // user who writes the post
-
     private String postTitle;
+
     private String pictureLink;
+
+    @Lob
     private String postContent;
     @CreationTimestamp()
     @Column(updatable = false)

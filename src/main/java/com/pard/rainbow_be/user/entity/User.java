@@ -47,8 +47,6 @@ public class User {
     @Column(updatable = false)
     private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserQuestion> userQuestions;
 
 
     public static User localToEntity(UserDto.Create dto){
