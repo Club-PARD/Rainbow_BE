@@ -26,6 +26,7 @@ public class AuthController {
     private HttpSession httpSession;
 
         @PostMapping("/loginForm")
+        @ResponseBody
         public ResponseEntity<String> loginForm(@RequestBody Map<String, Object> userAttributes) {
             log.info("📍로그인 폼 호출됨");
 
