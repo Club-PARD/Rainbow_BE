@@ -46,6 +46,11 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
 	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
 
+	// JWT dependencies (use consistent versions)
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // or 'io.jsonwebtoken:jjwt-gson:0.11.5' for gson support
+
 
 }
 
