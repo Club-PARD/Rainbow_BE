@@ -15,7 +15,8 @@ import com.pard.rainbow_be.oauth.PrincipalOauth2UserService;
 public class SecurityConfig {
 
     private final PrincipalOauth2UserService principalOauth2UserService;
-    private final CorsConfig corsConfig;
+
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

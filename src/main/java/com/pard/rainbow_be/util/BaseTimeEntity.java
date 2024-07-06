@@ -1,4 +1,4 @@
-package com.pard.rainbow_be.entity;
+package com.pard.rainbow_be.util;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
