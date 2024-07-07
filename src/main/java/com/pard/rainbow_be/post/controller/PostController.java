@@ -20,12 +20,12 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/post")
+@RequestMapping("/api")
 public class PostController {
     private final PostService postService;
 
     // Create
-    @PostMapping("/{userId}")
+    @PostMapping("/post/{userId}")
     @Operation(summary = "게시물 등록", description = "해당 유저가 게시물을 만드는 메서드")
     public String createPost(@RequestBody PostCreateDTO postCreateDTO, @PathVariable UUID userId){
         postService.createPost(postCreateDTO, userId);
@@ -34,7 +34,7 @@ public class PostController {
     }
 
     // Read All in Descending Order
-    @GetMapping("/find/{userId}")
+    @GetMapping("/post/find/{userId}")
     @Operation(summary = "해당 유저의 게시물 전체 보기", description = "유저 아이디를 통해 해당 유저의 전체 게시물을 보게 만드는 메서드")
     public List<PostReadDTO> readAll(@PathVariable UUID userId){
         log.info("📍view all Post for User");
@@ -50,21 +50,21 @@ public class PostController {
 //    }
 
     // Read By ID
-    @GetMapping("/{postId}")
+    @GetMapping("/post/{postId}")
     @Operation(summary = "postId 별로 게시물 보기", description = "게시물을 보게 하는 메서드")
     public PostReadDTO readPost(@PathVariable Long postId){
         log.info("📍view Post");
         return postService.findById(postId);
     }
 
-    @GetMapping("/count/{userId}")
+    @GetMapping("/post/count/{userId}")
     @Operation(summary = "userId 를 이용해서 해당 유저의 전체 게시물 수 리턴", description = "게시물 갯수 세기 메서드")
     public Integer countByUserId(@PathVariable UUID userId){
         log.info("📍 count Posts ");
         return postService.countByUserId(userId);
     }
 
-    @GetMapping("/community")
+    @GetMapping("/post/community")
     @Operation(summary = "Community 사진 보여주가", description = "해당 유저가 게시물을 만드는 메서드")
     public List<CommunityReadDto> readsTheLatestPost(){
         log.info("📍 커뮤니티 란 나왔당");
@@ -72,7 +72,7 @@ public class PostController {
     }
 
     // Update
-    @PatchMapping("/{postId}")
+    @PatchMapping("/post/{postId}")
     @Operation(summary = "postId 를 이용해서 게시물 수정", description = "게시물을 수정 메서드")
     public String updateByPid(@PathVariable Long postId, @RequestBody PostUpdateDTO postUpdateDTO){
         postService.updateById(postId, postUpdateDTO);
@@ -82,7 +82,7 @@ public class PostController {
 
     // Delete
     @Operation(summary = "postId 를 이용해서 게시물 삭제", description = "게시물을 삭제 메서드")
-    @DeleteMapping("/{postId}")
+    @DeleteMapping("/post/{postId}")
     public String deleteById(@PathVariable Long postId){
         postService.deleteById(postId);
         log.info("📍delete Post");

@@ -6,6 +6,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostUpdateDTO {
-    private String pictureLink;
+    private String pictureUrl;
     private String postContent;
 }
