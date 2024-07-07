@@ -57,10 +57,10 @@ public class UserService {
     }
 
     @Transactional
-    public void updatePublic(UUID userId, boolean publicCheck){
+    public boolean updatePublic(UUID userId, boolean publicCheck){
         User user = userRepo.findById(userId).orElseThrow();
         user.updateBoolean(publicCheck);
-        userRepo.save(user);
+        return userRepo.save(user).getPublicCheck();
     }
 
     public boolean validateUser(String email, String password) {

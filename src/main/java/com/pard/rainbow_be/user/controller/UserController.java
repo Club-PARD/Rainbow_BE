@@ -47,8 +47,8 @@ public class UserController {
 
     @PatchMapping("/update/publicCheck/{userId}")
     @Operation(summary = "공개, 비공개 설정", description = "값을 입력하면 바로 그값 들어게 만들었어요! (넘겨주는 변수 변경 가능!)")
-    public void updatePublic(@PathVariable UUID userId, @RequestParam boolean check){
-        userService.updatePublic(userId, check);
+    public boolean updatePublic(@PathVariable UUID userId, @RequestParam boolean check){
         log.info("📍공개, 비공개");
+        return userService.updatePublic(userId, check);
     }
 }
