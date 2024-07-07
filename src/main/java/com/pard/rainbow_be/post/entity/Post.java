@@ -21,8 +21,13 @@ public class Post extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 //    private Long uid; // user who writes the post
+    @Column
     private String postTitle;
+
+    @Column(columnDefinition = "TEXT")
     private String pictureUrl;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String postContent;
 
     @ManyToOne
