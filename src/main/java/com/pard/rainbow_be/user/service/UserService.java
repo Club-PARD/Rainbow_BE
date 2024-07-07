@@ -35,6 +35,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public User createOrUpdateUser(String email) {
         Optional<User> optionalUser = userRepo.findByEmail(email);
         User user= optionalUser.orElseGet(() -> User.builder()
@@ -69,9 +70,5 @@ public class UserService {
 
     public boolean userExists(String email) {
         return userRepo.existsByEmail(email);
-    }
-
-    public User saveOrUpdate(User user) {
-        return userRepo.save(user);
     }
 }

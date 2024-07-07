@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post extends BaseTimeEntity {
+public class Post{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
@@ -33,6 +33,10 @@ public class Post extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    private LocalDateTime createdTime;
 
     //IDK what this method is for
 //    public void update(PostUpdateDTO dto){
