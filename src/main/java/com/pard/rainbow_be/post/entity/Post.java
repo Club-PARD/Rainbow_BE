@@ -22,10 +22,7 @@ public class Post extends BaseTimeEntity {
     private Long postId;
 //    private Long uid; // user who writes the post
     private String postTitle;
-
     private String pictureUrl;
-
-    @Lob
     private String postContent;
 
     @ManyToOne

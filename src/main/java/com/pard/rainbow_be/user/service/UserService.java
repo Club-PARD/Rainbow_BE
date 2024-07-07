@@ -35,6 +35,14 @@ public class UserService {
         }
     }
 
+    public User createOrUpdateUser(String email) {
+        Optional<User> optionalUser = userRepo.findByEmail(email);
+        User user= optionalUser.orElseGet(() -> User.builder()
+                .email(email)
+                .build());
+        return userRepo.save(user);
+    }
+
     public UserDto.Read readById(UUID userId){
         User user = userRepo.findById(userId).orElseThrow();
         return new UserDto.Read(user);

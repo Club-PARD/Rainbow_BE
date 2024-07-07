@@ -4,12 +4,11 @@ import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.util.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDateTime;
+
 import java.util.UUID;
 
 @Entity

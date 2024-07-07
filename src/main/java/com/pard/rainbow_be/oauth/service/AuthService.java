@@ -17,4 +17,14 @@ public class AuthService {
         this.userService = userService;
     }
 
+    public Map<String, Object> saveOrUpdateUser(String email) {
+        User user = userService.createOrUpdateUser(email);
+        boolean isNewUser = user.getCreatedDate().equals(user.getModifiedDate()); // CreatedDate와 ModifiedDate가 동일하면 신규 유저
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("user_id", user.getId());
+        result.put("is_new_user", isNewUser);
+
+        return result;
+    }
 }
