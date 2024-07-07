@@ -12,7 +12,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    public static final long ACCESS_EXPIRATION_TIME = 1000 * 60 * 60; // 60 minutes
+    public static final long ACCESS_EXPIRATION_TIME = 1000 * 60 * 30; // 60 minutes
     public static final long REFRESH_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 7; // 7 days
 
     public String generateAccessToken(String email) {
