@@ -23,6 +23,7 @@ public class AuthService {
 
         Map<String, Object> result = new HashMap<>();
         result.put("user_id", user.getId());
+        result.put("email", user.getEmail());
         result.put("is_new_user", isNewUser);
 
         return result;
