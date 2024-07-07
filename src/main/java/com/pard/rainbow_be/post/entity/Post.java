@@ -3,6 +3,7 @@ package com.pard.rainbow_be.post.entity;
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
 import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.user.entity.User;
+import com.pard.rainbow_be.util.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Post extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
@@ -26,12 +27,6 @@ public class Post {
 
     @Lob
     private String postContent;
-    @CreationTimestamp()
-    @Column(updatable = false)
-    private LocalDateTime createdTime;
-    @UpdateTimestamp()
-    @Column()
-    private LocalDateTime modifiedTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
