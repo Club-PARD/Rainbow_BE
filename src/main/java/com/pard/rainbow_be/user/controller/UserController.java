@@ -51,4 +51,11 @@ public class UserController {
         log.info("📍공개, 비공개");
         return userService.updatePublic(userId, check);
     }
+
+    @DeleteMapping("/delete/{userId}")
+    @Operation(summary = "유저 삭제", description = "User Id를 주면 해당 user 삭제")
+    public void deleteUser(@PathVariable UUID userId){
+        log.info("📍유저 삭제");
+        userService.deleteUser(userId);
+    }
 }

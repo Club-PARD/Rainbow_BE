@@ -21,4 +21,5 @@ public interface PostRepo extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.user.id = :userId ORDER BY p.createdTime DESC limit 1")
     Optional<Post> findFirstByUserIdOrderByCreatedTimeDesc(@Param("userId") UUID userId);
 
+    void deleteByUserId(UUID id);
 }
