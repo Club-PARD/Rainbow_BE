@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
-import com.pard.rainbow_be.oauth.PrincipalOauth2UserService;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -18,10 +17,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final PrincipalOauth2UserService principalOauth2UserService;
-
-
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -31,29 +26,6 @@ public class SecurityConfig {
                         .requestMatchers("/**").permitAll()
                         .anyRequest().permitAll());
 
-        // 폼 로그인 설정
-        http.formLogin(formLogin -> formLogin
-                .loginPage("/loginForm")
-                .defaultSuccessUrl("/home")
-                .failureUrl("/login?error=true")
-                .permitAll());
-
-        // 로그아웃 설정
-        http.logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
-                .permitAll());
-
-        // OAuth2 로그인 설정
-        http.oauth2Login(
-                oauth -> oauth
-                        .loginPage("/loginForm")
-                        .defaultSuccessUrl("/home")
-                        .userInfoEndpoint(
-                                userInfo ->
-                                        userInfo.userService(principalOauth2UserService)
-                        )
-        );
 
         return http.build();
     }
