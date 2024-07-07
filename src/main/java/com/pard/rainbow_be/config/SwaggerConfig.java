@@ -5,12 +5,19 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
+import io.swagger.v3.oas.models.servers.Server;
 
 @Configuration
 public class SwaggerConfig {
+
+    @Value("${sincerely.server.domain}")
+    private String domain;
+
     @Bean
     public OpenAPI openAPI(){
         return new OpenAPI()
+                .addServersItem(new Server().url(domain))
                 .components(new Components())
                 .info(apiInfo());
     }
