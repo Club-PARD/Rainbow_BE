@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -38,6 +39,8 @@ public class Post{
     @Column(nullable = false)
     private LocalDateTime createdTime;
 
+    @LastModifiedDate
+    private LocalDateTime modifiedTime;
     //IDK what this method is for
 //    public void update(PostUpdateDTO dto){
 //    public void update(PostCreateDTO dto){

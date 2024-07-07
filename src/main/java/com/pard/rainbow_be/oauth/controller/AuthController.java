@@ -6,6 +6,7 @@ import com.pard.rainbow_be.user.repo.UserRepo;
 import com.pard.rainbow_be.user.service.UserService;
 import com.pard.rainbow_be.util.jwt.JwtUtil;
 import io.jsonwebtoken.Claims;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -44,6 +45,7 @@ public class AuthController {
     }
 
     @PostMapping("/googleLogin")
+    @Operation(summary = "Community 사진 보여주가", description = "해당 유저가 게시물을 만드는 메서드")
     public Map<String, Object> googleLogin(@RequestBody Map<String, Object> userData, HttpServletResponse response) {
         String email = (String) userData.get("email");
 
@@ -63,6 +65,7 @@ public class AuthController {
     // 로컬 연결이 끝나면 연결할 예정 // jwt를 이용한 localLogin 구현
 //    @GetMapping("/login")
 //    @ResponseBody
+//    @Operation(summary = "로컬 로그인", description = "이메일과 페스워드로 로그인이 될수도? 안될 수도?")
 //    public Map<String, Object> login(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
 //        boolean isAuthenticated = userService.validateUser(email, password);
 //        if (isAuthenticated) {
@@ -90,6 +93,7 @@ public class AuthController {
 //    }
     @GetMapping("/login")
     @ResponseBody
+    @Operation(summary = "로컬 로그인", description = "이메일과 페스워드로 로그인이 될수도? 안될 수도?")
     public UUID login(@RequestParam String email, @RequestParam String password) {
         boolean isAuthenticated = userService.validateUser(email, password);
         if (isAuthenticated) {
@@ -103,13 +107,16 @@ public class AuthController {
     }
 
     @GetMapping("/validate")
+    @Operation(summary = "access_token 유효성 감사 ", description = "access_token 이 있는 지 확인하고 정보 전달")
     public String validateToken(HttpServletRequest request) {
         Optional<Cookie> accessTokenCookie = Arrays.stream(request.getCookies())
                 .filter(cookie -> "access_token".equals(cookie.getName()))
                 .findFirst();
 
         if (accessTokenCookie.isPresent()) {
+            // JWT 유효성 검사
             Claims claims = jwtUtil.validateToken(accessTokenCookie.get().getValue());
+            // 토큰이 유효하면 사용자 정보를 반환
             if (claims != null) {
                 return "Token is valid for user: " + claims.getSubject();
             } else {
@@ -121,13 +128,16 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
+    @Operation(summary = "access_token 갱신", description = "새로운 액세스 토큰을 쿠키로 설정")
     public String refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
+        // 요청에서 모든 쿠키를 가져와 스트림으로 변환하고, 이름이 "refresh_token"인 쿠키를 찾음
         Optional<Cookie> refreshTokenCookie = Arrays.stream(request.getCookies())
                 .filter(cookie -> "refresh_token".equals(cookie.getName()))
                 .findFirst();
 
         if (refreshTokenCookie.isPresent()) {
             try {
+                // 쿠키 값 (refresh token)을 검증하고 Claims 객체를 얻음
                 Claims claims = jwtUtil.validateToken(refreshTokenCookie.get().getValue());
                 String newAccessToken = jwtUtil.generateAccessToken(claims.getSubject());
 
