@@ -25,9 +25,11 @@ public class Post{
     @Column
     private String postTitle;
 
+    @Lob
     @Column(columnDefinition = "TEXT")
     private String pictureUrl;
 
+    @Lob
     @Column(nullable = false, columnDefinition = "TEXT")
     private String postContent;
 
@@ -50,7 +52,7 @@ public class Post{
     public static Post toEntity(PostCreateDTO postCreateDTO, User user){
         return Post.builder()
                 .postTitle(postCreateDTO.getPostTitle())
-                .pictureUrl(postCreateDTO.getPictureLink())
+                .pictureUrl(postCreateDTO.getPictureUrl())
                 .postContent(postCreateDTO.getPostContent())
                 .user(user)
                 .build();

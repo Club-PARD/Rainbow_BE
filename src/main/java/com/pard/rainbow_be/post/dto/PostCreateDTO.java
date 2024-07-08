@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class PostCreateDTO {
     private String postTitle;
-    private String pictureLink;
+    private String pictureUrl;
     private String postContent;
 }
