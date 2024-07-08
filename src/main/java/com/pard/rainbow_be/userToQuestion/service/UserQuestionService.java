@@ -44,9 +44,8 @@ public class UserQuestionService {
     }
 
     @Transactional
-    public void answerbyQuestion(UUID userId, String question, Boolean answered) {
-        Long questionId = questionRepo.findByQuestionText(question).getId();
-        UserQuestion userQuestion = userQuestionRepository.findByUserIdAndQuestionContains(userId, questionId).orElseThrow();
+    public void answeredQuestion(UUID userId, String question, Boolean answered) {
+        UserQuestion userQuestion = userQuestionRepository.findByUserIdAndQuestionQuestionTextContains(userId, question).orElseThrow();
         userQuestion.answerQuestion(answered);
         userQuestionRepository.save(userQuestion);
     }

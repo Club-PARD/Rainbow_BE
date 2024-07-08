@@ -32,7 +32,7 @@ public class PostService {
     private final UserQuestionService userQuestionService;
     public void createPost(PostCreateDTO postCreateDTO, UUID userId){
         User user = userRepo.findById(userId).orElseThrow();
-        userQuestionService.answerbyQuestion(userId, postCreateDTO.getPostTitle(), true);
+        userQuestionService.answeredQuestion(userId, postCreateDTO.getPostTitle(), true);
         postRepo.save(Post.toEntity(postCreateDTO, user));
     }
 

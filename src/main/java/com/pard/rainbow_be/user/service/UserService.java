@@ -50,6 +50,15 @@ public class UserService {
                 .email(email)
                 .build());
         log.info("만들어 졌냐?");
+
+        List<Question> questions = questionRepo.findAll();
+        for (Question question : questions) {
+            UserQuestion userQuestion = UserQuestion.builder()
+                    .user(user)
+                    .question(question)
+                    .build();
+            userQuestionRepository.save(userQuestion);
+        }
         return userRepo.save(user);
     }
 
