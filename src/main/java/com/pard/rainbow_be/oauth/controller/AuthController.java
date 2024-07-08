@@ -117,7 +117,7 @@ public class AuthController {
             try {
                 Claims claims = jwtUtil.validateToken(refreshTokenCookie.get().getValue());
                 String newAccessToken = jwtUtil.generateAccessToken(claims.getSubject());
-                
+
                 Cookie newAccessCookie = new Cookie("access_token", newAccessToken);
                 newAccessCookie.setHttpOnly(true);
                 newAccessCookie.setSecure(true);
