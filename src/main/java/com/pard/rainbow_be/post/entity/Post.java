@@ -21,7 +21,7 @@ public class Post{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
-//    private Long uid; // user who writes the post
+
     @Column
     private String postTitle;
 
@@ -41,9 +41,7 @@ public class Post{
 
     @LastModifiedDate
     private LocalDateTime modifiedTime;
-    //IDK what this method is for
-//    public void update(PostUpdateDTO dto){
-//    public void update(PostCreateDTO dto){
+
     public void update(PostUpdateDTO dto){
         this.pictureUrl = dto.getPictureUrl();
         this.postContent = dto.getPostContent();
@@ -57,17 +55,5 @@ public class Post{
                 .user(user)
                 .build();
     }
-
-
-//    public PostReadDTO toDTO(){
-//        return PostReadDTO.builder()
-//                .pid(this.getPostId())
-//                .title(this.getPostTitle())
-//                .pictureLink(this.getPictureLink())
-//                .content(this.getPostContent())
-//                .createdTime(this.getCreatedTime())
-//                .modifiedTime(this.getModifiedTime())
-//                .build();
-//    }
 
 }
