@@ -25,7 +25,7 @@ public class UserService {
     private final UserRepo userRepo;
     private final QuestionRepo questionRepo;
     private final UserQuestionRepository userQuestionRepository;
-   private final PostRepo postRepo;
+    private final PostRepo postRepo;
     @Transactional
     public void createUser(UserDto.Create dto) {
         List<Question> questions = questionRepo.findAll();
@@ -49,6 +49,11 @@ public class UserService {
                 .build());
         log.info("만들어 졌냐?");
         return userRepo.save(user);
+    }
+
+    public UUID readByEmail(String email){
+        User user = userRepo.findByEmail(email).orElseThrow();
+        return user.getId();
     }
 
     public UserDto.Read readById(UUID userId){

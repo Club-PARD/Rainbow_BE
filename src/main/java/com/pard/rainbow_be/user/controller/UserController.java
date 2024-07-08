@@ -31,8 +31,15 @@ public class UserController {
         return ResponseEntity.ok("User registered successfully");
     }
 
-    @GetMapping("/find/{userId}")
-    @Operation(summary = "유저 검색",description = "ID를 통해 DB 내 해당 유저 검색")
+    @GetMapping("/find/email/{email}")
+    @Operation(summary = "이메일로 유저 ID 검색",description = "이메일을 통해 DB 내 해당 유저 검색")
+    public UUID readByEmail(@PathVariable String email){
+        log.info("📍ReadByEmail");
+        return userService.readByEmail(email);
+    }
+
+    @GetMapping("/find/id/{userId}")
+    @Operation(summary = "ID로 유저 검색",description = "ID를 통해 DB 내 해당 유저 검색")
     public UserDto.Read readById(@PathVariable UUID userId){
         log.info("📍ReadByID");
         return userService.readById(userId);
