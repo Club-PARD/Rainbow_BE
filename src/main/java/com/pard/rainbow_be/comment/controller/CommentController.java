@@ -76,18 +76,4 @@ public class CommentController {
             return false;
         }
     }
-
-    //    For testing purposes
-    //    @DeleteMapping("/{commentId}")
-    //    public String deleteById(@PathVariable Long commentId){
-    //        commentService.deleteById(commentId);
-    //        return "Delete Success";
-    //    }
-    //
-    //    @PatchMapping("/{commentId}")
-    //    public String updateById(@PathVariable Long commentId, @RequestBody CommentUpdateDTO dto){
-    //        commentService.updateById(commentId, dto);
-    //        return "Update Success";
-    //    }
-
 }
