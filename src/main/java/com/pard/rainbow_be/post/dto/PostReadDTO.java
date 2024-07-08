@@ -14,7 +14,7 @@ public class PostReadDTO extends Post {
 
     public PostReadDTO(Post post){
         this.postId = post.getPostId();
-        this.postTitle = post.getPostContent();
+        this.postTitle = post.getPostTitle();
         this.pictureUrl = post.getPictureUrl();
         this.postContent = post.getPostContent();
     }
