@@ -6,39 +6,81 @@ import com.pard.rainbow_be.comment.dto.CommentReadDTO;
 import com.pard.rainbow_be.comment.dto.CommentUpdateDTO;
 import com.pard.rainbow_be.comment.entity.Comment;
 import com.pard.rainbow_be.comment.repo.CommentRepo;
+import com.pard.rainbow_be.user.entity.User;
+import com.pard.rainbow_be.user.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepo commentRepo;
-    public void createComment(CommentCreateDTO commentCreateDTO){
-        commentRepo.save(Comment.toEntity(commentCreateDTO));
+    private final UserRepo userRepo;
+    public void createComment(CommentCreateDTO commentCreateDTO, UUID ownerId, UUID writerId){
+        User owner = userRepo.findById(ownerId).orElseThrow();
+        User writer = userRepo.findById(writerId).orElseThrow();
+        commentRepo.save(Comment.toEntity(commentCreateDTO, owner, writer));
     }
 
-    //need to understand the meaning of the below code
-    public List<CommentReadDTO> readAll(){
-        return commentRepo.findAll()
+    public List<CommentReadDTO> readAll(UUID ownerId){
+        return commentRepo.findAllByOwnerId(ownerId)
                 .stream()
                 .map(CommentReadDTO::new)
                 .collect(Collectors.toList());
     }
-    public CommentReadDTO findById(Long commentId){
-        return new CommentReadDTO(commentRepo.findById(commentId).orElseThrow());
+
+    public Optional<CommentReadDTO> readOne(UUID ownerId, Long commentId){
+        return commentRepo.findByOwnerIdAndCommentId(ownerId, commentId)
+                .map(CommentReadDTO::new);
     }
 
-    public void updateById(Long commentId, CommentUpdateDTO commentUpdateDTO){
-        Comment comment = commentRepo.findById(commentId).get();
+
+    public void updateByWriterIdAndCommentId(UUID writerId, Long commentId, CommentUpdateDTO commentUpdateDTO){
+        Comment comment = commentRepo.findByOwnerIdAndCommentId(writerId, commentId).get();
         comment.update(commentUpdateDTO);
         commentRepo.save(comment);
     }
 
-    public void deleteById(Long commentId){
-        commentRepo.deleteById(commentId);
+
+    @Transactional
+    public boolean deleteCommentByWriterIdAndCommentId(UUID writerId,Long commentId){
+        Optional<Comment> comment = commentRepo.findByWriterIdAndCommentId(writerId, commentId);
+        if(comment.isPresent()){
+            commentRepo.delete(comment.get());
+            return true;
+        }
+        return false;
     }
+
+    @Transactional
+    public boolean deleteCommentByOwnerIdAndCommentId(UUID ownerId,Long commentId){
+        Optional<Comment> comment = commentRepo.findByWriterIdAndCommentId(ownerId, commentId);
+        if(comment.isPresent()){
+            commentRepo.delete(comment.get());
+            return true;
+        }
+        return false;
+    }
+
+    // for testing purposes
+    //    public CommentReadDTO findById(Long commentId){
+    //        return new CommentReadDTO(commentRepo.findById(commentId).orElseThrow());
+    //    }
+
+    //    public void updateById(Long commentId, CommentUpdateDTO commentUpdateDTO){
+    //        Comment comment = commentRepo.findById(commentId).get();
+    //        comment.update(commentUpdateDTO);
+    //        commentRepo.save(comment);
+    //    }
+
+    //    public void deleteById(Long commentId){
+    //        commentRepo.deleteById(commentId);
+    //    }
 
 }

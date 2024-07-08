@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface UserQuestionRepository extends JpaRepository<UserQuestion, Long> {
     List<UserQuestion> findByUserId(UUID userId);
     UserQuestion findByUserIdAndQuestionId(UUID userId, Long questionId);
+
+    void deleteByUserId(UUID id);
 }

@@ -1,60 +1,73 @@
 package com.pard.rainbow_be.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import com.pard.rainbow_be.oauth.PrincipalOauth2UserService;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final PrincipalOauth2UserService principalOauth2UserService;
-
-
+    @Value("${sincerely.server.domain}")
+    private String domain;
+//    private final JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // CSRF 보호 비활성화
-        http.csrf(AbstractHttpConfigurer::disable);
+        http
+                .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(au -> au
+                        .requestMatchers("/**").permitAll()
+                        .anyRequest().permitAll())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // JwtFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
 
-        // CORS 설정 비활성화
-        http.cors(AbstractHttpConfigurer::disable);
-
-        // 모든 요청 허용
-        http.authorizeHttpRequests(authorize -> authorize
-                .anyRequest().permitAll()
-        );
-
-        // 폼 로그인 설정
-        http.formLogin(formLogin -> formLogin
-                .loginPage("/loginForm")
-                .defaultSuccessUrl("/home")
-                .failureUrl("/login?error=true")
-                .permitAll());
-
-        // 로그아웃 설정
-        http.logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
-                .permitAll());
-
-        // OAuth2 로그인 설정
-        http.oauth2Login(
-                oauth -> oauth
-                        .loginPage("/loginForm")
-                        .defaultSuccessUrl("/home")
-                        .userInfoEndpoint(
-                                userInfo ->
-                                        userInfo.userService(principalOauth2UserService)
-                        )
-        );
 
         return http.build();
+    }
+
+    // 위에꺼 지우고, 아래꺼 사용 // 보안상 matcher되는 부븐 달라진당
+
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource()))
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(au -> au
+//                        .requestMatchers("/api/auth/**","/api/**").permitAll()
+//                        .anyRequest().authenticated())
+////                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // JwtFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
+//
+//        return http.build();
+//    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin(domain);
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("GET");
+        configuration.addAllowedMethod("POST");
+        configuration.addAllowedMethod("PATCH");
+        configuration.addAllowedMethod("DELETE");
+        configuration.setAllowCredentials(true);
+//        configuration.setMaxAge(3600L); //preflight 결과를 1시간동안 캐시에 저장
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

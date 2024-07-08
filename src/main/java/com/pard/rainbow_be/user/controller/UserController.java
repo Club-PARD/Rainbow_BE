@@ -14,7 +14,7 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
 
@@ -38,7 +38,7 @@ public class UserController {
         return userService.readById(userId);
     }
 
-    @PatchMapping("/update/{userId}")
+    @PatchMapping("/google/register/{userId}")
     @Operation(summary = "이름과 반려동물 이름 업데이트", description = "ID를 통해 해당 유저의 정보 변경")
     public void updateUser(@PathVariable UUID userId, @RequestBody UserDto.Update dto){
         userService.updateUser(userId, dto.getNickName(), dto.getPetName());
@@ -47,8 +47,15 @@ public class UserController {
 
     @PatchMapping("/update/publicCheck/{userId}")
     @Operation(summary = "공개, 비공개 설정", description = "값을 입력하면 바로 그값 들어게 만들었어요! (넘겨주는 변수 변경 가능!)")
-    public void updatePublic(@PathVariable UUID userId, @RequestBody boolean check){
-        userService.updatePublic(userId, check);
+    public boolean updatePublic(@PathVariable UUID userId, @RequestParam boolean check){
         log.info("📍공개, 비공개");
+        return userService.updatePublic(userId, check);
+    }
+
+    @DeleteMapping("/delete/{userId}")
+    @Operation(summary = "유저 삭제", description = "User Id를 주면 해당 user 삭제")
+    public void deleteUser(@PathVariable UUID userId){
+        log.info("📍유저 삭제");
+        userService.deleteUser(userId);
     }
 }

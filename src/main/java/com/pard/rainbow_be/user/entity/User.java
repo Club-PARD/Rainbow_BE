@@ -1,16 +1,14 @@
 package com.pard.rainbow_be.user.entity;
 
 import com.pard.rainbow_be.user.dto.UserDto;
-import com.pard.rainbow_be.userToQuestion.entity.UserQuestion;
+import com.pard.rainbow_be.util.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDateTime;
-import java.util.List;
+
 import java.util.UUID;
 
 @Entity
@@ -19,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Table(name = "users")
-public class User {
+public class User extends BaseTimeEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -42,12 +40,6 @@ public class User {
     @Builder.Default
     @Column(name = "public_check", nullable = false)
     private Boolean publicCheck = false;
-
-    @CreationTimestamp()
-    @Column(updatable = false)
-    private LocalDateTime createDate;
-
-
 
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
