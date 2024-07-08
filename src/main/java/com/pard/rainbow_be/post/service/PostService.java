@@ -35,13 +35,6 @@ public class PostService {
         postRepo.save(Post.toEntity(postCreateDTO, user));
     }
 
-//    public List<PostReadDTO> readAll(UUID userId){
-//        return postRepo.findAllByUserId(userId)
-//                .stream()
-//                .map(PostReadDTO::new)
-//                .collect(Collectors.toList());
-//    }
-
     public List<PostReadDTO> readAll(UUID userId) {
         return postRepo.findAllByUserId(userId, Sort.by(Sort.Direction.DESC, "createdTime"))
                 .stream()
@@ -61,13 +54,11 @@ public class PostService {
         return posts.size();
     }
 
-    //read the most recent post of a specific user
     public Post readFirst(UUID userId) {
         return postRepo.findFirstByUserIdOrderByCreatedTimeDesc(userId)
                 .orElse(null);
     }
 
-    //read the most recent post of a all user
     public List<Post> readAllFirstPost(List<UUID> userIds){
         return userIds.stream()
                 .map(this::readFirst)
