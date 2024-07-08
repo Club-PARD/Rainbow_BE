@@ -3,12 +3,14 @@ package com.pard.rainbow_be.oauth.service;
 
 import com.pard.rainbow_be.user.entity.User;
 import com.pard.rainbow_be.user.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class AuthService {
 
     private final UserService userService;
@@ -19,12 +21,11 @@ public class AuthService {
 
     public Map<String, Object> saveOrUpdateUser(String email) {
         User user = userService.createOrUpdateUser(email);
-        boolean isNewUser = user.getCreatedDate().equals(user.getModifiedDate()); // CreatedDate와 ModifiedDate가 동일하면 신규 유저
+        log.info("들어갔냐??");
 
         Map<String, Object> result = new HashMap<>();
         result.put("user_id", user.getId());
         result.put("email", user.getEmail());
-        result.put("is_new_user", isNewUser);
 
         return result;
     }

@@ -10,6 +10,7 @@ import com.pard.rainbow_be.userToQuestion.entity.UserQuestion;
 import com.pard.rainbow_be.userToQuestion.repo.UserQuestionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepo userRepo;
@@ -41,9 +43,11 @@ public class UserService {
     @Transactional
     public User createOrUpdateUser(String email) {
         Optional<User> optionalUser = userRepo.findByEmail(email);
-        User user= optionalUser.orElseGet(() -> User.builder()
+        log.info("되냐");
+        User user = optionalUser.orElseGet(() -> User.builder()
                 .email(email)
                 .build());
+        log.info("만들어 졌냐?");
         return userRepo.save(user);
     }
 

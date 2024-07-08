@@ -63,48 +63,48 @@ public class AuthController {
     }
 
     // 로컬 연결이 끝나면 연결할 예정 // jwt를 이용한 localLogin 구현
-//    @GetMapping("/login")
-//    @ResponseBody
-//    @Operation(summary = "로컬 로그인", description = "이메일과 페스워드로 로그인이 될수도? 안될 수도?")
-//    public Map<String, Object> login(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
-//        boolean isAuthenticated = userService.validateUser(email, password);
-//        if (isAuthenticated) {
-//            log.info("로그인 성공: " + email);
-//            User user = userRepo.findByEmail(email).orElseThrow();
-//
-//            // 액세스 토큰 및 리프레시 토큰 발급
-//            String accessToken = jwtUtil.generateAccessToken(email);
-//            String refreshToken = jwtUtil.generateRefreshToken(email);
-//
-//            setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
-//            setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
-//
-//            // 사용자 정보 반환
-//            Map<String, Object> userInfo = Map.of(
-//                    "id", user.getId(),
-//                    "email", user.getEmail()
-//            );
-//            return userInfo;
-//        } else {
-//            log.info("로그인 실패: " + email);
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//            return Map.of("error", "Invalid email or password");
-//        }
-//    }
     @GetMapping("/login")
     @ResponseBody
     @Operation(summary = "로컬 로그인", description = "이메일과 페스워드로 로그인이 될수도? 안될 수도?")
-    public UUID login(@RequestParam String email, @RequestParam String password) {
+    public Map<String, Object> login(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
         boolean isAuthenticated = userService.validateUser(email, password);
         if (isAuthenticated) {
             log.info("로그인 성공: " + email);
             User user = userRepo.findByEmail(email).orElseThrow();
-            return user.getId();
+
+            // 액세스 토큰 및 리프레시 토큰 발급
+            String accessToken = jwtUtil.generateAccessToken(email);
+            String refreshToken = jwtUtil.generateRefreshToken(email);
+
+            setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
+            setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
+
+            // 사용자 정보 반환
+            Map<String, Object> userInfo = Map.of(
+                    "id", user.getId(),
+                    "email", user.getEmail()
+            );
+            return userInfo;
         } else {
             log.info("로그인 실패: " + email);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return Map.of("error", "Invalid email or password");
         }
-        return null;
     }
+//    @GetMapping("/login")
+//    @ResponseBody
+//    @Operation(summary = "로컬 로그인", description = "이메일과 페스워드로 로그인이 될수도? 안될 수도?")
+//    public UUID login(@RequestParam String email, @RequestParam String password) {
+//        boolean isAuthenticated = userService.validateUser(email, password);
+//        if (isAuthenticated) {
+//            log.info("로그인 성공: " + email);
+//            User user = userRepo.findByEmail(email).orElseThrow();
+//            return user.getId();
+//        } else {
+//            log.info("로그인 실패: " + email);
+//        }
+//        return null;
+//    }
 
     @GetMapping("/validate")
     @Operation(summary = "access_token 유효성 감사 ", description = "access_token 이 있는 지 확인하고 정보 전달")
