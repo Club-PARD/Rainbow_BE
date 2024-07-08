@@ -68,19 +68,4 @@ public class CommentService {
         return false;
     }
 
-    // for testing purposes
-    //    public CommentReadDTO findById(Long commentId){
-    //        return new CommentReadDTO(commentRepo.findById(commentId).orElseThrow());
-    //    }
-
-    //    public void updateById(Long commentId, CommentUpdateDTO commentUpdateDTO){
-    //        Comment comment = commentRepo.findById(commentId).get();
-    //        comment.update(commentUpdateDTO);
-    //        commentRepo.save(comment);
-    //    }
-
-    //    public void deleteById(Long commentId){
-    //        commentRepo.deleteById(commentId);
-    //    }
-
 }
