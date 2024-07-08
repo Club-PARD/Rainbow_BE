@@ -45,7 +45,7 @@ public class AuthController {
     }
 
     @PostMapping("/googleLogin")
-    @Operation(summary = "Community 사진 보여주가", description = "해당 유저가 게시물을 만드는 메서드")
+    @Operation(summary = "구글 로그인", description = "구글 로그인 후 이메일 반환")
     public Map<String, Object> googleLogin(@RequestBody Map<String, Object> userData, HttpServletResponse response) {
         String email = (String) userData.get("email");
 
