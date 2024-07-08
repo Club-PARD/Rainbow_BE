@@ -11,10 +11,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PostRepo extends JpaRepository<Post, Long> {
-    //   JPA 가 적절한 query 생성해줌 (Spring Data JPA, Query Creation)
-    //    List<Post> findById(Integer pid); // find by _______
-
-    //    void deleteByPid(Long pid);
 
     List<Post> findAllByUserId(UUID userId);
     List<Post> findAllByUserId(UUID userId, Sort sort);
