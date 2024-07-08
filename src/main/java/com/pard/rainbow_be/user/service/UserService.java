@@ -1,5 +1,6 @@
 package com.pard.rainbow_be.user.service;
 
+import com.pard.rainbow_be.comment.repo.CommentRepo;
 import com.pard.rainbow_be.post.repo.PostRepo;
 import com.pard.rainbow_be.question.entity.Question;
 import com.pard.rainbow_be.question.repo.QuestionRepo;
@@ -26,6 +27,7 @@ public class UserService {
     private final QuestionRepo questionRepo;
     private final UserQuestionRepository userQuestionRepository;
     private final PostRepo postRepo;
+    private final CommentRepo commentRepo;
     @Transactional
     public void createUser(UserDto.Create dto) {
         List<Question> questions = questionRepo.findAll();
@@ -82,6 +84,7 @@ public class UserService {
             User user = userOptional.get();
             postRepo.deleteByUserId(id);
             userQuestionRepository.deleteByUserId(id);
+            commentRepo.deleteByOwnerId(id);
             userRepo.delete(user);
         }
     }

@@ -12,4 +12,5 @@ public interface CommentRepo extends JpaRepository<Comment, Long> {
     Optional<Comment> findByOwnerIdAndCommentId(UUID ownerId, Long commentId);
     Optional<Comment> findByWriterIdAndCommentId(UUID writerId, Long commentId);
 
+    void deleteByOwnerId(UUID id);
 }
