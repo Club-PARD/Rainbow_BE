@@ -51,18 +51,15 @@ public class AuthController {
 
         Map<String, Object> userInfo = authService.saveOrUpdateUser(email);
 
-        // 액세스 토큰 및 리프레시 토큰 발급
         String accessToken = jwtUtil.generateAccessToken(email);
         String refreshToken = jwtUtil.generateRefreshToken(email);
 
-        // 액세스 토큰을 쿠키로 설정
         setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
         setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
 
         return userInfo;
     }
 
-    // 로컬 연결이 끝나면 연결할 예정 // jwt를 이용한 localLogin 구현
     @GetMapping("/login")
     @ResponseBody
     @Operation(summary = "로컬 로그인", description = "이메일과 페스워드로 로그인이 될수도? 안될 수도?")
@@ -72,14 +69,12 @@ public class AuthController {
             log.info("로그인 성공: " + email);
             User user = userRepo.findByEmail(email).orElseThrow();
 
-            // 액세스 토큰 및 리프레시 토큰 발급
             String accessToken = jwtUtil.generateAccessToken(email);
             String refreshToken = jwtUtil.generateRefreshToken(email);
 
             setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
             setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
 
-            // 사용자 정보 반환
             Map<String, Object> userInfo = Map.of(
                     "id", user.getId(),
                     "email", user.getEmail()
@@ -91,20 +86,6 @@ public class AuthController {
             return Map.of("error", "Invalid email or password");
         }
     }
-//    @GetMapping("/login")
-//    @ResponseBody
-//    @Operation(summary = "로컬 로그인", description = "이메일과 페스워드로 로그인이 될수도? 안될 수도?")
-//    public UUID login(@RequestParam String email, @RequestParam String password) {
-//        boolean isAuthenticated = userService.validateUser(email, password);
-//        if (isAuthenticated) {
-//            log.info("로그인 성공: " + email);
-//            User user = userRepo.findByEmail(email).orElseThrow();
-//            return user.getId();
-//        } else {
-//            log.info("로그인 실패: " + email);
-//        }
-//        return null;
-//    }
 
     @GetMapping("/validate")
     @Operation(summary = "access_token 유효성 감사 ", description = "access_token 이 있는 지 확인하고 정보 전달")
@@ -114,9 +95,7 @@ public class AuthController {
                 .findFirst();
 
         if (accessTokenCookie.isPresent()) {
-            // JWT 유효성 검사
             Claims claims = jwtUtil.validateToken(accessTokenCookie.get().getValue());
-            // 토큰이 유효하면 사용자 정보를 반환
             if (claims != null) {
                 return "Token is valid for user: " + claims.getSubject();
             } else {
@@ -130,18 +109,15 @@ public class AuthController {
     @PostMapping("/refresh")
     @Operation(summary = "access_token 갱신", description = "새로운 액세스 토큰을 쿠키로 설정")
     public String refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
-        // 요청에서 모든 쿠키를 가져와 스트림으로 변환하고, 이름이 "refresh_token"인 쿠키를 찾음
         Optional<Cookie> refreshTokenCookie = Arrays.stream(request.getCookies())
                 .filter(cookie -> "refresh_token".equals(cookie.getName()))
                 .findFirst();
 
         if (refreshTokenCookie.isPresent()) {
             try {
-                // 쿠키 값 (refresh token)을 검증하고 Claims 객체를 얻음
                 Claims claims = jwtUtil.validateToken(refreshTokenCookie.get().getValue());
                 String newAccessToken = jwtUtil.generateAccessToken(claims.getSubject());
-
-                // 새로운 액세스 토큰을 쿠키로 설정
+                
                 Cookie newAccessCookie = new Cookie("access_token", newAccessToken);
                 newAccessCookie.setHttpOnly(true);
                 newAccessCookie.setSecure(true);

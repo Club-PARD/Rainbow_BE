@@ -31,7 +31,7 @@ public class S3Uploader {
         File uploadFile = convert(multipartFile).orElseThrow(() -> new IllegalArgumentException("파일 변환 실패"));
         return upload(uploadFile, dirName);
     }
-    
+
     private String upload(File uploadFile, String dirName) {
         String fileName = dirName + "/" + UUID.randomUUID() + "-" + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
