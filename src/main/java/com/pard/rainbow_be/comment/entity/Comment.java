@@ -3,16 +3,12 @@ package com.pard.rainbow_be.comment.entity;
 
 import com.pard.rainbow_be.comment.dto.CommentCreateDTO;
 import com.pard.rainbow_be.comment.dto.CommentUpdateDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.pard.rainbow_be.user.entity.User;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -25,15 +21,23 @@ public class Comment {
     private Long commentId;
     private String userComment;
 
-    //private UUID userId; // hmm...
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    @ManyToOne
+    @JoinColumn(name = "writer_id")
+    private User writer;
 
     public void update(CommentUpdateDTO dto){
         this.userComment = dto.getUserComment();
     }
 
-    public static Comment toEntity(CommentCreateDTO commentCreateDTO){
+    public static Comment toEntity(CommentCreateDTO commentCreateDTO, User owner, User writer){
         return Comment.builder()
             .userComment(commentCreateDTO.getUserComment())
+            .owner(owner)
+            .writer(writer)
             .build();
     }
 
