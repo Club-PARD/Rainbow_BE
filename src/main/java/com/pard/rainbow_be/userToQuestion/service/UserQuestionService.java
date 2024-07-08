@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserQuestionService {
     private final UserQuestionRepository userQuestionRepository;
+    private final QuestionRepo questionRepo;
 
     public List<QuestionResponseDto> questionList(UUID userId) {
         List<UserQuestion> userQuestions = userQuestionRepository.findByUserId(userId);
@@ -40,5 +41,13 @@ public class UserQuestionService {
             userQuestion.answerQuestion(answered);
             userQuestionRepository.save(userQuestion);
         }
+    }
+
+    @Transactional
+    public void answerbyQuestion(UUID userId, String question, Boolean answered) {
+        Long questionId = questionRepo.findByQuestionText(question).getId();
+        UserQuestion userQuestion = userQuestionRepository.findByUserIdAndQuestionContains(userId, questionId).orElseThrow();
+        userQuestion.answerQuestion(answered);
+        userQuestionRepository.save(userQuestion);
     }
 }
