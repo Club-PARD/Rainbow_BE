@@ -18,25 +18,4 @@ public class PostReadDTO extends Post {
         this.pictureUrl = post.getPictureUrl();
         this.postContent = post.getPostContent();
     }
-
-//    public PostReadDTO(String postTitle, String postContent, String pictureLink,
-//                       LocalDateTime createdTime, LocalDateTime modifiedTime) {
-//        this.postTitle = postTitle;
-//        this.postContent = postContent;
-//        this.pictureLink = pictureLink;
-//        this.createdTime = createdTime;
-//        this.modifiedTime = modifiedTime;
-//    }
-
-
-//    public Post toEntity(){
-//        return Post.builder()
-//                .pid(this.getPid())
-//                .title(this.getTitle())
-//                .pictureLink(this.getPictureLink())
-//                .content(this.getContent())
-//                .createdTime(this.getCreatedTime())
-//                .build();
-//    }
-
 }
