@@ -26,7 +26,7 @@ public class Post{
     private String postTitle;
 
     @Lob
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String pictureUrl;
 
     @Lob
