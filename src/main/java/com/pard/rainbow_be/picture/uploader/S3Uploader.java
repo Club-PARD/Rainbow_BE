@@ -31,8 +31,7 @@ public class S3Uploader {
         File uploadFile = convert(multipartFile).orElseThrow(() -> new IllegalArgumentException("파일 변환 실패"));
         return upload(uploadFile, dirName);
     }
-
-    // S3로 파일 업로드하기
+    
     private String upload(File uploadFile, String dirName) {
         String fileName = dirName + "/" + UUID.randomUUID() + "-" + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
@@ -40,7 +39,6 @@ public class S3Uploader {
         return uploadImageUrl;
     }
 
-    // S3로 업로드
     private String putS3(File uploadFile, String fileName) {
         amazonS3.putObject(new PutObjectRequest(bucket, fileName, uploadFile)
                 .withCannedAcl(CannedAccessControlList.PublicRead));

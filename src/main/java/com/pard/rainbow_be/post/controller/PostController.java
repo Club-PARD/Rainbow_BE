@@ -23,7 +23,7 @@ import java.util.UUID;
 @RequestMapping("/api")
 public class PostController {
     private final PostService postService;
-    
+
     @PostMapping("/post/{userId}")
     @Operation(summary = "게시물 등록", description = "해당 유저가 게시물을 만드는 메서드")
     public String createPost(@RequestBody PostCreateDTO postCreateDTO, @PathVariable UUID userId){
