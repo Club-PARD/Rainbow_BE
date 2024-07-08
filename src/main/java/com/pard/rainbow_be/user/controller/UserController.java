@@ -38,8 +38,15 @@ public class UserController {
         return userService.readByEmail(email);
     }
 
+    @GetMapping("/find/pet/{userId}")
+    @Operation(summary = "userID로 반려동물 이름 검색",description = "ID를 통해 반려동물 이름 검색")
+    public String readPetNameByID(@PathVariable UUID userId){
+        log.info("📍readPetNameByID");
+        return userService.readPetNameByID(userId);
+    }
+
     @GetMapping("/find/id/{userId}")
-    @Operation(summary = "ID로 유저 검색",description = "ID를 통해 DB 내 해당 유저 검색")
+    @Operation(summary = "userID로 유저 검색",description = "ID를 통해 DB 내 해당 유저 검색")
     public UserDto.Read readById(@PathVariable UUID userId){
         log.info("📍ReadByID");
         return userService.readById(userId);

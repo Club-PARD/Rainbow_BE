@@ -58,6 +58,11 @@ public class UserService {
         return user.getId();
     }
 
+    public String readPetNameByID(UUID userId){
+        User user = userRepo.findById(userId).orElseThrow();
+        return user.getPetName();
+    }
+
     public UserDto.Read readById(UUID userId){
         User user = userRepo.findById(userId).orElseThrow();
         return new UserDto.Read(user);
