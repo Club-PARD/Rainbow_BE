@@ -1,11 +1,8 @@
 <div align="center">
 <a id="readme-top"></a>
 <!-- Header banner -->
-<img src="https://capsule-render.vercel.app/api?type=venom&height=100&color=timeGradient&animation=fadeIn&textBg=false&reversal=false&desc=Sincerely,&descSize=30&fontColor=FFFFFF" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=venom&height=100&color=timeGradient&animation=fadeIn&textBg=false&reversal=false&desc=Sincerely,&descSize=23&fontColor=FFFFFF" width="100%"/>
 <br><br>
-
-<br>
-<br>
 
 ----
 
@@ -38,6 +35,17 @@ Sincerely, 에서 반려동물과 함께했던 추억을
 Sincerely,
 <br/>
 </div>
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Feedback](#feedback)
+- [Contributors](#contributors)
+- [Build Process](#build-process)
+- [Backers](#backers-)
+- [Sponsors](#sponsors-)
+- [Acknowledgments](#acknowledgments)
 
 <div>
 
