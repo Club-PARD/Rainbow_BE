@@ -25,8 +25,8 @@ public class User extends BaseTimeEntity {
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
 
-    @Column
-    private String nickName;
+    @Column(length = 10)
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -43,23 +43,23 @@ public class User extends BaseTimeEntity {
 
     public static User localToEntity(UserDto.Create dto){
         return User.builder()
-                .nickName(dto.getNickName())
+                .name(dto.getName())
                 .email(dto.getEmail())
                 .password(dto.getPassword())
                 .petName(dto.getPetName())
                 .build();
     }
 
-    public void update(String nickName){
-        this.nickName = nickName;
+    public void update(String name){
+        this.name = name;
     }
 
     public void updateBoolean(Boolean publicCheck){
         this.publicCheck = publicCheck;
     }
 
-    public void localToUpdate(String nickName, String petName){
-        this.nickName = nickName;
+    public void localToUpdate(String name, String petName){
+        this.name = name;
         this.petName = petName;
     }
 }

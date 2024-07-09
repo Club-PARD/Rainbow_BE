@@ -55,7 +55,7 @@ public class UserController {
     @PatchMapping("/google/register/{ownerId}")
     @Operation(summary = "이름과 반려동물 이름 업데이트", description = "ID를 통해 해당 유저의 정보 변경")
     public void updateUser(@PathVariable UUID ownerId, @RequestBody UserDto.Update dto){
-        userService.updateUser(ownerId, dto.getNickName(), dto.getPetName());
+        userService.updateUser(ownerId, dto.getName(), dto.getPetName());
         log.info("📍유저가 업데이트 되었어요.");
     }
 
