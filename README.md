@@ -46,13 +46,17 @@ Sincerely,
 - [Introduction](#introduction)
 - [Features](#features)
 - [Feedback](#feedback)
-- [Contributors](#contributors)
 - [Build Process](#build-process)
-- [Backers](#backers-)
-- [Sponsors](#sponsors-)
+- [Contributors](#contributors)
 - [Acknowledgments](#acknowledgments)
 
 <div>
+
+## Introduction 
+
+## Features 
+
+## 
 
 ## License
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
