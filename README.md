@@ -47,8 +47,8 @@ Sincerely,
 - [Features](#features)
 - [System Design and Documentation](#System-Design-and-Documentation)
 - [Tech Stack](#Tech-Stack)
-- [Contributors](#contributors)
-- [Acknowledgments](#acknowledgments)
+- [Contributors](#Contributors)
+- [Acknowledgements](#Acknowledgements)
 
 <div>
 
