@@ -87,4 +87,4 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 ---
 
 ## Branch Criteria
-![branch_target.png](asset%2Fbranch_target.png)
+![branch_target.png](asset/images/branch_target.png)
