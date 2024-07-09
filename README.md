@@ -1,14 +1,9 @@
 <div align="center">
 <a id="readme-top"></a>
 <!-- Header banner -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:196E4B,10:2f8f67,30:5eb592,75:93d9bd,100:2f8f67&height=100&section=header&text=&fontSize=0" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=venom&height=100&color=timeGradient&animation=fadeIn&textBg=false&reversal=false&desc=Sincerely,&descSize=30&fontColor=FFFFFF" width="100%"/>
 <br><br>
 
-
-
-
-<!-- Title Typing Effect -->
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Wittgenstein&size=40&duration=3000&pause=2300&color=73c9a7&center=true&random=false&height=80&lines=We+are+Record+On!" alt="Typing SVG" /></a>
 <br>
 <br>
 
@@ -36,7 +31,12 @@
 <br>
 
 <img src="asset/images/typo_logo.png" width="45%">
+Sincerely, 에서 반려동물과 함께했던 추억을 
+꽃으로 피워내며 숨겨왔던 감정을 편안하게 드러내보세요. 
 
+온전히 감정을 표현하며 펫로스 증후군을 극복하도록 돕는 웹 서비스 
+Sincerely,
+<br/>
 </div>
 
 <div>
