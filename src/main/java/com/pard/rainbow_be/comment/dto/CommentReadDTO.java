@@ -10,11 +10,11 @@ import lombok.Getter;
 public class CommentReadDTO extends Comment {
     private Long commentId;
     private String userComment;
-    private String writerNickName;
+    private String writerName;
 
     public CommentReadDTO(Comment comment){
         this.commentId = comment.getCommentId();
         this.userComment = comment.getUserComment();
-        this.writerNickName = comment.getWriter().getNickName();
+        this.writerName = comment.getWriter().getName();
     }
 }
