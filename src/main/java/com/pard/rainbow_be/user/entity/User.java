@@ -25,7 +25,7 @@ public class User extends BaseTimeEntity {
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
 
-    @Column(length = 10)
+    @Column(length = 30)
     private String name;
 
     @Column(nullable = false, unique = true)
