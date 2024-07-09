@@ -8,16 +8,16 @@
     <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=flat&logo=html5&logoColor=white" alt="HTML">
   </a>
   <a>
-    <img src="https://img.shields.io/badge/CSS3-1572B6.svg?style=flat&logo=css3&logoColor=white" alt="CSS">
-  </a>
-  <a>
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat&logo=javascript&logoColor=white" alt="js">
   </a>
   <a>
-    <img src="https://img.shields.io/badge/AWS-232F3E.svg?style=flat&logo=amazonwebservices&logoColor=white" alt="aws">
+    <img src="https://img.shields.io/badge/springboot-6DB33F.svg?style=flate&logo=springboot&logoColor=white" alt="springboot">
   </a>
   <a>
-    <img src="https://img.shields.io/badge/springboot-6DB33F.svg?style=flate&logo=springboot&logoColor=white" alt="springboot">
+    <img src="https://img.shields.io/badge/CSS3-1572B6.svg?style=flat&logo=css3&logoColor=white" alt="CSS">
+  </a>
+  <a>
+    <img src="https://img.shields.io/badge/AWS-232F3E.svg?style=flat&logo=amazonwebservices&logoColor=white" alt="aws">
   </a>
 </p>
 <br><br>
