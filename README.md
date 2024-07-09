@@ -20,8 +20,7 @@
     <img src="https://img.shields.io/badge/AWS-232F3E.svg?style=flat&logo=amazonwebservices&logoColor=white" alt="aws">
   </a>
 </p>
-<br><br>
-
+<br>
 ----
 
 <p align="center">
