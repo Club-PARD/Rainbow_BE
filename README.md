@@ -1,3 +1,11 @@
+<style>
+  .callout[theme=📷] {
+  --emoji: unset;
+  --icon: "\f083"; /* copied front FontAwesome */
+  --icon-color: #c50a50;
+}
+</style>
+
 <div align="center">
 <a id="readme-top"></a>
 <!-- Header banner -->
@@ -55,8 +63,9 @@ Sincerely,
 ## Introduction 
 ### 서비스명: Sincerely,
 #### 펫로스 증후군을 겪는 반려인이 제시된 질문에 따라 본인의 감정을 글로 적으며, 억눌렀던 감정을 표현하도록 돕는 웹 서비스 입니다
-> [!IMPORTANT]  
->  펫로스 증후군을 겪는 반려인은 감정을 억누르기 때문에 일상생활의 어려움을 겪습니다
+> 📷 Cool pix!
+>
+> 펫로스 증후군을 겪는 반려인은 감정을 억누르기 때문에 일상생활의 어려움을 겪습니다
 ### Sincerely, 를 통해 해결하고자 합니다
 | As-is | To-be |
 | --- | --- |
