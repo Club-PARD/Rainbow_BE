@@ -38,38 +38,38 @@ public class UserController {
         return userService.readByEmail(email);
     }
 
-    @GetMapping("/find/pet/{userId}")
+    @GetMapping("/find/pet/{ownerId}")
     @Operation(summary = "userID로 반려동물 이름 검색",description = "ID를 통해 반려동물 이름 검색")
-    public String readPetNameByID(@PathVariable UUID userId){
+    public String readPetNameByID(@PathVariable UUID ownerId){
         log.info("📍readPetNameByID");
-        return userService.readPetNameByID(userId);
+        return userService.readPetNameByID(ownerId);
     }
 
-    @GetMapping("/find/id/{userId}")
+    @GetMapping("/find/id/{ownerId}")
     @Operation(summary = "userID로 유저 검색",description = "ID를 통해 DB 내 해당 유저 검색")
-    public UserDto.Read readById(@PathVariable UUID userId){
+    public UserDto.Read readById(@PathVariable UUID ownerId){
         log.info("📍ReadByID");
-        return userService.readById(userId);
+        return userService.readById(ownerId);
     }
 
-    @PatchMapping("/google/register/{userId}")
+    @PatchMapping("/google/register/{ownerId}")
     @Operation(summary = "이름과 반려동물 이름 업데이트", description = "ID를 통해 해당 유저의 정보 변경")
-    public void updateUser(@PathVariable UUID userId, @RequestBody UserDto.Update dto){
-        userService.updateUser(userId, dto.getNickName(), dto.getPetName());
+    public void updateUser(@PathVariable UUID ownerId, @RequestBody UserDto.Update dto){
+        userService.updateUser(ownerId, dto.getNickName(), dto.getPetName());
         log.info("📍유저가 업데이트 되었어요.");
     }
 
-    @PatchMapping("/update/publicCheck/{userId}")
+    @PatchMapping("/update/publicCheck/{ownerId}")
     @Operation(summary = "공개, 비공개 설정", description = "값을 입력하면 바로 그값 들어게 만들었어요! (넘겨주는 변수 변경 가능!)")
-    public boolean updatePublic(@PathVariable UUID userId, @RequestParam boolean check){
+    public boolean updatePublic(@PathVariable UUID ownerId, @RequestParam boolean check){
         log.info("📍공개, 비공개");
-        return userService.updatePublic(userId, check);
+        return userService.updatePublic(ownerId, check);
     }
 
-    @DeleteMapping("/delete/{userId}")
+    @DeleteMapping("/delete/{ownerId}")
     @Operation(summary = "유저 삭제", description = "User Id를 주면 해당 user 삭제")
-    public void deleteUser(@PathVariable UUID userId){
+    public void deleteUser(@PathVariable UUID ownerId){
         log.info("📍유저 삭제");
-        userService.deleteUser(userId);
+        userService.deleteUser(ownerId);
     }
 }
