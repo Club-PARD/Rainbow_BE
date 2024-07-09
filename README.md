@@ -25,9 +25,16 @@
   </a>
 </p>
 
-<br>
+<br/>
 
-<img src="asset/images/typo_logo.png" width="45%">
+<p align="center">
+  <a href="https://naver.com">
+    <img alt="Sincerely," title="Sincerely," src="asset/images/typo_logo.png" width="45%">
+  </a>
+</p>
+
+<br/>
+
 Sincerely, 에서 반려동물과 함께했던 추억을 
 꽃으로 피워내며 숨겨왔던 감정을 편안하게 드러내보세요. 
 
