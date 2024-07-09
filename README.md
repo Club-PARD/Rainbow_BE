@@ -24,8 +24,6 @@
 
 ----
 
-<br/>
-
 <p align="center">
   <a href="https://naver.com">
     <img alt="Sincerely," title="Sincerely," src="asset/images/typo_logo.png" width="45%">
