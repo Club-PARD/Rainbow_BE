@@ -1,10 +1,12 @@
-<style>
-  .callout[theme=📷] {
-  --emoji: unset;
-  --icon: "\f083"; /* copied front FontAwesome */
-  --icon-color: #c50a50;
-}
-</style>
+<head>
+  <style>
+    .callout[theme=📷] {
+    --emoji: unset;
+    --icon: "\f083"; /* copied front FontAwesome */
+    --icon-color: #c50a50;
+  }
+  </style>
+<head/>
 
 <div align="center">
 <a id="readme-top"></a>
@@ -66,6 +68,10 @@ Sincerely,
 > 📷 Cool pix!
 >
 > 펫로스 증후군을 겪는 반려인은 감정을 억누르기 때문에 일상생활의 어려움을 겪습니다
+<div class="callout" theme="📷">
+  <p>📷 Cool pix!</p>
+  <p>Vitae reprehenderit at aliquid error voluptates eum dignissimos.</p>
+</div>
 ### Sincerely, 를 통해 해결하고자 합니다
 | As-is | To-be |
 | --- | --- |
