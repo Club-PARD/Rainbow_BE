@@ -23,11 +23,11 @@ public class UTQController {
 //        log.info("📍 질문이 사용되었다");
 //    }
 
-    @GetMapping("/questions/{userId}")
+    @GetMapping("/questions/{ownerId}")
     @Operation(summary = "해당 유저의 질문 리스트", description = "해당 id를 갖은 유저가 사용한 혹은 사용하지 않은 질문 전체를 보내준다.")
-    public List<QuestionResponseDto> questionList(@PathVariable UUID userId){
+    public List<QuestionResponseDto> questionList(@PathVariable UUID ownerId){
         log.info("📍 모든 질문 리스트 보내줌");
-        return userQuestionService.questionList(userId);
+        return userQuestionService.questionList(ownerId);
     }
 
 }
