@@ -76,7 +76,7 @@ public class AuthController {
             setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
 
             Map<String, Object> userInfo = Map.of(
-                    "id", user.getId(),
+                    "user_id", user.getId().toString(),
                     "email", user.getEmail()
             );
             return userInfo;
