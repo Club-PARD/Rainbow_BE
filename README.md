@@ -62,6 +62,13 @@ Sincerely,
   <p>📷 Cool pix!</p>
   <p>Vitae reprehenderit at aliquid error voluptates eum dignissimos.</p>
 </div>
+```css
+   .callout[theme=📷] {
+  --emoji: unset;
+  --icon: "\f083"; /* copied front FontAwesome */
+  --icon-color: #c50a50;
+}
+```
 ### Sincerely, 를 통해 해결하고자 합니다
 | As-is | To-be |
 | --- | --- |
