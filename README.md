@@ -1,7 +1,7 @@
 <div align="center">
 <a id="readme-top"></a>
 <!-- Header banner -->
-<img src="https://capsule-render.vercel.app/api?type=venom&height=100&color=timeGradient&animation=fadeIn&textBg=false&reversal=false&desc=Sincerely,&descSize=23&fontColor=FFFFFF" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=venom&height=100&color=timeGradient&animation=fadeIn&textBg=false&reversal=false&desc=powered%20by%20MJGT&descSize=13&fontColor=FFFFFF" width="100%"/>
 <br><br>
 
 ----
