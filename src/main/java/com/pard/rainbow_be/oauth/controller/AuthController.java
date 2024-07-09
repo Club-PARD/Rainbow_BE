@@ -14,10 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -75,11 +72,11 @@ public class AuthController {
             setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
             setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
 
-            Map<String, Object> userInfo = Map.of(
-                    "user_id", user.getId().toString(),
-                    "email", user.getEmail()
-            );
-            return userInfo;
+            Map<String, Object> result = new HashMap<>();
+            result.put("user_id", user.getId().toString());
+            result.put("email", user.getEmail());
+
+            return result;
         } else {
             log.info("로그인 실패: " + email);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
