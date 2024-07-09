@@ -26,19 +26,19 @@ import java.util.UUID;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping("/post/{userId}")
+    @PostMapping("/post/{ownerId}")
     @Operation(summary = "게시물 등록", description = "해당 유저가 게시물을 만드는 메서드")
-    public String createPost(@RequestBody PostCreateDTO postCreateDTO, @PathVariable UUID userId){
-        postService.createPost(postCreateDTO, userId);
+    public String createPost(@RequestBody PostCreateDTO postCreateDTO, @PathVariable UUID ownerId){
+        postService.createPost(postCreateDTO, ownerId);
         log.info("📍make Post");
         return "Post Create Success";
     }
 
-    @GetMapping("/post/find/{userId}")
+    @GetMapping("/post/find/{ownerId}")
     @Operation(summary = "해당 유저의 게시물 전체 보기", description = "유저 아이디를 통해 해당 유저의 전체 게시물을 보게 만드는 메서드")
-    public List<PostReadDTO> readAll(@PathVariable UUID userId){
+    public List<PostReadDTO> readAll(@PathVariable UUID ownerId){
         log.info("📍view all Post for User");
-        return postService.readAll(userId);
+        return postService.readAll(ownerId);
     }
 
     @GetMapping("/post/{postId}")
@@ -48,11 +48,11 @@ public class PostController {
         return postService.findById(postId);
     }
 
-    @GetMapping("/post/count/{userId}")
+    @GetMapping("/post/count/{ownerId}")
     @Operation(summary = "userId 를 이용해서 해당 유저의 전체 게시물 수 리턴", description = "게시물 갯수 세기 메서드")
-    public Integer countByUserId(@PathVariable UUID userId){
+    public Integer countByUserId(@PathVariable UUID ownerId){
         log.info("📍 count Posts ");
-        return postService.countByUserId(userId);
+        return postService.countByUserId(ownerId);
     }
 
     @GetMapping("/post/community")
