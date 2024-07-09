@@ -1,13 +1,3 @@
-<head>
-  <style>
-    .callout[theme=📷] {
-    --emoji: unset;
-    --icon: "\f083"; /* copied front FontAwesome */
-    --icon-color: #c50a50;
-  }
-  </style>
-<head/>
-
 <div align="center">
 <a id="readme-top"></a>
 <!-- Header banner -->
