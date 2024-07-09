@@ -45,8 +45,8 @@ Sincerely,
 
 - [Introduction](#introduction)
 - [Features](#features)
-- [Feedback](#feedback)
-- [Build Process](#build-process)
+- [System Design and Documentation](#System-Design-and-Documentation)
+- [Tech Stack](#Tech-Stack)
 - [Contributors](#contributors)
 - [Acknowledgments](#acknowledgments)
 
@@ -56,15 +56,15 @@ Sincerely,
 
 ## Features 
 
-## 
+## System Design and Documentation
 
-## License
+### License
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ----
 
-## Commit Message
+### Commit Message
 By default, create a commit using the icon in https://gitmoji.dev/.
 
 ```
@@ -90,5 +90,11 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 
 ---
 
-## Branch Criteria
+### Branch Criteria
 ![branch_target.png](asset/images/branch_target.png)
+
+## Tech Stack
+
+## Contributors 
+
+## Acknowledgements 
