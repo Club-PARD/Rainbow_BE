@@ -1,0 +1,7 @@
+/* styles.css */
+.callout[theme=📷] {
+    --emoji: unset;
+    --icon: "\f083"; /* copied from FontAwesome */
+    --icon-color: #c50a50;
+  }
+  
