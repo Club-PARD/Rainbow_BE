@@ -2,10 +2,6 @@
 <a id="readme-top"></a>
 <!-- Header banner -->
 <img src="https://capsule-render.vercel.app/api?type=venom&height=100&color=timeGradient&animation=fadeIn&textBg=false&reversal=false&desc=powered%20by%20MJGT&descSize=13&fontColor=FFFFFF" width="100%"/>
-<br><br>
-
-----
-
 <p align="center">
 
   <a>
@@ -24,6 +20,9 @@
     <img src="https://img.shields.io/badge/springboot-6DB33F.svg?style=flate&logo=springboot&logoColor=white" alt="springboot">
   </a>
 </p>
+<br><br>
+
+----
 
 <br/>
 
@@ -42,6 +41,8 @@ Sincerely, 에서 반려동물과 함께했던 추억을
 Sincerely,
 <br/>
 </div>
+
+----
 
 ## Table of Contents
 
