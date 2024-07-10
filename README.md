@@ -172,6 +172,8 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 | <img src="asset/images/member-profile/bigMatt.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/cheche.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/dongdong.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/uminnancy.png" style="width: 165px; height: 150px; object-fit: cover;"> |
 
 # 🙏 Acknowledgements 
+[PayItForwarD(PARD)](https://we-pard.com/ "@embed")
+
 
 ----
 
