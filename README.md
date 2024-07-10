@@ -108,11 +108,6 @@ Sincerely,
 ### ERD 
 <img alt="ERD," title="ERD," src="asset/images/ERD_Sincerely,.png" width="45%">
 
-
-### License
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ----
 
 ### Commit Message
@@ -149,3 +144,11 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 # Contributors 
 
 # Acknowledgements 
+
+----
+
+### License
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+
