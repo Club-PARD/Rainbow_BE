@@ -172,7 +172,7 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 | <img src="asset/images/member-profile/bigMatt.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/cheche.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/dongdong.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/uminnancy.png" style="width: 165px; height: 150px; object-fit: cover;"> |
 
 # 🙏 Acknowledgements 
-[PayItForwarD(PARD)](https://we-pard.com/ "@embed")
+<iframe src="https://giphy.com/embed/qQvviO9oNeS0yjlzat" width="480" height="140" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/qQvviO9oNeS0yjlzat">via GIPHY</a></p>
 >
 ![Pooh-Quote](https://hellogiggles.com/wp-content/uploads/sites/7/2016/04/14/giphy-46.gif)
 > “How lucky I am to have something that makes saying goodbye so hard.” <br/>-Winnie the Pooh, The Adventures of Winnie the Pooh
