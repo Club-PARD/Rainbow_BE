@@ -140,7 +140,7 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 ![branch_target.png](asset/images/branch_target.png)
 
 # 🛠 Tech Stack
-### 👷 Built With
+## 👷 Built With
 <p>
   <img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=Recoil&logoColor=white"/>
   <img src="https://img.shields.io/badge/OpenAI-412991?style=flat&logo=OpenAI&logoColor=white"/>
