@@ -173,9 +173,9 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 
 # 🙏 Acknowledgements 
 [PayItForwarD(PARD)](https://we-pard.com/ "@embed")
-> “How lucky I am to have something that makes saying goodbye so hard.” <br/>-Winnie the Pooh, The Adventures of Winnie the Pooh
+>
 ![Pooh-Quote](https://hellogiggles.com/wp-content/uploads/sites/7/2016/04/14/giphy-46.gif)
-
+> “How lucky I am to have something that makes saying goodbye so hard.” <br/>-Winnie the Pooh, The Adventures of Winnie the Pooh
 
 
 ----
