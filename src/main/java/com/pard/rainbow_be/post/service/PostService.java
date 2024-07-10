@@ -17,10 +17,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -31,23 +30,52 @@ public class PostService {
     private final UserRepo userRepo;
     private final QuestionRepo questionRepo;
     private final UserQuestionService userQuestionService;
+
+
+    private Map<UUID, List<PostReadDTO>> userPostLists = new ConcurrentHashMap<>();
+    private Map<UUID, AtomicInteger> userIndices = new ConcurrentHashMap<>();
+
+
     public void createPost(PostCreateDTO postCreateDTO, UUID userId){
         User user = userRepo.findById(userId).orElseThrow();
         userQuestionService.answeredQuestion(userId, postCreateDTO.getPostTitle(), true);
         postRepo.save(Post.toEntity(postCreateDTO, user));
     }
 
+
     public List<PostReadDTO> readAll(UUID userId) {
-        return postRepo.findAllByUserId(userId, Sort.by(Sort.Direction.DESC, "createdTime"))
+        AtomicInteger index = new AtomicInteger(1);
+        List<PostReadDTO> postList = postRepo.findAllByUserId(userId, Sort.by(Sort.Direction.DESC, "createdTime"))
                 .stream()
-                .map(PostReadDTO::new)
+                .map(post -> {
+                    PostReadDTO dto = new PostReadDTO(post);
+                    dto.setIndex(index.getAndIncrement());
+                    return dto;
+                })
                 .collect(Collectors.toList());
+
+        userPostLists.put(userId, postList);
+        userIndices.put(userId, index);
+
+        return postList;
     }
 
-    public PostReadDTO findById(Long postId){
-        return new PostReadDTO(postRepo.findById(postId).orElseThrow());
+//    public List<PostReadDTO> readAll(UUID userId) {
+//        return postRepo.findAllByUserId(userId, Sort.by(Sort.Direction.DESC, "createdTime"))
+//                .stream()
+//                .map(PostReadDTO::new)
+//                .collect(Collectors.toList());
+//    }
+    public PostReadDTO findById(UUID userId, Long postId) {
+        List<PostReadDTO> postList = userPostLists.get(userId);
+        if (postList == null) {
+            throw new IllegalStateException("Posts have not been initialized for user: " + userId + ". Call readAll() first.");
+        }
+        return postList.stream()
+                .filter(dto -> dto.getPostId().equals(postId))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Post not found with id: " + postId));
     }
-
     public Integer countByUserId(UUID userId){
         List<Post> posts = postRepo.findAllByUserId(userId)
                 .stream()

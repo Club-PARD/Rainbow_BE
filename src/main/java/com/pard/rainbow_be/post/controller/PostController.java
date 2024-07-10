@@ -41,11 +41,11 @@ public class PostController {
         return postService.readAll(ownerId);
     }
 
-    @GetMapping("/post/{postId}")
+    @GetMapping("/post/find/{ownerId}/{postId}")
     @Operation(summary = "postId 별로 게시물 보기", description = "게시물을 보게 하는 메서드")
-    public PostReadDTO readPost(@PathVariable Long postId){
+    public PostReadDTO readPost(@PathVariable UUID ownerId, @PathVariable Long postId){
         log.info("📍view Post");
-        return postService.findById(postId);
+        return postService.findById(ownerId, postId);
     }
 
     @GetMapping("/post/count/{ownerId}")
