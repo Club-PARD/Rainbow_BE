@@ -22,15 +22,15 @@ public class Post{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 
-    @Column
+    @Column(name = "post_title", nullable = false)
     private String postTitle;
 
     @Lob
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "picture_url", nullable = false, columnDefinition = "TEXT")
     private String pictureUrl;
 
     @Lob
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "post_content", nullable = false, columnDefinition = "TEXT")
     private String postContent;
 
     @ManyToOne
@@ -38,10 +38,11 @@ public class Post{
     private User user;
 
     @CreationTimestamp
-    @Column(nullable = false)
+    @Column(name = "create_time",nullable = false)
     private LocalDateTime createdTime;
 
     @LastModifiedDate
+    @Column(name = "modified_time")
     private LocalDateTime modifiedTime;
 
     public void updateAll(PostUpdateDTO dto){
