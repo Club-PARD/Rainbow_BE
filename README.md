@@ -161,6 +161,8 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 <br>
 
 # Contributors 
+> 함께 만든 사람들 
+
 
 # Acknowledgements 
 
