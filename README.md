@@ -173,7 +173,9 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 
 # 🙏 Acknowledgements 
 
-<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExampoeG5sZDN4ZHhoNWRpMXRsdDZlcjhzczk4eTE0d2dyajB6YWJjeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SwO3hAK7Jt5nYD0L1z/giphy.gif"/>
+<div>
+<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExampoeG5sZDN4ZHhoNWRpMXRsdDZlcjhzczk4eTE0d2dyajB6YWJjeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SwO3hAK7Jt5nYD0L1z/giphy.gif" width="520" height="140" />
+</div>
 
 ![Pooh-Quote](https://hellogiggles.com/wp-content/uploads/sites/7/2016/04/14/giphy-46.gif)
 > “How lucky I am to have something that makes saying goodbye so hard.” <br/>-Winnie the Pooh, The Adventures of Winnie the Pooh
