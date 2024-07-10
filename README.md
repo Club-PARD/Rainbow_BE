@@ -43,12 +43,12 @@ Sincerely,
 
 # 📗 Table of Contents
 
-- [Introduction](#📖-Introduction)
-- [Features](#🚀-Features)
-- [System Design and Documentation](#📝-System-Design-and-Documentation)
-- [Tech Stack](#🛠-Tech-Stack)
-- [Contributors](#👥-Contributors)
-- [Acknowledgements](#🙏-Acknowledgements)
+- [Introduction](#Introduction)
+- [Features](#Features)
+- [System Design and Documentation](#System-Design-and-Documentation)
+- [Tech Stack](#Tech-Stack)
+- [Contributors](#Contributors)
+- [Acknowledgements](#Acknowledgements)
 
 <div>
 
