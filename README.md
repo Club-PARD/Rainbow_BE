@@ -174,6 +174,7 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 # 🙏 Acknowledgements 
 
 <div>
+<img src="asset/images/PARD-Logo.png" width="520" height="140" />  
 <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExampoeG5sZDN4ZHhoNWRpMXRsdDZlcjhzczk4eTE0d2dyajB6YWJjeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SwO3hAK7Jt5nYD0L1z/giphy.gif" width="520" height="140" />
 </div>
 
