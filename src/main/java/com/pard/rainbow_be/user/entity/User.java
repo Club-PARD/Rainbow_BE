@@ -3,6 +3,8 @@ package com.pard.rainbow_be.user.entity;
 import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.util.BaseTimeEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
@@ -25,16 +27,18 @@ public class User extends BaseTimeEntity {
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
 
-    @Column(length = 30, unique = true)
+    @Column(name = "name")
     private String name;
 
     @Column(nullable = false, unique = true)
+    @Email(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "이메일 형식이 잘못되었습니다.")
     private String email;
 
-    @Column
+    @Column(name = "pet_name")
     private String petName;
 
-    @Column
+    @Column(name = "password",length = 30)
+    @Size(min = 8, max = 30, message = "Username must be between 8 and 30 characters")
     private String password;
 
     @Builder.Default
@@ -48,10 +52,6 @@ public class User extends BaseTimeEntity {
                 .password(dto.getPassword())
                 .petName(dto.getPetName())
                 .build();
-    }
-
-    public void update(String name){
-        this.name = name;
     }
 
     public void updateBoolean(Boolean publicCheck){
