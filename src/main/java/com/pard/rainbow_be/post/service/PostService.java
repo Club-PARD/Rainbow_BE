@@ -32,20 +32,24 @@ public class PostService {
     private final UserQuestionService userQuestionService;
 
 
-    private Map<UUID, List<PostReadDTO>> userPostLists = new ConcurrentHashMap<>();
-    private Map<UUID, AtomicInteger> userIndices = new ConcurrentHashMap<>();
+    private final Map<UUID, List<PostReadDTO>> userPostLists = new ConcurrentHashMap<>();
+    private final Map<UUID, AtomicInteger> userIndices = new ConcurrentHashMap<>();
 
 
     public void createPost(PostCreateDTO postCreateDTO, UUID userId){
         User user = userRepo.findById(userId).orElseThrow();
-        userQuestionService.answeredQuestion(userId, postCreateDTO.getPostTitle(), true);
+        if (postCreateDTO.getPictureUrl() == null || postCreateDTO.getPictureUrl().trim().isEmpty()) {
+            throw new IllegalArgumentException("Picture URL cannot be empty or null");
+        }
+        else { userQuestionService.answeredQuestion(userId, postCreateDTO.getPostTitle(), true);
+         }
         postRepo.save(Post.toEntity(postCreateDTO, user));
     }
 
 
     public List<PostReadDTO> readAll(UUID userId) {
         AtomicInteger index = new AtomicInteger(1);
-        List<PostReadDTO> postList = postRepo.findAllByUserId(userId, Sort.by(Sort.Direction.DESC, "createdTime"))
+        List<PostReadDTO> postList = postRepo.findAllByUserId(userId, Sort.by(Sort.Direction.ASC, "createdTime"))
                 .stream()
                 .map(post -> {
                     PostReadDTO dto = new PostReadDTO(post);
