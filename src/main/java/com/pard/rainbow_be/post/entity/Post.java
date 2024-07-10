@@ -44,8 +44,12 @@ public class Post{
     @LastModifiedDate
     private LocalDateTime modifiedTime;
 
-    public void update(PostUpdateDTO dto){
+    public void updateAll(PostUpdateDTO dto){
         this.pictureUrl = dto.getPictureUrl();
+        this.postContent = dto.getPostContent();
+    }
+
+    public void updateContent(PostUpdateDTO dto){
         this.postContent = dto.getPostContent();
     }
 

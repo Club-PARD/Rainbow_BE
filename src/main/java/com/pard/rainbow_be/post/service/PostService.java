@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -84,7 +85,12 @@ public class PostService {
     @Transactional
     public void updateById(Long postId, PostUpdateDTO postUpdateDTO){
         Post post = postRepo.findById(postId).orElseThrow();
-        post.update(postUpdateDTO);
+
+        if(Optional.ofNullable(postUpdateDTO.getPictureUrl()).orElse("").isEmpty()){
+            post.updateContent(postUpdateDTO);
+        }
+        else { post.updateAll(postUpdateDTO); }
+
         postRepo.save(post);
     }
 
