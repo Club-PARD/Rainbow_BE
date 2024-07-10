@@ -41,18 +41,18 @@ Sincerely,
 
 ----
 
-# Table of Contents
+# 📗 Table of Contents
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [System Design and Documentation](#System-Design-and-Documentation)
-- [Tech Stack](#Tech-Stack)
-- [Contributors](#Contributors)
-- [Acknowledgements](#Acknowledgements)
+- [Introduction](#📖_introduction)
+- [Features](#🚀_features)
+- [System Design and Documentation](#📝_System-Design-and-Documentation)
+- [Tech Stack](#🛠_Tech-Stack)
+- [Contributors](#👥_Contributors)
+- [Acknowledgements](#🙏_Acknowledgements)
 
 <div>
 
-# Introduction 
+# 📖 Introduction 
 ### 서비스명: Sincerely,
 #### 펫로스 증후군을 겪는 반려인이 제시된 질문에 따라 본인의 감정을 글로 적으며, 억눌렀던 감정을 표현하도록 돕는 웹 서비스 입니다
 > 💡 **Problem Definition:** 펫로스 증후군을 겪는 반려인은 감정을 억누르기 때문에 일상생활의 어려움을 겪습니다
@@ -65,7 +65,7 @@ Sincerely,
 | 어떤 방법을 쓰면 충분히 효과적으로 해소할 수 있는지 모른다. | 글쓰기라는 방법을 제시함으로써 글쓰는 과정에서 충분히 자신의 감정을 꺼낼 수 있도록 돕는다. |
 | 슬퍼하다보니 못해줬다는 죄책감에 휩싸여 분노의 단계에 머무른다. | 행복한 추억을 가장 빠르게 시각화할 수 있는 사진을 올리게 함으로써 “반려동물이 자신과 함께 있으며 행복했다!”는 것을 인식하게 만들어준다. |
 
-# Features 
+# 🚀 Features 
 ### 핵심 기능
 <aside>
 
@@ -104,7 +104,7 @@ Sincerely,
 </aside>
 
 
-# System Design and Documentation
+# 📝 System Design and Documentation
 ### ERD 
 <img alt="ERD," title="ERD," src="asset/images/ERD_Sincerely,.png" width="45%">
 
@@ -139,7 +139,7 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 ### Branch Criteria
 ![branch_target.png](asset/images/branch_target.png)
 
-# Tech Stack
+# 🛠 Tech Stack
 ### 👷 Built With
 <p>
   <img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=Recoil&logoColor=white"/>
@@ -160,7 +160,7 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 </p>
 <br>
 
-# Contributors 
+# 👥 Contributors 
 > 🌈 함께 만든 사람들 
 
 |                                                🫠 Skylar (feat.SKKKR)                                                |                          👅 LJ <br/>(정리하자면남자, 정남)                         |                          👾 Jojo                           |                          🐒 Mojo                           |
@@ -171,7 +171,7 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 |                                                  디자인                                                  |                           프론트엔드                           |                           프론트엔드                           |                           프론트엔드                           |
 | <img src="asset/images/member-profile/bigMatt.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/cheche.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/dongdong.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/uminnancy.png" style="width: 165px; height: 150px; object-fit: cover;"> |
 
-# Acknowledgements 
+# 🙏 Acknowledgements 
 
 ----
 
