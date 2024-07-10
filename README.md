@@ -108,8 +108,6 @@ Sincerely,
 ### ERD 
 
 
-### API Specification
-
 
 ### License
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
