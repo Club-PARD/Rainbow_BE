@@ -53,7 +53,7 @@ public class AuthController {
 
         setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
         setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
-
+        log.info("\uD83D\uDCCD gmail login");
         return userInfo;
     }
 
@@ -63,7 +63,7 @@ public class AuthController {
     public Map<String, Object> login(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
         boolean isAuthenticated = userService.validateUser(email, password);
         if (isAuthenticated) {
-            log.info("로그인 성공: " + email);
+            log.info("\uD83D\uDCCD 로그인 성공: " + email);
             User user = userRepo.findByEmail(email).orElseThrow();
 
             String accessToken = jwtUtil.generateAccessToken(email);
@@ -79,7 +79,7 @@ public class AuthController {
 
             return result;
         } else {
-            log.info("로그인 실패: " + email);
+            log.info("\uD83D\uDCCD  로그인 실패: " + email);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return Map.of("error", "Invalid email or password");
         }

@@ -48,12 +48,13 @@ public class UserService {
     public User createOrUpdateUser(String email) {
         Optional<User> optionalUser = userRepo.findByEmail(email);
         if (optionalUser.isPresent()) {
+            log.info("\uD83D\uDCCD user already is made up");
             return optionalUser.get();
         } else {
             User user = User.builder()
                     .email(email)
                     .build();
-
+            log.info("\uD83D\uDCCD user make up first");
             List<Question> questions = questionRepo.findAll();
             for (Question question : questions) {
                 UserQuestion userQuestion = UserQuestion.builder()
