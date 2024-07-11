@@ -47,19 +47,23 @@ public class UserService {
     @Transactional
     public User createOrUpdateUser(String email) {
         Optional<User> optionalUser = userRepo.findByEmail(email);
-        User user = optionalUser.orElseGet(() -> User.builder()
-                .email(email)
-                .build());
-
-        List<Question> questions = questionRepo.findAll();
-        for (Question question : questions) {
-            UserQuestion userQuestion = UserQuestion.builder()
-                    .user(user)
-                    .question(question)
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        } else {
+            User user = User.builder()
+                    .email(email)
                     .build();
-            userQuestionRepository.save(userQuestion);
+
+            List<Question> questions = questionRepo.findAll();
+            for (Question question : questions) {
+                UserQuestion userQuestion = UserQuestion.builder()
+                        .user(user)
+                        .question(question)
+                        .build();
+                userQuestionRepository.save(userQuestion);
+            }
+            return userRepo.save(user);
         }
-        return userRepo.save(user);
     }
 
     public UUID readByEmail(String email){
