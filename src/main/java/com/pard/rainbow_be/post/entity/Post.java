@@ -3,12 +3,11 @@ package com.pard.rainbow_be.post.entity;
 import com.pard.rainbow_be.post.dto.PostCreateDTO;
 import com.pard.rainbow_be.post.dto.PostUpdateDTO;
 import com.pard.rainbow_be.user.entity.User;
-import com.pard.rainbow_be.util.BaseTimeEntity;
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -26,11 +25,11 @@ public class Post{
     private String postTitle;
 
     @Lob
-    @Column(name = "picture_url", nullable = false, columnDefinition = "TEXT")
+    @Column(name ="picture_url", nullable = false, columnDefinition = "TEXT")
     private String pictureUrl;
 
     @Lob
-    @Column(name = "post_content", nullable = false, columnDefinition = "TEXT")
+    @Column(name="post_content",nullable = false, columnDefinition = "TEXT")
     private String postContent;
 
     @ManyToOne
@@ -38,10 +37,10 @@ public class Post{
     private User user;
 
     @CreationTimestamp
-    @Column(name = "create_time",nullable = false)
+    @Column(name = "created_time",nullable = false)
     private LocalDateTime createdTime;
 
-    @LastModifiedDate
+    @UpdateTimestamp
     @Column(name = "modified_time")
     private LocalDateTime modifiedTime;
 

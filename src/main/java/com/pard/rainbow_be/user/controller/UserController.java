@@ -3,6 +3,7 @@ package com.pard.rainbow_be.user.controller;
 
 import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.user.service.UserService;
+import com.pard.rainbow_be.util.ResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,14 +22,8 @@ public class UserController {
     //localToSignUp
     @PostMapping({"/register"})
     @Operation(summary = "유저 등록", description = "여기서 쓰시면 됩니다.")
-    public ResponseEntity<String> createUser(@RequestBody UserDto.Create dto) {
-        if (userService.userExists(dto.getEmail())) {
-            return ResponseEntity.status(400).body("Username is already taken");
-        }
-
+    public void createUser(@RequestBody UserDto.Create dto) {
         userService.createUser(dto);
-        log.info("📍make User");
-        return ResponseEntity.ok("User registered successfully");
     }
 
     @GetMapping("/find/email/{email}")

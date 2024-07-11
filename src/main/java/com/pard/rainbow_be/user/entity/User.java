@@ -27,7 +27,7 @@ public class User extends BaseTimeEntity {
     @JdbcTypeCode(SqlTypes.BINARY)
     private UUID id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name",unique = true)
     private String name;
 
     @Column(nullable = false, unique = true)
@@ -42,7 +42,7 @@ public class User extends BaseTimeEntity {
     private String password;
 
     @Builder.Default
-    @Column(name = "public_check", nullable = false)
+    @Column(name = "public_check",nullable = false)
     private Boolean publicCheck = false;
 
     public static User localToEntity(UserDto.Create dto){

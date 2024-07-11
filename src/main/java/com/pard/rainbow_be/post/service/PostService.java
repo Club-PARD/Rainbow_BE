@@ -32,8 +32,8 @@ public class PostService {
     private final UserQuestionService userQuestionService;
 
 
-    private final Map<UUID, List<PostReadDTO>> userPostLists = new ConcurrentHashMap<>();
-    private final Map<UUID, AtomicInteger> userIndices = new ConcurrentHashMap<>();
+    private Map<UUID, List<PostReadDTO>> userPostLists = new ConcurrentHashMap<>();
+    private Map<UUID, AtomicInteger> userIndices = new ConcurrentHashMap<>();
 
 
     public void createPost(PostCreateDTO postCreateDTO, UUID userId){

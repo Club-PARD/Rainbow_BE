@@ -22,7 +22,6 @@ public class Comment {
     private Long commentId;
 
     @NotBlank(message = "comment는 꼭 넣어주셔야 합니다.")
-    @Column(name = "user_comment")
     private String userComment;
 
     @ManyToOne
