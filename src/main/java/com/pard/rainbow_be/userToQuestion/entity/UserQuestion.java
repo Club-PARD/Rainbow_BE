@@ -12,6 +12,7 @@ import lombok.*;
 @Entity
 @Table(name = "UserToQuestion")
 public class UserQuestion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +25,7 @@ public class UserQuestion {
     @JoinColumn(name = "question_id")
     private Question question;
 
+    @Column(name = "answered")
     private boolean answered;
 
     public void answerQuestion(Boolean answered) {

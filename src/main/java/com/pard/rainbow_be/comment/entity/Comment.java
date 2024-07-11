@@ -5,6 +5,7 @@ import com.pard.rainbow_be.comment.dto.CommentCreateDTO;
 import com.pard.rainbow_be.comment.dto.CommentUpdateDTO;
 import com.pard.rainbow_be.user.entity.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,8 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
+
+    @NotBlank(message = "comment는 꼭 넣어주셔야 합니다.")
     private String userComment;
 
     @ManyToOne

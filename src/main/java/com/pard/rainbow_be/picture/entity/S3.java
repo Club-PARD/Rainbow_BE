@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "image")
 public class S3 {
 
     @Id
@@ -19,11 +20,11 @@ public class S3 {
     private Long id;
 
     @Lob
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name="file_name", nullable = false, columnDefinition = "TEXT")
     private String fileName;
 
     @Lob
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "upload_image_url", nullable = false, columnDefinition = "TEXT")
     private String uploadImageUrl;
 
 }
