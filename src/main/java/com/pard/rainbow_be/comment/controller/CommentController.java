@@ -25,15 +25,12 @@ public class CommentController {
     @Operation(summary = "댓글 등록", description = "공간의 주인 ID (ownerId)를 통해 댓글을 쓸 공간을 지정하고, 작성자 ID(writerId)를 통해 해당 공간에 댓글을 작성합니다")
     public String createComment(@RequestBody CommentCreateDTO commentCreateDTO, @PathVariable UUID ownerId, @PathVariable UUID writerId){
         commentService.createComment(commentCreateDTO, ownerId, writerId);
-        log.info("Space Owner: " + ownerId);
-        log.info("Comment Written By: " + writerId);
         return "Comment Create Success";
     }
 
     @GetMapping("/readAll/{ownerId}")
     @Operation(summary = "댓글 전체 보기", description = "공간 주인의 ID(ownerId)를 지정하여 해당 공간에 작성된 모든 댓글을 불러옵니다")
     public List<CommentReadDTO>readAll(@PathVariable UUID ownerId){
-        log.info("📍View all comments for userId: " + ownerId);
         return commentService.readAll(ownerId);
     }
 

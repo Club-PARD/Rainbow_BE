@@ -64,12 +64,6 @@ public class PostService {
         return postList;
     }
 
-//    public List<PostReadDTO> readAll(UUID userId) {
-//        return postRepo.findAllByUserId(userId, Sort.by(Sort.Direction.DESC, "createdTime"))
-//                .stream()
-//                .map(PostReadDTO::new)
-//                .collect(Collectors.toList());
-//    }
     public PostReadDTO findById(UUID userId, Long postId) {
         List<PostReadDTO> postList = userPostLists.get(userId);
         if (postList == null) {
@@ -136,7 +130,6 @@ public class PostService {
         Long questionId = question.getId();
 
         userQuestionService.answerQuestion(user.getId(), questionId, false);
-        log.info("📍: change the answerQuestion");
         postRepo.deleteById(postId);
     }
 }

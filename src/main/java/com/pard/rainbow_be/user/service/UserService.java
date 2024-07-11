@@ -47,11 +47,9 @@ public class UserService {
     @Transactional
     public User createOrUpdateUser(String email) {
         Optional<User> optionalUser = userRepo.findByEmail(email);
-        log.info("되냐");
         User user = optionalUser.orElseGet(() -> User.builder()
                 .email(email)
                 .build());
-        log.info("만들어 졌냐?");
 
         List<Question> questions = questionRepo.findAll();
         for (Question question : questions) {
