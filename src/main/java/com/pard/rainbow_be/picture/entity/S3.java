@@ -27,4 +27,6 @@ public class S3 {
     @Column(name = "upload_image_url", nullable = false, columnDefinition = "TEXT")
     private String uploadImageUrl;
 
+
+
 }

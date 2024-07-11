@@ -21,6 +21,10 @@ public class SecurityConfig {
 
     @Value("${sincerely.server.domain}")
     private String domain;
+
+    @Value("${sincerely.client.domain}")
+    private String domain2;
+
     private final JwtFilter jwtFilter;
 
     @Bean
@@ -59,6 +63,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin(domain);
+        configuration.addAllowedOrigin(domain2);
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("GET");
         configuration.addAllowedMethod("POST");
