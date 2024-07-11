@@ -40,6 +40,12 @@ public class CommentController {
         return commentService.readOne(ownerId, commentId);
     }
 
+    @GetMapping("/count/{ownerId}")
+    @Operation(summary = "owner의 아이디 갯수 세기", description = "공간 주인의 ID(ownerId)를 지정하여 해당 댓글의 갯수를 불러오는 방법")
+    public Integer countCommentOwner(@PathVariable UUID ownerId){
+        log.info("Comment Count");
+        return commentService.countOwnerComment(ownerId);
+    }
 
 
     @PatchMapping("/{writerId}/{commentId}")
