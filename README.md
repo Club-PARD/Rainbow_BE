@@ -163,7 +163,7 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 # 👥 Contributors 
 > 🌈 함께 만든 사람들 
 
-|                                                🫠 Skylar (feat.SKRRR)                                                |                          👅 LJ <br/>(정리하자면남자, 정남)                         |                          👾 Dojo                           |                          🐒 Mojo                           |
+|                                                🫠 Skylar (feat.SKRRR)                                                |                          👅 LJ <br/>(정리하자면남자)                         |                          👾 Dojo                           |                          🐒 Mojo                           |
 |:-----------------------------------------------------------------------------------------------------:|:---------------------------------------------------------:|:---------------------------------------------------------:|:---------------------------------------------------------:|
 |                                                  PM                                                   |                            기획                             |                            백엔드                            |                            백엔드                            |
 |  <img src="asset/images/member-profile/Skylar.jpeg" style="width: 140px; height: 150px; object-fit: cover;">  |  <img src="asset/images/member-profile/LJ.png" style="width: 135px; height: 140px; object-fit: cover;">   | <img src="asset/images/member-profile/dodo.png" style="width: 150px; height: 150px; object-fit: cover;"> | <img src="asset/images/member-profile/mojo.jpeg" style="width: 140px; height: 150px; object-fit: cover;"> |
