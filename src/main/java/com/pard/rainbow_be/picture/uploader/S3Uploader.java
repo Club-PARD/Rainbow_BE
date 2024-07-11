@@ -3,6 +3,7 @@ package com.pard.rainbow_be.picture.uploader;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.pard.rainbow_be.picture.repository.S3Repo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class S3Uploader {
 
     private final AmazonS3 amazonS3;
+    private final S3Repo s3Repo;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -35,6 +37,7 @@ public class S3Uploader {
     private String upload(File uploadFile, String dirName) {
         String fileName = dirName + "/" + UUID.randomUUID() + "-" + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
+
         removeNewFile(uploadFile);
         return uploadImageUrl;
     }

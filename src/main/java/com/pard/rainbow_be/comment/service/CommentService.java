@@ -6,6 +6,8 @@ import com.pard.rainbow_be.comment.dto.CommentReadDTO;
 import com.pard.rainbow_be.comment.dto.CommentUpdateDTO;
 import com.pard.rainbow_be.comment.entity.Comment;
 import com.pard.rainbow_be.comment.repo.CommentRepo;
+import com.pard.rainbow_be.post.dto.PostReadDTO;
+import com.pard.rainbow_be.post.entity.Post;
 import com.pard.rainbow_be.user.entity.User;
 import com.pard.rainbow_be.user.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +42,13 @@ public class CommentService {
                 .map(CommentReadDTO::new);
     }
 
+    public Integer countOwnerComment(UUID ownerId){
+        List<Comment> comments = commentRepo.findAllByOwnerId(ownerId)
+                .stream()
+                .map(CommentReadDTO::new)
+                .collect(Collectors.toList());
+        return comments.size();
+    }
 
     public void updateByWriterIdAndCommentId(UUID writerId, Long commentId, CommentUpdateDTO commentUpdateDTO){
         Comment comment = commentRepo.findByOwnerIdAndCommentId(writerId, commentId).get();

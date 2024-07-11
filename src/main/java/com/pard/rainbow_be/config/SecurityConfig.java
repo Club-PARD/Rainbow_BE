@@ -21,6 +21,10 @@ public class SecurityConfig {
 
     @Value("${sincerely.server.domain}")
     private String domain;
+
+    @Value("${sincerely.client.domain}")
+    private String domain2;
+
     private final JwtFilter jwtFilter;
 
     @Bean
@@ -29,7 +33,7 @@ public class SecurityConfig {
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(au -> au
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/api/auth/**","/api/**","/comment/**").permitAll()
                         .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // JwtFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
@@ -59,6 +63,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin(domain);
+        configuration.addAllowedOrigin(domain2);
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("GET");
         configuration.addAllowedMethod("POST");
