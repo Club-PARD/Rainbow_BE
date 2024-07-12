@@ -65,7 +65,7 @@ public class PostService {
     }
 
     public PostReadDTO findById(UUID userId, Long postId) {
-        List<PostReadDTO> postList = userPostLists.get(userId);
+        List<PostReadDTO> postList = readAll(userId);
         if (postList == null) {
             throw new IllegalStateException("Posts have not been initialized for user: " + userId + ". Call readAll() first.");
         }
@@ -74,6 +74,7 @@ public class PostService {
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Post not found with id: " + postId));
     }
+
     public Integer countByUserId(UUID userId){
         List<Post> posts = postRepo.findAllByUserId(userId)
                 .stream()

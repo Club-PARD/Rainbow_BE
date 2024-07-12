@@ -22,7 +22,10 @@ public class SecurityConfig {
     @Value("${sincerely.server.domain}")
     private String domain;
 
-    @Value("${sincerely.client.domain}")
+    @Value("${sincerely.client.domain1}")
+    private String domain1;
+
+    @Value("${sincerely.client.domain2}")
     private String domain2;
 
     private final JwtFilter jwtFilter;
@@ -34,7 +37,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(au -> au
                         .requestMatchers("/api/auth/**","/api/**","/comment/**").permitAll()
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // JwtFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
 
@@ -63,6 +66,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin(domain);
+        configuration.addAllowedOrigin(domain1);
         configuration.addAllowedOrigin(domain2);
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("GET");
@@ -70,7 +74,7 @@ public class SecurityConfig {
         configuration.addAllowedMethod("PATCH");
         configuration.addAllowedMethod("DELETE");
         configuration.setAllowCredentials(true);
-//        configuration.setMaxAge(3600L); //preflight 결과를 1시간동안 캐시에 저장
+        configuration.setMaxAge(3600L); //preflight 결과를 1시간동안 캐시에 저장
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
