@@ -111,6 +111,9 @@ Sincerely,
 ### API
 [API 명세서](https://www.notion.so/API-2539bc93f00d4772850e6aba39e86e58?pvs=4)
 
+### 서버 주소
+[서버 주소](https://sincerely-server.shop/swagger-ui/index.html#/)
+
 ---
 
 # 🛠 Tech Stack
