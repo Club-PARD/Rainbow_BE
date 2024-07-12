@@ -104,6 +104,7 @@ public class PostService {
         );
 
         return posts.stream()
+                .sorted(Comparator.comparing(Post::getPostId))
                 .map(CommunityReadDto::new)
                 .collect(Collectors.toList());
     }
