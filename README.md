@@ -108,6 +108,9 @@ Sincerely,
 ### ERD 
 <img alt="ERD," title="ERD," src="asset/images/ERD_Sincerely,.png" width="45%">
 
+### API
+[API 명세서](https://www.notion.so/API-2539bc93f00d4772850e6aba39e86e58?pvs=4)
+
 ---
 
 # 🛠 Tech Stack
