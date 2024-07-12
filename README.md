@@ -169,9 +169,3 @@ By default, create a commit using the icon in https://gitmoji.dev/.
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
-
-<br/> 
-
-<div style="background-color: #f9f9f9; border-left: 6px solid #2196F3; padding: 10px;">
-  <strong>Note:</strong> This is a blue callout.
-</div>
