@@ -4,19 +4,18 @@ import com.pard.rainbow_be.comment.repo.CommentRepo;
 import com.pard.rainbow_be.post.repo.PostRepo;
 import com.pard.rainbow_be.question.entity.Question;
 import com.pard.rainbow_be.question.repo.QuestionRepo;
+import com.pard.rainbow_be.user.dto.UserCreateDto;
 import com.pard.rainbow_be.user.dto.UserDto;
 import com.pard.rainbow_be.user.entity.User;
 import com.pard.rainbow_be.user.repo.UserRepo;
 import com.pard.rainbow_be.userToQuestion.entity.UserQuestion;
 import com.pard.rainbow_be.userToQuestion.repo.UserQuestionRepository;
-import com.pard.rainbow_be.util.ResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ public class UserService {
     private final CommentRepo commentRepo;
 
     @Transactional
-    public void createUser(UserDto.Create dto) {
+    public void createUser(UserCreateDto dto) {
         List<Question> questions = questionRepo.findAll();
         User user = userRepo.save(User.localToEntity(dto));
 
