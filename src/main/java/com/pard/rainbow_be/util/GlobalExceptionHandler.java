@@ -1,8 +1,10 @@
 package com.pard.rainbow_be.util;
 
-import java.nio.file.AccessDeniedException;
-import java.util.ArrayList;
-
+import com.pard.rainbow_be.exception.dto.CustomException;
+import com.pard.rainbow_be.exception.dto.ErrorCode;
+import com.pard.rainbow_be.exception.dto.ErrorResponse;
+import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,11 +14,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-
-import lombok.extern.slf4j.Slf4j;
+import java.nio.file.AccessDeniedException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
-@ControllerAdvice(basePackages = "com.paynuri.v1")
+@ControllerAdvice(basePackages = "com.pard.rainbow_be")
 public class GlobalExceptionHandler {
 
     /**
@@ -27,7 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<ErrorResponse.FieldError> errors = new ArrayList<>();
-        for(FieldError fieldError : e.getFieldErrors()) {
+        for (FieldError fieldError : e.getFieldErrors()) {
             log.error("name:{}, message:{}", fieldError.getField(), fieldError.getDefaultMessage());
             ErrorResponse.FieldError error = new ErrorResponse.FieldError();
             error.setField(fieldError.getField());
@@ -44,9 +47,8 @@ public class GlobalExceptionHandler {
      * JPA를 통해 DB 조작시 발생
      * ConstraintViolationException : 제약 조건 위배되었을 때 발생
      * DataIntegrityViolationException : 데이터의 삽입/수정이 무결성 제약 조건을 위반할 때 발생
-     *
      */
-    @ExceptionHandler(value = { ConstraintViolationException.class, DataIntegrityViolationException.class})
+    @ExceptionHandler(value = {ConstraintViolationException.class, DataIntegrityViolationException.class})
     protected ResponseEntity<ErrorResponse> handleDataException(Exception e) {
         ErrorResponse response = new ErrorResponse(ErrorCode.DUPLICATE_RESOURCE);
         return ResponseEntity.status(response.getStatus()).body(response);
@@ -83,7 +85,7 @@ public class GlobalExceptionHandler {
     /**
      * Business Logic 수행 중 발생시킬 커스텀 에러
      */
-    @ExceptionHandler(value = { CustomException.class })
+    @ExceptionHandler(value = {CustomException.class})
     protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
         ErrorResponse response = new ErrorResponse(ErrorCode.BAD_REQUEST); // CustomException에 ErrorCode Enum 반환
         return ResponseEntity.status(response.getStatus()).body(response);
@@ -99,4 +101,3 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }
-[출처] [Spring]Spring Exception Handling(예외 처리) 및 Global Exception Handler(전역 예외 처리)|작성자 로그
