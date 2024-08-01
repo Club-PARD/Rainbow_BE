@@ -5,7 +5,7 @@ import com.pard.rainbow_be.post.repo.PostRepo;
 import com.pard.rainbow_be.question.entity.Question;
 import com.pard.rainbow_be.question.repo.QuestionRepo;
 import com.pard.rainbow_be.user.dto.UserCreateDto;
-import com.pard.rainbow_be.user.dto.UserDto;
+import com.pard.rainbow_be.user.dto.UserReadDto;
 import com.pard.rainbow_be.user.entity.User;
 import com.pard.rainbow_be.user.repo.UserRepo;
 import com.pard.rainbow_be.userToQuestion.entity.UserQuestion;
@@ -76,9 +76,9 @@ public class UserService {
         return user.getPetName();
     }
 
-    public UserDto.Read readById(UUID userId){
+    public UserReadDto readById(UUID userId){
         User user = userRepo.findById(userId).orElseThrow();
-        return new UserDto.Read(user);
+        return new UserReadDto(user);
     }
 
     @Transactional

@@ -2,10 +2,9 @@ package com.pard.rainbow_be.user.controller;
 
 
 import com.pard.rainbow_be.user.dto.UserCreateDto;
-import com.pard.rainbow_be.user.dto.UserDto;
+import com.pard.rainbow_be.user.dto.UserReadDto;
 import com.pard.rainbow_be.user.dto.UserUpdateDto;
 import com.pard.rainbow_be.user.service.UserService;
-import com.pard.rainbow_be.util.ResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +59,7 @@ public class UserController {
 
         if (ownerId == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
-        UserDto.Read dto = userService.readById(ownerId);
+        UserReadDto dto = userService.readById(ownerId);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
