@@ -1,6 +1,6 @@
 package com.pard.rainbow_be.user.entity;
 
-import com.pard.rainbow_be.user.dto.UserDto;
+import com.pard.rainbow_be.user.dto.UserCreateDto;
 import com.pard.rainbow_be.util.BaseTimeEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -45,7 +45,7 @@ public class User extends BaseTimeEntity {
     @Column(name = "public_check",nullable = false)
     private Boolean publicCheck = false;
 
-    public static User localToEntity(UserDto.Create dto){
+    public static User localToEntity(UserCreateDto dto){
         return User.builder()
                 .name(dto.getName())
                 .email(dto.getEmail())
