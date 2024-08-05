@@ -22,6 +22,7 @@ public enum ErrorCode {
 
     /* 404 NOT_FOUND : Resource 를 찾을 수 없음 */
     MEMBER_NOT_FOUND(404, "NOT_FOUND","해당 유저 정보를 찾을 수 없습니다."),
+
     RESOURCE_NOT_FOUND(404, "NOT_FOUND","해당 정보를 찾을 수 없습니다."),
 
     /* 405 METHOD_NOT_ALLOWED : 지원하지 않는 HTTP Method */
@@ -31,7 +32,7 @@ public enum ErrorCode {
     DUPLICATE_RESOURCE(409, "CONFLICT","데이터가 이미 존재합니다"),
 
     /* 500 INTERNAL_SERVER_ERROR */
-    SERVER_ERROR(500, "INTERNAL_SERVER_ERROR", "예기치 못한 오류가 발생하였습니다.");
+    INTERNAL_SERVER_ERROR(500, "INTERNAL_SERVER_ERROR", "예기치 못한 오류가 발생하였습니다.");
 
     private int status;
     private final String code;

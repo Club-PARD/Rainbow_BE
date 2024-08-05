@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(Exception e) {
         e.printStackTrace();
-        ErrorResponse response = new ErrorResponse(ErrorCode.SERVER_ERROR);
+        ErrorResponse response = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }
