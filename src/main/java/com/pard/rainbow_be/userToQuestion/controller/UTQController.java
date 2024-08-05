@@ -1,10 +1,15 @@
 package com.pard.rainbow_be.userToQuestion.controller;
 
+import com.pard.rainbow_be.exception.dto.CustomException;
+import com.pard.rainbow_be.exception.dto.ErrorCode;
+import com.pard.rainbow_be.exception.dto.ErrorResponse;
 import com.pard.rainbow_be.userToQuestion.dto.QuestionResponseDto;
 import com.pard.rainbow_be.userToQuestion.service.UserQuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +30,17 @@ public class UTQController {
 
     @GetMapping("/questions/{ownerId}")
     @Operation(summary = "해당 유저의 질문 리스트", description = "해당 id를 갖은 유저가 사용한 혹은 사용하지 않은 질문 전체를 보내준다.")
-    public List<QuestionResponseDto> questionList(@PathVariable UUID ownerId){
+    public ResponseEntity<?> questionList(@PathVariable UUID ownerId){
         log.info("📍 모든 질문 리스트 보내줌");
-        return userQuestionService.questionList(ownerId);
+        try {
+            List<QuestionResponseDto> questionList = userQuestionService.questionList(ownerId);
+            return new ResponseEntity<>(questionList, HttpStatus.OK);
+        } catch (CustomException ex) {
+            ErrorCode errorCode = ex.getErrorCode();
+            return new ResponseEntity<>(new ErrorResponse(errorCode), HttpStatus.valueOf(errorCode.getStatus()));
+        } catch (Exception ex) {
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
