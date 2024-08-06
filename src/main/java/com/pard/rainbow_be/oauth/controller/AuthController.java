@@ -24,14 +24,14 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final JwtService JwtService;
+    private final JwtService jwtService;
     private final AuthService authService;
 
     @Value("${google.clientId}")
     private String googleClientId;
 
     public AuthController(JwtService jwtService, AuthService authService) {
-        this.JwtService = jwtService;
+        this.jwtService = jwtService;
         this.authService = authService;
     }
 
@@ -85,11 +85,11 @@ public class AuthController {
 
             Map<String, Object> userInfo = authService.saveOrUpdateUser(email);
 
-            String accessToken = JwtService.generateAccessToken(email);
-            String refreshToken = JwtService.generateRefreshToken(email);
+            String accessToken = jwtService.generateAccessToken(email);
+            String refreshToken = jwtService.generateRefreshToken(email);
 
-            setCookie(response, "access_token", accessToken, (int) (JwtService.getAccessTokenExpiration() / 1000));
-            setCookie(response, "refresh_token", refreshToken, (int) (JwtService.getRefreshTokenExpiration() / 1000));
+            setCookie(response, "access_token", accessToken, (int) (jwtService.getAccessTokenExpiration() / 1000));
+            setCookie(response, "refresh_token", refreshToken, (int) (jwtService.getRefreshTokenExpiration() / 1000));
             log.info("\uD83D\uDCCD gmail login");
             userInfo.put("accessToken", accessToken);
             userInfo.put("refreshToken", refreshToken);
@@ -107,11 +107,12 @@ public class AuthController {
                 .findFirst();
 
         if (accessTokenCookie.isPresent()) {
-            Claims claims = JwtService.validateToken(accessTokenCookie.get().getValue());
-            if (claims != null) {
-                return "Token is valid for user: " + claims.getSubject();
+            String token = accessTokenCookie.get().getValue();
+            Claims claims = jwtService.validateToken(token);
+            if (claims != null && !jwtService.isTokenExpired(token)) {
+                return "Token is valid for user: " + jwtService.extractEmail(token);
             } else {
-                return "Invalid token";
+                return "Invalid or expired token";
             }
         } else {
             return "Access token not found";
@@ -126,21 +127,14 @@ public class AuthController {
                 .findFirst();
 
         if (refreshTokenCookie.isPresent()) {
-            try {
-                Claims claims = JwtService.validateToken(refreshTokenCookie.get().getValue());
-                String newAccessToken = JwtService.generateAccessToken(claims.getSubject());
-
-                Cookie newAccessCookie = new Cookie("access_token", newAccessToken);
-                newAccessCookie.setHttpOnly(true);
-                newAccessCookie.setSecure(true);
-                newAccessCookie.setPath("/");
-                newAccessCookie.setMaxAge((int) (JwtService.getAccessTokenExpiration() / 1000));
-
-                response.addCookie(newAccessCookie);
-
+            String refreshToken = refreshTokenCookie.get().getValue();
+            Claims claims = jwtService.validateToken(refreshToken);
+            if (claims != null && !jwtService.isTokenExpired(refreshToken)) {
+                String newAccessToken = jwtService.generateAccessToken(claims.getSubject());
+                setCookie(response, "access_token", newAccessToken, (int) (jwtService.getAccessTokenExpiration() / 1000));
                 return "Access token refreshed successfully";
-            } catch (Exception e) {
-                return "Invalid refresh token";
+            } else {
+                return "Invalid or expired refresh token";
             }
         } else {
             return "Refresh token not found";
