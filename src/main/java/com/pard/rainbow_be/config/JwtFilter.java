@@ -1,7 +1,7 @@
 package com.pard.rainbow_be.config;
 
 
-import com.pard.rainbow_be.util.jwt.JwtUtil;
+import com.pard.rainbow_be.oauth.jwt.JwtUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;

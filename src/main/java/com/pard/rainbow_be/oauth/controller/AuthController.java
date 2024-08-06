@@ -4,7 +4,7 @@ import com.pard.rainbow_be.oauth.service.AuthService;
 import com.pard.rainbow_be.user.entity.User;
 import com.pard.rainbow_be.user.repo.UserRepo;
 import com.pard.rainbow_be.user.service.UserService;
-import com.pard.rainbow_be.util.jwt.JwtUtil;
+import com.pard.rainbow_be.oauth.jwt.JwtUtil;
 import io.jsonwebtoken.Claims;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.Cookie;
