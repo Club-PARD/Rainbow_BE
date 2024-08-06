@@ -13,8 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import static com.pard.rainbow_be.oauth.jwt.JwtUtil.ACCESS_EXPIRATION_TIME;
-import static com.pard.rainbow_be.oauth.jwt.JwtUtil.REFRESH_EXPIRATION_TIME;
 @Service
 public class JwtService {
     private Key key;
