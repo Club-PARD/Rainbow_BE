@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.function.Function;
 
 import static com.pard.rainbow_be.oauth.jwt.JwtUtil.ACCESS_EXPIRATION_TIME;
 import static com.pard.rainbow_be.oauth.jwt.JwtUtil.REFRESH_EXPIRATION_TIME;
-
+@Service
 public class JwtService {
     private Key key;
 
@@ -50,9 +51,12 @@ public class JwtService {
                 .compact();
     }
 
-    public Boolean validateToken(String token, String email) {
-        final String extractedEmail = extractEmail(token);
-        return (extractedEmail.equals(email) && !isTokenExpired(token));
+    public Claims validateToken(String token) {
+        try {
+            return extractAllClaims(token);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public String extractEmail(String token) {
@@ -74,5 +78,4 @@ public class JwtService {
     private Boolean isTokenExpired(String token) {
         return extractClaim(token, Claims::getExpiration).before(new Date());
     }
-
 }

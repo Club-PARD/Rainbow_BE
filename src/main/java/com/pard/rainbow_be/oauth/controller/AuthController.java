@@ -5,6 +5,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.pard.rainbow_be.oauth.service.AuthService;
+import com.pard.rainbow_be.oauth.service.JwtService;
 import com.pard.rainbow_be.user.repo.UserRepo;
 import com.pard.rainbow_be.user.service.UserService;
 import com.pard.rainbow_be.oauth.jwt.JwtUtil;
@@ -26,14 +27,14 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final JwtUtil jwtUtil;
+    private final JwtService JwtService;
     private final AuthService authService;
 
     @Value("${google.clientId}")
     private String googleClientId;
 
-    public AuthController(JwtUtil jwtUtil, AuthService authService ,UserService userService, UserRepo userRepo) {
-        this.jwtUtil = jwtUtil;
+    public AuthController(JwtService jwtService, AuthService authService) {
+        this.JwtService = jwtService;
         this.authService = authService;
     }
 
@@ -87,8 +88,8 @@ public class AuthController {
 
             Map<String, Object> userInfo = authService.saveOrUpdateUser(email);
 
-            String accessToken = jwtUtil.generateAccessToken(email);
-            String refreshToken = jwtUtil.generateRefreshToken(email);
+            String accessToken = JwtService.generateAccessToken(email);
+            String refreshToken = JwtService.generateRefreshToken(email);
 
             setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
             setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
@@ -109,7 +110,7 @@ public class AuthController {
                 .findFirst();
 
         if (accessTokenCookie.isPresent()) {
-            Claims claims = jwtUtil.validateToken(accessTokenCookie.get().getValue());
+            Claims claims = JwtService.validateToken(accessTokenCookie.get().getValue());
             if (claims != null) {
                 return "Token is valid for user: " + claims.getSubject();
             } else {
@@ -129,14 +130,14 @@ public class AuthController {
 
         if (refreshTokenCookie.isPresent()) {
             try {
-                Claims claims = jwtUtil.validateToken(refreshTokenCookie.get().getValue());
-                String newAccessToken = jwtUtil.generateAccessToken(claims.getSubject());
+                Claims claims = JwtService.validateToken(refreshTokenCookie.get().getValue());
+                String newAccessToken = JwtService.generateAccessToken(claims.getSubject());
 
                 Cookie newAccessCookie = new Cookie("access_token", newAccessToken);
                 newAccessCookie.setHttpOnly(true);
                 newAccessCookie.setSecure(true);
                 newAccessCookie.setPath("/");
-                newAccessCookie.setMaxAge((int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
+                newAccessCookie.setMaxAge((int) (JwtService.getAccessTokenExpiration() / 1000));
 
                 response.addCookie(newAccessCookie);
 
