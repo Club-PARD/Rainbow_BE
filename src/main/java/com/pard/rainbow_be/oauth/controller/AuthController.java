@@ -91,8 +91,8 @@ public class AuthController {
             String accessToken = JwtService.generateAccessToken(email);
             String refreshToken = JwtService.generateRefreshToken(email);
 
-            setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
-            setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
+            setCookie(response, "access_token", accessToken, (int) (JwtService.getAccessTokenExpiration() / 1000));
+            setCookie(response, "refresh_token", refreshToken, (int) (JwtService.getRefreshTokenExpiration() / 1000));
             log.info("\uD83D\uDCCD gmail login");
             userInfo.put("accessToken", accessToken);
             userInfo.put("refreshToken", refreshToken);
