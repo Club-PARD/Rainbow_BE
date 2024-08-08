@@ -1,7 +1,7 @@
 package com.pard.rainbow_be.config;
 
 
-import com.pard.rainbow_be.util.jwt.JwtUtil;
+import com.pard.rainbow_be.oauth.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -26,10 +26,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
 
-    private final JwtUtil jwtUtil;
+    private final JwtService jwtService;
 
-    public JwtFilter(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
+    public JwtFilter(JwtService jwtService) {
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (token != null) {
             try {
                 logger.info("Token found in cookies: {}", token);
-                Claims claims = jwtUtil.validateToken(token);
+                Claims claims = jwtService.validateToken(token);
                 if (claims != null) {
                     logger.info("Token is valid for user: {}", claims.getSubject());
 

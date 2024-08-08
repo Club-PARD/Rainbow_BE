@@ -1,35 +1,40 @@
 package com.pard.rainbow_be.oauth.controller;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import com.pard.rainbow_be.oauth.service.AuthService;
-import com.pard.rainbow_be.user.entity.User;
-import com.pard.rainbow_be.user.repo.UserRepo;
-import com.pard.rainbow_be.user.service.UserService;
-import com.pard.rainbow_be.util.jwt.JwtUtil;
+import com.pard.rainbow_be.oauth.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.*;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final JwtUtil jwtUtil;
-    private final AuthService authService;
-    private final UserService userService;
-    private final UserRepo userRepo;
+    private final JwtService jwtService;
 
-    public AuthController(JwtUtil jwtUtil, AuthService authService ,UserService userService, UserRepo userRepo) {
-        this.jwtUtil = jwtUtil;
+    private final AuthService authService;
+
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String googleClientId;
+
+    public AuthController(JwtService jwtService, AuthService authService) {
+        this.jwtService = jwtService;
         this.authService = authService;
-        this.userService = userService;
-        this.userRepo = userRepo;
     }
 
     private void setCookie(HttpServletResponse response, String name, String value, int maxAge) {
@@ -41,47 +46,58 @@ public class AuthController {
         response.addCookie(cookie);
     }
 
+//    @PostMapping("/googleLogin")
+//    @Operation(summary = "구글 로그인", description = "구글 로그인 후 이메일 반환")
+//    public Map<String, Object> googleLogin(@RequestBody Map<String, Object> userData, HttpServletResponse response) {
+//        String email = (String) userData.get("email");
+//
+//        Map<String, Object> userInfo = authService.saveOrUpdateUser(email);
+//
+//        String accessToken = jwtUtil.generateAccessToken(email);
+//        String refreshToken = jwtUtil.generateRefreshToken(email);
+//
+//        setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
+//        setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
+//        log.info("\uD83D\uDCCD gmail login");
+//        return userInfo;
+//
+//    }
+
     @PostMapping("/googleLogin")
     @Operation(summary = "구글 로그인", description = "구글 로그인 후 이메일 반환")
     public Map<String, Object> googleLogin(@RequestBody Map<String, Object> userData, HttpServletResponse response) {
-        String email = (String) userData.get("email");
+        String idTokenString = (String) userData.get("token");
 
-        Map<String, Object> userInfo = authService.saveOrUpdateUser(email);
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+                .setAudience(Collections.singletonList(googleClientId))
+                .build();
 
-        String accessToken = jwtUtil.generateAccessToken(email);
-        String refreshToken = jwtUtil.generateRefreshToken(email);
+        GoogleIdToken idToken;
+        try {
+            idToken = verifier.verify(idTokenString);
+        } catch (GeneralSecurityException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
-        setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
-        log.info("\uD83D\uDCCD gmail login");
-        return userInfo;
-    }
+        if (idToken != null) {
+            GoogleIdToken.Payload payload = idToken.getPayload();
+            String email = payload.getEmail();
+            String name = (String) payload.get("name");
+            String picture = (String) payload.get("picture");
 
-    @GetMapping("/login")
-    @ResponseBody
-    @Operation(summary = "로컬 로그인", description = "이메일과 페스워드로 로그인이 될수도? 안될 수도?")
-    public Map<String, Object> login(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
-        boolean isAuthenticated = userService.validateUser(email, password);
-        if (isAuthenticated) {
-            log.info("\uD83D\uDCCD 로그인 성공: " + email);
-            User user = userRepo.findByEmail(email).orElseThrow();
+            Map<String, Object> userInfo = authService.saveOrUpdateUser(email);
 
-            String accessToken = jwtUtil.generateAccessToken(email);
-            String refreshToken = jwtUtil.generateRefreshToken(email);
+            String accessToken = jwtService.generateAccessToken(email);
+            String refreshToken = jwtService.generateRefreshToken(email);
 
-            setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
-            setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
-
-            Map<String, Object> result = new HashMap<>();
-            result.put("user_id", user.getId().toString());
-            result.put("email", user.getEmail());
-            result.put("name", user.getName());
-
-            return result;
+            setCookie(response, "access_token", accessToken, (int) (jwtService.getAccessTokenExpiration() / 1000));
+            setCookie(response, "refresh_token", refreshToken, (int) (jwtService.getRefreshTokenExpiration() / 1000));
+            log.info("\uD83D\uDCCD gmail login");
+            userInfo.put("accessToken", accessToken);
+            userInfo.put("refreshToken", refreshToken);
+            return userInfo;
         } else {
-            log.info("\uD83D\uDCCD  로그인 실패: " + email);
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return Map.of("error", "Invalid email or password");
+            throw new RuntimeException("Invalid ID token");
         }
     }
 
@@ -93,11 +109,12 @@ public class AuthController {
                 .findFirst();
 
         if (accessTokenCookie.isPresent()) {
-            Claims claims = jwtUtil.validateToken(accessTokenCookie.get().getValue());
-            if (claims != null) {
-                return "Token is valid for user: " + claims.getSubject();
+            String token = accessTokenCookie.get().getValue();
+            Claims claims = jwtService.validateToken(token);
+            if (claims != null && !jwtService.isTokenExpired(token)) {
+                return "Token is valid for user: " + jwtService.extractEmail(token);
             } else {
-                return "Invalid token";
+                return "Invalid or expired token";
             }
         } else {
             return "Access token not found";
@@ -112,24 +129,47 @@ public class AuthController {
                 .findFirst();
 
         if (refreshTokenCookie.isPresent()) {
-            try {
-                Claims claims = jwtUtil.validateToken(refreshTokenCookie.get().getValue());
-                String newAccessToken = jwtUtil.generateAccessToken(claims.getSubject());
-
-                Cookie newAccessCookie = new Cookie("access_token", newAccessToken);
-                newAccessCookie.setHttpOnly(true);
-                newAccessCookie.setSecure(true);
-                newAccessCookie.setPath("/");
-                newAccessCookie.setMaxAge((int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
-
-                response.addCookie(newAccessCookie);
-
+            String refreshToken = refreshTokenCookie.get().getValue();
+            Claims claims = jwtService.validateToken(refreshToken);
+            if (claims != null && !jwtService.isTokenExpired(refreshToken)) {
+                String newAccessToken = jwtService.generateAccessToken(claims.getSubject());
+                setCookie(response, "access_token", newAccessToken, (int) (jwtService.getAccessTokenExpiration() / 1000));
                 return "Access token refreshed successfully";
-            } catch (Exception e) {
-                return "Invalid refresh token";
+            } else {
+                return "Invalid or expired refresh token";
             }
         } else {
             return "Refresh token not found";
         }
     }
+
+    //    Local login 을 하기에는 이메일 인증이나 다른 인증 서비스가 없으므로 실사용하기 어려움
+//    추후 사용할 예정
+//    @GetMapping("/login")
+//    @ResponseBody
+//    @Operation(summary = "로컬 로그인", description = "이메일과 페스워드로 로그인이 될수도? 안될 수도?")
+//    public Map<String, Object> login(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
+//        boolean isAuthenticated = userService.validateUser(email, password);
+//        if (isAuthenticated) {
+//            log.info("\uD83D\uDCCD 로그인 성공: " + email);
+//            User user = userRepo.findByEmail(email).orElseThrow();
+//
+//            String accessToken = jwtUtil.generateAccessToken(email);
+//            String refreshToken = jwtUtil.generateRefreshToken(email);
+//
+//            setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
+//            setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
+//
+//            Map<String, Object> result = new HashMap<>();
+//            result.put("user_id", user.getId().toString());
+//            result.put("email", user.getEmail());
+//            result.put("name", user.getName());
+//
+//            return result;
+//        } else {
+//            log.info("\uD83D\uDCCD  로그인 실패: " + email);
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//            return Map.of("error", "Invalid email or password");
+//        }
+//    }
 }
