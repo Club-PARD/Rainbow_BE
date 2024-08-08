@@ -12,6 +12,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +26,10 @@ import java.util.*;
 @RequestMapping("/api/auth")
 public class AuthController {
     private final JwtService jwtService;
+
     private final AuthService authService;
 
-    @Value("${google.clientId}")
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String googleClientId;
 
     public AuthController(JwtService jwtService, AuthService authService) {
