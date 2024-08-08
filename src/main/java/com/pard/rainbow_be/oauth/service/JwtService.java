@@ -1,9 +1,11 @@
 package com.pard.rainbow_be.oauth.service;
 
+import com.pard.rainbow_be.oauth.repo.RefreshTokenRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,14 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@Slf4j
 public class JwtService {
+    private final RefreshTokenRepo refreshTokenRepo;
     private Key key;
+
+    public JwtService(RefreshTokenRepo refreshTokenRepo) {
+        this.refreshTokenRepo = refreshTokenRepo;
+    }
 
     @Value("${jwt.secret}")
     public void setKey(String secret) {
@@ -32,10 +40,6 @@ public class JwtService {
 
     public String generateAccessToken(String email) {
         return createToken(email, accessTokenExpiration);
-    }
-
-    public String generateRefreshToken(String email) {
-        return createToken(email, refreshTokenExpiration);
     }
 
     private String createToken(String email, Long expirationTime) {

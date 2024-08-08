@@ -82,18 +82,18 @@ public class AuthController {
         if (idToken != null) {
             GoogleIdToken.Payload payload = idToken.getPayload();
             String email = payload.getEmail();
-            String name = (String) payload.get("name");
-            String picture = (String) payload.get("picture");
+//            String name = (String) payload.get("name");
+//            String picture = (String) payload.get("picture");
 
             Map<String, Object> userInfo = authService.saveOrUpdateUser(email);
 
-            String accessToken = jwtService.generateAccessToken(email);
-            String refreshToken = jwtService.generateRefreshToken(email);
+//            String accessToken = jwtService.generateAccessToken(email);
+            String refreshToken = authService.createRefreshToken(email);
 
-            setCookie(response, "access_token", accessToken, (int) (jwtService.getAccessTokenExpiration() / 1000));
+//            setCookie(response, "access_token", accessToken, (int) (jwtService.getAccessTokenExpiration() / 1000));
             setCookie(response, "refresh_token", refreshToken, (int) (jwtService.getRefreshTokenExpiration() / 1000));
             log.info("\uD83D\uDCCD gmail login");
-            userInfo.put("accessToken", accessToken);
+//            userInfo.put("accessToken", accessToken);
             userInfo.put("refreshToken", refreshToken);
             return userInfo;
         } else {
@@ -122,24 +122,18 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    @Operation(summary = "access_token 갱신", description = "새로운 액세스 토큰을 쿠키로 설정")
-    public String refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
-        Optional<Cookie> refreshTokenCookie = Arrays.stream(request.getCookies())
-                .filter(cookie -> "refresh_token".equals(cookie.getName()))
-                .findFirst();
+    @Operation(summary = "access_token 갱신", description = "새로운 액세스 토큰을 반환")
+    public Map<String, Object> refreshAccessToken(@RequestBody Map<String, String> requestData, HttpServletResponse response) {
+        String refreshToken = requestData.get("refreshToken");
 
-        if (refreshTokenCookie.isPresent()) {
-            String refreshToken = refreshTokenCookie.get().getValue();
-            Claims claims = jwtService.validateToken(refreshToken);
-            if (claims != null && !jwtService.isTokenExpired(refreshToken)) {
-                String newAccessToken = jwtService.generateAccessToken(claims.getSubject());
-                setCookie(response, "access_token", newAccessToken, (int) (jwtService.getAccessTokenExpiration() / 1000));
-                return "Access token refreshed successfully";
-            } else {
-                return "Invalid or expired refresh token";
-            }
-        } else {
-            return "Refresh token not found";
+        try {
+            String newAccessToken = authService.generateNewAccessToken(refreshToken);
+            Map<String, Object> responseBody = new HashMap<>();
+            responseBody.put("accessToken", newAccessToken);
+            return responseBody;
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return Map.of("error", "Invalid or expired refresh token");
         }
     }
 
