@@ -46,22 +46,14 @@ public class AuthController {
         response.addCookie(cookie);
     }
 
-//    @PostMapping("/googleLogin")
-//    @Operation(summary = "구글 로그인", description = "구글 로그인 후 이메일 반환")
-//    public Map<String, Object> googleLogin(@RequestBody Map<String, Object> userData, HttpServletResponse response) {
-//        String email = (String) userData.get("email");
-//
-//        Map<String, Object> userInfo = authService.saveOrUpdateUser(email);
-//
-//        String accessToken = jwtUtil.generateAccessToken(email);
-//        String refreshToken = jwtUtil.generateRefreshToken(email);
-//
-//        setCookie(response, "access_token", accessToken, (int) (JwtUtil.ACCESS_EXPIRATION_TIME / 1000));
-//        setCookie(response, "refresh_token", refreshToken, (int) (JwtUtil.REFRESH_EXPIRATION_TIME / 1000));
-//        log.info("\uD83D\uDCCD gmail login");
-//        return userInfo;
-//
-//    }
+    private void clearCookie(HttpServletResponse response, String name) {
+        Cookie cookie = new Cookie(name, null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
 
     @PostMapping("/googleLogin")
     @Operation(summary = "구글 로그인", description = "구글 로그인 후 이메일 반환")
@@ -121,7 +113,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/refresh")
+    @GetMapping("/refresh")
     @Operation(summary = "access_token 갱신", description = "새로운 액세스 토큰을 반환")
     public Map<String, Object> refreshAccessToken(@RequestBody Map<String, String> requestData, HttpServletResponse response) {
         String refreshToken = requestData.get("refreshToken");
@@ -135,6 +127,16 @@ public class AuthController {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return Map.of("error", "Invalid or expired refresh token");
         }
+    }
+
+    @DeleteMapping("/logout")
+    @Operation(summary = "로그아웃", description = "refresh_token 삭제 및 쿠키 정리")
+    public String logout(@RequestBody Map<String, String> requestData, HttpServletResponse response) {
+        String refreshToken = requestData.get("refreshToken");
+        authService.deleteRefreshTokenByToken(refreshToken);
+        clearCookie(response, "access_token");
+        clearCookie(response, "refresh_token");
+        return "Logged out successfully";
     }
 
     //    Local login 을 하기에는 이메일 인증이나 다른 인증 서비스가 없으므로 실사용하기 어려움

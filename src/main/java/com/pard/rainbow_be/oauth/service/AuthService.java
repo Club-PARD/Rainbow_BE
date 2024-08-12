@@ -50,8 +50,8 @@ public class AuthService {
         return refreshToken.getToken();
     }
 
-    public void deleteRefreshToken(String email) {
-        refreshTokenRepo.deleteByEmail(email);
+    public void deleteRefreshTokenByToken(String refreshToken) {
+        refreshTokenRepo.findByToken(refreshToken).ifPresent(refreshTokenRepo::delete);
     }
 
     public String generateNewAccessToken(String refreshToken) {
