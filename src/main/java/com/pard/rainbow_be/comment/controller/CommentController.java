@@ -23,11 +23,11 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/comment")
+@RequestMapping("/api")
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping("/{ownerId}/{writerId}")
+    @PostMapping("/comment/{ownerId}/{writerId}")
     @Operation(summary = "댓글 등록", description = "공간의 주인 ID (ownerId)를 통해 댓글을 쓸 공간을 지정하고, 작성자 ID(writerId)를 통해 해당 공간에 댓글을 작성합니다")
     public ResponseEntity<?> createComment(@RequestBody CommentCreateDTO commentCreateDTO, @PathVariable UUID ownerId, @PathVariable UUID writerId){
         log.info("\uD83D\uDCCD post comment into owner user");
@@ -42,7 +42,7 @@ public class CommentController {
         }
     }
 
-    @GetMapping("/readAll/{ownerId}")
+    @GetMapping("/comment/readAll/{ownerId}")
     @Operation(summary = "댓글 전체 보기", description = "공간 주인의 ID(ownerId)를 지정하여 해당 공간에 작성된 모든 댓글을 불러옵니다")
     public ResponseEntity<?> readAll(@PathVariable UUID ownerId){
         log.info("\uD83D\uDCCD read all comment of owner user");
@@ -57,13 +57,13 @@ public class CommentController {
         }
     }
 
-    @GetMapping("/readOne/{ownerId}/{commentId}")
+    @GetMapping("/comment/readOne/{ownerId}/{commentId}")
     @Operation(summary = "댓글 하나만 보기 (테스트용)", description = "공간 주인의 ID(ownerId) 그리고 댓글의 ID(commentId)를 지정하여 한개의 댓글을 불러옵니다")
     public Optional<CommentReadDTO> readOneComment(@PathVariable UUID ownerId, @PathVariable Long commentId){
         return commentService.readOne(ownerId, commentId);
     }
 
-    @GetMapping("/count/{ownerId}")
+    @GetMapping("/comment/count/{ownerId}")
     @Operation(summary = "owner의 아이디 갯수 세기", description = "공간 주인의 ID(ownerId)를 지정하여 해당 댓글의 갯수를 불러오는 방법")
     public ResponseEntity<?> countCommentOwner(@PathVariable UUID ownerId){
         log.info("\uD83D\uDCCD Comment Count");
@@ -78,7 +78,7 @@ public class CommentController {
         }
     }
 
-    @PatchMapping("/{writerId}/{commentId}")
+    @PatchMapping("/comment/{writerId}/{commentId}")
     @Operation(summary = "댓글 수정하기", description = "댓글 작성자의 ID(writerId) 그리고 댓글의 ID(commentId)를 지정하여 댓글을 수정합니다")
     public ResponseEntity updateByWriterId(@PathVariable UUID writerId,@PathVariable Long commentId, @RequestBody CommentUpdateDTO dto){
         log.info("\uD83D\uDCCD update comment");
@@ -93,7 +93,7 @@ public class CommentController {
         }
     }
 
-    @DeleteMapping("/deleteByWriterId/{writerId}/{commentId}")
+    @DeleteMapping("/comment/deleteByWriterId/{writerId}/{commentId}")
     @Operation(summary = "댓글 삭제하기(작성자가 삭제)", description = "댓글 작성자의 ID(writerId) 그리고 댓글의 ID(commentId)를 지정하여 댓글을 삭제합니다")
     public ResponseEntity<?> deleteCommentByWriterId(@PathVariable UUID writerId, @PathVariable Long commentId){
         log.info("\uD83D\uDCCD Owner deletes comment");
@@ -108,7 +108,7 @@ public class CommentController {
         }
     }
 
-    @DeleteMapping("/deleteByOwnerId/{ownerId}/{commentId}")
+    @DeleteMapping("/comment/deleteByOwnerId/{ownerId}/{commentId}")
     @Operation(summary = "댓글 삭제하기(주인이 삭제)", description = "공간 주인의 ID(ownerId) 그리고 댓글의 ID(commentId)를 지정하여 댓글을 삭제합니다")
     public ResponseEntity<?> deleteCommentByOwnerId(@PathVariable UUID ownerId, @PathVariable Long commentId){
         log.info("\uD83D\uDCCD Writer deletes comment");
