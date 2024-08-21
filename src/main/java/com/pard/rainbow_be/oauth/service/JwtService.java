@@ -44,6 +44,7 @@ public class JwtService {
 
     private String createToken(String email, Long expirationTime) {
         Map<String, Object> claims = new HashMap<>();
+        log.info("\uD83D\uDCCD Create token");
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(email)
@@ -55,6 +56,7 @@ public class JwtService {
 
     public Claims validateToken(String token) {
         try {
+            log.info("\uD83D\uDCCD Validate token");
             return extractAllClaims(token);
         } catch (Exception e) {
             return null;
@@ -67,10 +69,12 @@ public class JwtService {
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
+        log.info("\uD83D\uDCCD Extract claims");
         return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token) {
+        log.info("\uD83D\uDCCD Extract all claims");
         return Jwts.parser()
                 .setSigningKey(key)
                 .parseClaimsJws(token)
@@ -78,6 +82,7 @@ public class JwtService {
     }
 
     public Boolean isTokenExpired(String token) {
+        log.info("\uD83D\uDCCD IsTokenExpired");
         return extractClaim(token, Claims::getExpiration).before(new Date());
     }
 }

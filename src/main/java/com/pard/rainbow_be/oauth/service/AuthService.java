@@ -47,6 +47,7 @@ public class AuthService {
                 .expirationDate(new Date(System.currentTimeMillis() + jwtService.getRefreshTokenExpiration()))
                 .build();
         refreshTokenRepo.save(refreshToken);
+        log.info("\uD83D\uDCCD Created refresh token: {}", refreshToken);
         return refreshToken.getToken();
     }
 
@@ -57,6 +58,7 @@ public class AuthService {
     public String generateNewAccessToken(String refreshToken) {
         RefreshToken token = refreshTokenRepo.findByToken(refreshToken)
                 .orElseThrow(() -> new RuntimeException("Invalid refresh token"));
+        log.info("\uD83D\uDCCD make Access token");
         if (token.getExpirationDate().before(new Date())) {
             throw new RuntimeException("Refresh token expired");
         }
