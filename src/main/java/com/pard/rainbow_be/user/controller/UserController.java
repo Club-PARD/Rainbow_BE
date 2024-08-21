@@ -24,21 +24,21 @@ import java.util.UUID;
 public class UserController {
     private final UserService userService;
 
-    //localToSignUp
-    @PostMapping({"/register"})
-    @Operation(summary = "유저 등록", description = "여기서 쓰시면 됩니다.")
-    public ResponseEntity<?> createUser(@RequestBody UserCreateDto dto) {
-        log.info("\uD83D\uDCCD make Post");
-        try {
-            userService.createUser(dto);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (CustomException ex) {
-            ErrorCode errorCode = ex.getErrorCode();
-            return new ResponseEntity<>(new ErrorResponse(errorCode), HttpStatus.valueOf(errorCode.getStatus()));
-        } catch (Exception ex) {
-            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    //  localToSignUp
+//    @PostMapping({"/register"})
+//    @Operation(summary = "유저 등록", description = "여기서 쓰시면 됩니다.")
+//    public ResponseEntity<?> createUser(@RequestBody UserCreateDto dto) {
+//        log.info("\uD83D\uDCCD make Post");
+//        try {
+//            userService.createUser(dto);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (CustomException ex) {
+//            ErrorCode errorCode = ex.getErrorCode();
+//            return new ResponseEntity<>(new ErrorResponse(errorCode), HttpStatus.valueOf(errorCode.getStatus()));
+//        } catch (Exception ex) {
+//            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @GetMapping("/find/email/{email}")
     @Operation(summary = "이메일로 유저 ID 검색",description = "이메일을 통해 DB 내 해당 유저 검색")
