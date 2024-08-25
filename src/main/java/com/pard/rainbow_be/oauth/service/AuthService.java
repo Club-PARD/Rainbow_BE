@@ -8,10 +8,7 @@ import com.pard.rainbow_be.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -41,6 +38,9 @@ public class AuthService {
 
 
     public String createRefreshToken(String email) {
+
+        deleteExistingRefreshTokenByEmail(email);
+
         RefreshToken refreshToken =  RefreshToken.builder()
                 .email(email)
                 .token(UUID.randomUUID().toString())
@@ -53,6 +53,11 @@ public class AuthService {
 
     public void deleteRefreshTokenByToken(String refreshToken) {
         refreshTokenRepo.findByToken(refreshToken).ifPresent(refreshTokenRepo::delete);
+    }
+
+    private void deleteExistingRefreshTokenByEmail(String email) {
+        Optional<RefreshToken> existingToken = refreshTokenRepo.findByEmail(email);
+        existingToken.ifPresent(refreshTokenRepo::delete);
     }
 
     public String generateNewAccessToken(String refreshToken) {
