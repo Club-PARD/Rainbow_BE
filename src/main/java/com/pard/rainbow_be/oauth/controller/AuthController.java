@@ -85,7 +85,7 @@ public class AuthController {
             setCookie(response, "access_token", accessToken, (int) (jwtService.getAccessTokenExpiration() / 1000));
             setCookie(response, "refresh_token", refreshToken, (int) (jwtService.getRefreshTokenExpiration() / 1000));
             log.info("\uD83D\uDCCD gmail login");
-//            userInfo.put("accessToken", accessToken);
+            userInfo.put("access_token", accessToken);
             userInfo.put("refresh_token", refreshToken);
             return userInfo;
         } else {

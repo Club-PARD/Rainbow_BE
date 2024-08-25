@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(au -> au
-                        .requestMatchers("/api/auth/**","/api/**","/comment/**").permitAll()
+                        .requestMatchers("/api/auth/**","/api/**").permitAll()
 //                        .anyRequest().permitAll())
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
