@@ -1,7 +1,9 @@
 package com.pard.rainbow_be.picture.service;
 
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.pard.rainbow_be.picture.repository.S3Repo;
 import lombok.RequiredArgsConstructor;
@@ -85,4 +87,12 @@ public class S3Service {
         }
     }
 
+    public void deleteFile(String fileName) throws IOException {
+        try {
+            amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
+        } catch (SdkClientException e) {
+            throw new IOException("Error deleting file from S3", e);
+        }
+
+    }
 }

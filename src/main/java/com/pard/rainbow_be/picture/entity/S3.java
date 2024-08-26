@@ -1,6 +1,7 @@
 package com.pard.rainbow_be.picture.entity;
 
 
+import com.pard.rainbow_be.picture.dto.S3CreateDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,10 @@ public class S3 {
     @Column(name = "upload_image_url", nullable = false, columnDefinition = "TEXT")
     private String uploadImageUrl;
 
-
-
+    public static S3 toEntity(S3CreateDto dto){
+        return S3.builder()
+                .fileName(dto.getFileName())
+                .uploadImageUrl(dto.getUploadImageUrl())
+                .build();
+    }
 }
