@@ -4,7 +4,6 @@ package com.pard.rainbow_be.user.controller;
 import com.pard.rainbow_be.exception.dto.CustomException;
 import com.pard.rainbow_be.exception.dto.ErrorCode;
 import com.pard.rainbow_be.exception.dto.ErrorResponse;
-import com.pard.rainbow_be.user.dto.UserCreateDto;
 import com.pard.rainbow_be.user.dto.UserReadDto;
 import com.pard.rainbow_be.user.dto.UserUpdateDto;
 import com.pard.rainbow_be.user.service.UserService;
