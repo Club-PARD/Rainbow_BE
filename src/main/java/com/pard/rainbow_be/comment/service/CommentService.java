@@ -69,7 +69,7 @@ public class CommentService {
 
     @Transactional
     public boolean deleteCommentByOwnerIdAndCommentId(UUID ownerId,Long commentId){
-        Optional<Comment> comment = commentRepo.findByWriterIdAndCommentId(ownerId, commentId);
+        Optional<Comment> comment = commentRepo.findByOwnerIdAndCommentId(ownerId, commentId);
         if(comment.isPresent()){
             commentRepo.delete(comment.get());
             return true;
